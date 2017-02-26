@@ -2,10 +2,12 @@ language: ruby
 
 sudo: false
 
+cache: bundler
+
 rvm:
   - 2.4.0
 
 script:
   - bin/rake db:migrate RAILS_ENV=test
   - bin/rake test
-  - bin/rake rubocop
+  - bin/bundle exec rubocop
