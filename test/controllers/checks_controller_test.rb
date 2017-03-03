@@ -1,8 +1,18 @@
 require 'test_helper'
 
 class ChecksControllerTest < ActionDispatch::IntegrationTest
+  include Devise::Test::IntegrationHelpers
+
   setup do
     @check = checks(:one)
+    sign_in users(:joe)
+  end
+
+  test 'should be authenticated' do
+    sign_out :user
+
+    get checks_url
+    assert_redirected_to new_user_session_url
   end
 
   test 'should get index' do

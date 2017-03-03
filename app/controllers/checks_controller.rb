@@ -1,4 +1,5 @@
 class ChecksController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_check, only: [:show, :edit, :update, :destroy]
 
   # GET /checks
