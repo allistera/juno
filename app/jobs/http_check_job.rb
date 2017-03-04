@@ -1,11 +1,10 @@
-require "net/https"
-require "uri"
+require 'net/https'
+require 'uri'
 
 class HttpCheckJob < ApplicationJob
   queue_as :default
 
-  def perform(*args)
-
+  def perform(*_args)
     Site.all.each do |site|
       uri = URI.parse(site.url)
       http = Net::HTTP.new(uri.host, uri.port)
@@ -16,6 +15,5 @@ class HttpCheckJob < ApplicationJob
 
       Check.create(site: site, status: res.code)
     end
-
   end
 end
