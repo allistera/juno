@@ -1,7 +1,15 @@
+<h2>Site</h2>
 <p>
   <strong>Name:</strong>
   <%= @project.name %>
 </p>
+
+<h2>Projects</h2>
+<ul>
+  <% @project.sites.each do |site| %>
+    <li><%= link_to site.name, site_path(site.id) %></li>
+  <% end %>
+</ul>
 
 <%= link_to 'Edit', edit_project_path(@project) %> |
 <%= link_to 'Back', projects_path %>
