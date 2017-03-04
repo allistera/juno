@@ -23,7 +23,7 @@
 
   <div class="field">
     <%= f.label :project_id %>
-    <%= f.text_field :project_id %>
+    <%= f.select(:project_id, Project.all.collect {|a| [a.name, a.id]}) -%>
   </div>
 
   <div class="actions">
