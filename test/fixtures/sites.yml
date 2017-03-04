@@ -1,11 +1,11 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  name: MyString
-  url: MyString
+  name: Foo Bar
+  url: https://foo.bar
   project: one
 
 two:
-  name: MyString
-  url: MyString
+  name: Test
+  url: https://test.com
   project: two
