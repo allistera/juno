@@ -1,3 +1,5 @@
+<h2>Site</h2>
+
 <p>
   <strong>Name:</strong>
   <%= @site.name %>
@@ -10,8 +12,16 @@
 
 <p>
   <strong>Project:</strong>
-  <%= @site.project %>
+  <%= @site.project.name %>
 </p>
+
+<h2>Checks</h2>
+
+<ul>
+  <% @site.checks.each do |check| %>
+      <li><%= check.created_at %> - <%= check.status %></li>
+  <% end %>
+</ul>
 
 <%= link_to 'Edit', edit_site_path(@site) %> |
 <%= link_to 'Back', sites_path %>
