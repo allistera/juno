@@ -22,4 +22,9 @@ test:
 
 production:
   <<: *default
-  database: db/production.sqlite3
+  adapter: postgresql
+  encoding: unicode
+  database: juno_production
+  username: <%= ENV['PG_ENV_POSTGRES_USER'] %>
+  password: <%= ENV['PG_ENV_POSTGRES_PASSWORD'] %>
+  host:     <%= ENV['PG_PORT_5432_TCP_ADDR'] %>
