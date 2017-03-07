@@ -1,0 +1,23 @@
+version: '2'
+services:
+  db:
+    image: postgres:9.4.1
+    environment:
+    - POSTGRES_PASSWORD=Password123!
+    - POSTGRES_USER=juno
+    - POSTGRES_DB=juno_production
+
+  web:
+    build: .
+    ports:
+      - "3000:80"
+    links:
+      - db
+    volumes:
+      - .:/myapp
+    environment:
+    - PG_ENV_POSTGRES_USER=juno
+    - PG_ENV_POSTGRES_PASSWORD=Password123!
+    - PG_PORT_5432_TCP_ADDR=db
+    - SECRET_KEY=oiwefhoin230w0ifh203h0hfewo
+    - RAILS_ENV=production
