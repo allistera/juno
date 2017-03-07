@@ -50,6 +50,8 @@ group :production do
   gem 'pg'
 end
 
+gem 'simplecov', require: false, group: :test
+
 group :development do
   # Access an IRB console on exception pages or by using <%= console %> anywhere in the code.
   gem 'listen', '~> 3.0.5'
