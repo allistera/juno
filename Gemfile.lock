@@ -101,7 +101,6 @@ GEM
     pg (0.19.0)
     powerpack (0.1.1)
     public_suffix (2.0.5)
-    puma (3.7.1)
     rack (2.0.1)
     rack-protection (1.5.3)
       rack
@@ -220,7 +219,6 @@ DEPENDENCIES
   jquery-rails
   listen (~> 3.0.5)
   pg
-  puma (~> 3.0)
   rails (~> 5.0.1)
   rubocop
   sass-rails (~> 5.0)
