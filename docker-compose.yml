@@ -9,9 +9,8 @@ services:
 
   web:
     build: .
-    command: bundle exec unicorn -c config/unicorn.rb -E production
     ports:
-      - "8080:8080"
+      - "3000:80"
     links:
       - db
     volumes:

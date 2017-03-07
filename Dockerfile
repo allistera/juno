@@ -1,25 +1,28 @@
 # Use the barebones version of Ruby 2.2.3.
 FROM ruby:2.2.3-slim
 
-# Optionally set a maintainer name to let people know who made this image.
-MAINTAINER Nick Janetakis <nick.janetakis@gmail.com>
+MAINTAINER Allister Antosik <me@allisterantosik.com>
 
-RUN apt-get update -qq && apt-get install -y build-essential
+# Install dependencies
+RUN apt-get update && apt-get install -qq -y build-essential nodejs libpq-dev --fix-missing --no-install-recommends
 
-# for postgres
-RUN apt-get install -y libpq-dev
+# Set an environment variable to store where the app is installed to inside
+# of the Docker image.
+ENV INSTALL_PATH /juno
+RUN mkdir -p $INSTALL_PATH
 
-# for nokogiri
-RUN apt-get install -y libxml2-dev libxslt1-dev
+# This sets the context of where commands will be ran in and is documented
+# on Docker's website extensively.
+WORKDIR $INSTALL_PATH
 
-# for a JS runtime
-RUN apt-get install -y nodejs
-
-ENV APP_HOME /myapp
-RUN mkdir $APP_HOME
-WORKDIR $APP_HOME
-
-ADD Gemfile* $APP_HOME/
+# Ensure gems are cached and only get updated when they change. This will
+# drastically increase build times when your gems do not change.
+COPY Gemfile Gemfile
 RUN bundle install --without development test
 
-ADD . $APP_HOME
+# Copy in the application code from your work station at the current directory
+# over to the working directory.
+COPY . .
+
+# The default command that gets ran will be to start the Unicorn server.
+CMD bundle exec unicorn -c config/unicorn.rb -E production
