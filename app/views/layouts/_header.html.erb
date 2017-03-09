@@ -1,0 +1,26 @@
+<nav class="nav">
+  <div class="nav-left">
+    <a class="nav-item" href="/">
+      <h1 class="title">Juno</h1>
+    </a>
+  </div>
+
+  <!-- This "nav-toggle" hamburger menu is only visible on mobile -->
+  <!-- You need JavaScript to toggle the "is-active" class on "nav-menu" -->
+  <span class="nav-toggle">
+    <span></span>
+    <span></span>
+    <span></span>
+  </span>
+
+  <!-- This "nav-menu" is hidden on mobile -->
+  <!-- Add the modifier "is-active" to display it on mobile -->
+  <div class="nav-right nav-menu">
+
+    <% if user_signed_in? %>
+      <%= link_to 'Projects', projects_path, class: 'nav-item' %>
+      <%= link_to 'Sites', sites_path, class: 'nav-item' %>
+      <%= link_to 'Logout', destroy_user_session_path, class: 'nav-item', method: :delete %>
+    <% end %>
+  </div>
+</nav>
