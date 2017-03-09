@@ -7,7 +7,7 @@
 <h2>Projects</h2>
 <ul>
   <% @project.sites.each do |site| %>
-    <li><%= link_to site.name, site_path(site.id) %></li>
+    <li><%= link_to site.name, site_path(site.id) %> - <%= site.active? ? 'Active' : 'Inactive' %></li>
   <% end %>
 </ul>
 

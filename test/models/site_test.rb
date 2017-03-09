@@ -23,4 +23,19 @@ class SiteTest < ActiveSupport::TestCase
     refute site.valid?, 'site is valid without a project'
     assert_not_nil site.errors[:project], 'no validation error for project present'
   end
+
+  test 'inactive if no checks' do
+    site = Site.create(name: 'John', url: 'http://foo.bar', project: projects(:one))
+    refute site.active?
+  end
+
+  test 'inactive if last check is 500' do
+    site = sites(:two)
+    refute site.active?
+  end
+
+  test 'active if last check is 201' do
+    site = sites(:one)
+    assert site.active?
+  end
 end
