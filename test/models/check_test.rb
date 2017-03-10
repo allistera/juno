@@ -6,12 +6,6 @@ class CheckTest < ActiveSupport::TestCase
     assert check.valid?
   end
 
-  test 'invalid without status' do
-    check = Check.new(site: sites(:one))
-    refute check.valid?, 'check is valid without a status'
-    assert_not_nil check.errors[:status], 'no validation error for status present'
-  end
-
   test 'invalid without site' do
     check = Check.new(status: 401)
     refute check.valid?, 'check is valid without a site'

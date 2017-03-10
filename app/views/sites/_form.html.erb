@@ -11,22 +11,27 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :name %>
-    <%= f.text_field :name %>
+  <%= f.label :name, class: 'label' %>
+  <div class="control">
+    <%= f.text_field :name, autofocus: true, class: 'input' %>
   </div>
 
-  <div class="field">
-    <%= f.label :url %>
-    <%= f.text_field :url %>
+
+  <%= f.label :url, class: 'label' %>
+  <div class="control">
+    <%= f.text_field :url, class: 'input' %>
   </div>
 
-  <div class="field">
-    <%= f.label :project_id %>
-    <%= f.select(:project_id, Project.all.collect {|a| [a.name, a.id]}) -%>
-  </div>
+  <%= f.label :project_id, class: 'label' %>
+  <p class="control">
+    <span class="select">
+      <%= f.select(:project_id, Project.all.collect {|a| [a.name, a.id]}, class: 'select') -%>
+    </span>
+  </p>
 
-  <div class="actions">
-    <%= f.submit %>
+  <div class="control is-grouped">
+    <p class="control">
+      <%= f.submit "Save", class: 'button is-primary' %>
+    </p>
   </div>
 <% end %>

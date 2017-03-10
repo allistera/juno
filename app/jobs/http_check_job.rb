@@ -10,10 +10,14 @@ class HttpCheckJob < ApplicationJob
       http = Net::HTTP.new(uri.host, uri.port)
       http.use_ssl = true
 
-      request = Net::HTTP::Get.new(uri.request_uri)
-      res = http.request(request)
-
-      Check.create(site: site, status: res.code)
+      Check.create(site: site,
+                   status: call(http, Net::HTTP::Get.new(uri.request_uri)))
     end
+  end
+
+  def call(http, request)
+    http.request(request).code
+  rescue SocketError
+    nil
   end
 end

@@ -18,10 +18,7 @@
 <h2>Checks</h2>
 
 <ul>
-  <% @site.checks.each do |check| %>
+  <% @site.checks.last(10).each do |check| %>
       <li><%= check.created_at %> - <%= check.status %></li>
   <% end %>
 </ul>
-
-<%= link_to 'Edit', edit_site_path(@site) %> |
-<%= link_to 'Back', sites_path %>
