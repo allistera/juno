@@ -30,8 +30,8 @@ gem 'jbuilder', '~> 2.5'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
-gem "bulma-rails", "~> 0.3.2"
-gem "font-awesome-rails"
+gem 'bulma-rails', '~> 0.3.2'
+gem 'font-awesome-rails'
 
 gem 'devise'
 

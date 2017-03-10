@@ -1,3 +1,4 @@
+
 <%= form_for(project) do |f| %>
   <% if project.errors.any? %>
     <div id="error_explanation">
@@ -11,12 +12,14 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :name %>
-    <%= f.text_field :name %>
+  <%= f.label :name, class: 'label' %>
+  <div class="control">
+    <%= f.text_field :name, autofocus: true, class: 'input' %>
   </div>
 
-  <div class="actions">
-    <%= f.submit %>
+  <div class="control is-grouped">
+    <p class="control">
+      <%= f.submit "Save", class: 'button is-primary' %>
+    </p>
   </div>
 <% end %>

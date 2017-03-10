@@ -10,10 +10,22 @@
 
   <body>
     <%= render 'layouts/header' %>
-    <p class="notice"><%= notice %></p>
-    <p class="alert"><%= alert %></p>
 
-    <div class="content">
+    <% if notice %>
+      <div class="notification is-success">
+        <button class="delete"></button>
+        <%= notice %>
+      </div>
+    <% end %>
+
+    <% if alert %>
+      <div class="notification is-warning">
+        <button class="delete"></button>
+        <%= alert %>
+      </div>
+    <% end %>
+
+    <div class="content container">
       <%= yield %>
     </div>
   </body>

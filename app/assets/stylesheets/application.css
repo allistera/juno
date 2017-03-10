@@ -15,3 +15,23 @@
  *= require_tree .
  *= require_self
  */
+.login {
+  margin: 0 auto;
+  width: 300px;
+  background: whitesmoke;
+  padding: 20px;
+}
+
+.notification {
+  width: 400px;
+  margin: 0 auto;
+}
+
+.projects .card {
+  margin: 0 10px;
+}
+
+.create-button {
+  float: right;
+  margin-top: -50px;
+}
