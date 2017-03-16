@@ -7,6 +7,9 @@ services:
     - POSTGRES_USER=juno
     - POSTGRES_DB=juno_production
 
+  redis:
+    image: redis
+
   web:
     build: .
     ports:
@@ -15,9 +18,26 @@ services:
       - db
     volumes:
       - .:/myapp
+    command: bundle exec unicorn -c config/unicorn.rb -E production
     environment:
     - PG_ENV_POSTGRES_USER=juno
     - PG_ENV_POSTGRES_PASSWORD=Password123!
     - PG_PORT_5432_TCP_ADDR=db
     - SECRET_KEY=oiwefhoin230w0ifh203h0hfewo
     - RAILS_ENV=production
+
+  sidekiq:
+    build: .
+    links:
+      - db
+      - redis
+    volumes:
+      - .:/myapp
+    command: bundle exec sidekiq
+    environment:
+    - PG_ENV_POSTGRES_USER=juno
+    - PG_ENV_POSTGRES_PASSWORD=Password123!
+    - PG_PORT_5432_TCP_ADDR=db
+    - SECRET_KEY=oiwefhoin230w0ifh203h0hfewo
+    - RAILS_ENV=production
+    - REDIS_URL=redis://redis
