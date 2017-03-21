@@ -2,7 +2,7 @@
 
 one:
   name: Foo Bar
-  url: https://foo.bar
+  url: http://foo.bar
   project: one
 
 two:
