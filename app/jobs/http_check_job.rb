@@ -8,7 +8,7 @@ class HttpCheckJob < ApplicationJob
     Site.all.each do |site|
       uri = URI.parse(site.url)
       http = Net::HTTP.new(uri.host, uri.port)
-      http.use_ssl = true
+      http.use_ssl = true if uri.scheme == 'https'
 
       Check.create(site: site,
                    status: call(http, Net::HTTP::Get.new(uri.request_uri)))
