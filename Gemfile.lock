@@ -177,6 +177,7 @@ GEM
       json (>= 1.8, < 3)
       simplecov-html (~> 0.10.0)
     simplecov-html (0.10.0)
+    slack-notifier (2.0.0)
     spring (2.0.1)
       activesupport (>= 4.2)
     spring-watcher-listen (2.0.1)
@@ -237,6 +238,7 @@ DEPENDENCIES
   sass-rails (~> 5.0)
   sidekiq-cron
   simplecov
+  slack-notifier
   spring
   spring-watcher-listen (~> 2.0.0)
   sqlite3

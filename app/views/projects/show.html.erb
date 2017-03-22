@@ -1,6 +1,13 @@
 <h1 class="title is-1"><%= @project.name %></h1>
 
-<%= link_to 'New Site', new_site_path, class: 'button is-success create-button' %>
+<div class="actions">
+  <% if @project.slack_setting %>
+    <%= link_to 'Slack Settings', edit_slack_setting_path(@project.slack_setting), class: 'button is-success is-outlined' %>
+  <% else %>
+    <%= link_to 'Slack Settings', new_slack_setting_path(project_id: @project.id), class: 'button is-outlined' %>
+  <% end %>
+  <%= link_to 'New Site', new_site_path, class: 'button is-success' %>
+</div>
 
 <table class="table">
   <thead>

@@ -1,0 +1,2 @@
+module SlackSettingsHelper
+end

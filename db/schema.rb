@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170303064311) do
+ActiveRecord::Schema.define(version: 20170322201446) do
 
   create_table "checks", force: :cascade do |t|
     t.integer  "status"
@@ -33,6 +33,16 @@ ActiveRecord::Schema.define(version: 20170303064311) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["project_id"], name: "index_sites_on_project_id"
+  end
+
+  create_table "slack_settings", force: :cascade do |t|
+    t.string   "webhook_url"
+    t.string   "channel"
+    t.string   "username"
+    t.integer  "project_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.index ["project_id"], name: "index_slack_settings_on_project_id"
   end
 
   create_table "users", force: :cascade do |t|

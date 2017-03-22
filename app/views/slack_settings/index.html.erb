@@ -1,0 +1,33 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Slack Settings</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Webhook url</th>
+      <th>Channel</th>
+      <th>Username</th>
+      <th>Project</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @slack_settings.each do |slack_setting| %>
+      <tr>
+        <td><%= slack_setting.webhook_url %></td>
+        <td><%= slack_setting.channel %></td>
+        <td><%= slack_setting.username %></td>
+        <td><%= slack_setting.project %></td>
+        <td><%= link_to 'Show', slack_setting %></td>
+        <td><%= link_to 'Edit', edit_slack_setting_path(slack_setting) %></td>
+        <td><%= link_to 'Destroy', slack_setting, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Slack Setting', new_slack_setting_path %>

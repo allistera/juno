@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Webhook url:</strong>
+  <%= @slack_setting.webhook_url %>
+</p>
+
+<p>
+  <strong>Channel:</strong>
+  <%= @slack_setting.channel %>
+</p>
+
+<p>
+  <strong>Username:</strong>
+  <%= @slack_setting.username %>
+</p>
+
+<p>
+  <strong>Project:</strong>
+  <%= @slack_setting.project %>
+</p>
+
+<%= link_to 'Edit', edit_slack_setting_path(@slack_setting) %> |
+<%= link_to 'Back', slack_settings_path %>

@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  webhook_url: MyString
+  channel: MyString
+  username: MyString
+  project: one
+
+two:
+  webhook_url: MyString
+  channel: MyString
+  username: MyString
+  project: two
