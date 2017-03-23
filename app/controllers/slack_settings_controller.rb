@@ -9,8 +9,7 @@ class SlackSettingsController < ApplicationController
 
   # GET /slack_settings/1
   # GET /slack_settings/1.json
-  def show
-  end
+  def show; end
 
   # GET /slack_settings/new
   def new
@@ -18,8 +17,7 @@ class SlackSettingsController < ApplicationController
   end
 
   # GET /slack_settings/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /slack_settings
   # POST /slack_settings.json
@@ -29,7 +27,7 @@ class SlackSettingsController < ApplicationController
     respond_to do |format|
       if @slack_setting.save
         format.html { redirect_to @slack_setting.project, notice: 'Slack settings where successfully updated.' }
-        format.json { render :show, status: :created, location: @slack_setting.project }
+        format.json { render :show, status: :created, location: @slack_setting }
       else
         format.html { render :new }
         format.json { render json: @slack_setting.errors, status: :unprocessable_entity }
@@ -62,13 +60,14 @@ class SlackSettingsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_slack_setting
-      @slack_setting = SlackSetting.find(params[:id])
-    end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def slack_setting_params
-      params.require(:slack_setting).permit(:webhook_url, :channel, :username, :project_id)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_slack_setting
+    @slack_setting = SlackSetting.find(params[:id])
+  end
+
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def slack_setting_params
+    params.require(:slack_setting).permit(:webhook_url, :channel, :username, :project_id)
+  end
 end
