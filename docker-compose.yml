@@ -11,7 +11,7 @@ services:
     image: redis
 
   web:
-    build: .
+    image: allistera/juno:latest
     ports:
       - "3000:80"
     links:
@@ -27,17 +27,14 @@ services:
     - RAILS_ENV=production
 
   sidekiq:
-    build: .
+    image: allistera/juno:latest
     links:
       - db
       - redis
-    volumes:
-      - .:/myapp
-    command: bundle exec sidekiq
+    command: bundle exec sidekiq -e production
     environment:
     - PG_ENV_POSTGRES_USER=juno
     - PG_ENV_POSTGRES_PASSWORD=Password123!
     - PG_PORT_5432_TCP_ADDR=db
     - SECRET_KEY=oiwefhoin230w0ifh203h0hfewo
-    - RAILS_ENV=production
     - REDIS_URL=redis://redis

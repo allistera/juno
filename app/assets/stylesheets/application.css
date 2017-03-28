@@ -31,7 +31,11 @@
   margin: 0 10px;
 }
 
-.create-button {
+.actions {
   float: right;
   margin-top: -50px;
+}
+
+.actions .button {
+  margin-left: 10px;
 }

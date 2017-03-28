@@ -1,0 +1,36 @@
+<%= form_for(slack_setting) do |f| %>
+  <% if slack_setting.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(slack_setting.errors.count, "error") %> prohibited this slack_setting from being saved:</h2>
+
+      <ul>
+      <% slack_setting.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <%= f.label :webhook_url, class: 'label' %>
+  <div class="control">
+    <%= f.text_field :webhook_url, autofocus: true, class: 'input' %>
+  </div>
+
+  <%= f.label :channel, class: 'label' %>
+  <div class="control">
+    <%= f.text_field :channel, class: 'input' %>
+  </div>
+
+  <%= f.label :username, class: 'label' %>
+  <div class="control">
+    <%= f.text_field :username, class: 'input' %>
+  </div>
+
+  <%= f.hidden_field :project_id %>
+
+  <div class="control is-grouped">
+    <p class="control">
+      <%= f.submit "Save", class: 'button is-primary' %>
+    </p>
+  </div>
+<% end %>

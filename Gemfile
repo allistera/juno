@@ -37,6 +37,8 @@ gem 'devise'
 
 gem 'sidekiq-cron'
 
+gem 'slack-notifier'
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platform: :mri
@@ -53,7 +55,10 @@ group :production do
   gem 'unicorn'
 end
 
-gem 'simplecov', require: false, group: :test
+group :test do
+  gem 'mocha'
+  gem 'simplecov', require: false
+end
 
 group :development do
   # Access an IRB console on exception pages or by using <%= console %> anywhere in the code.
