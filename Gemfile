@@ -55,7 +55,10 @@ group :production do
   gem 'unicorn'
 end
 
-gem 'simplecov', require: false, group: :test
+group :test do
+  gem 'mocha'
+  gem 'simplecov', require: false
+end
 
 group :development do
   # Access an IRB console on exception pages or by using <%= console %> anywhere in the code.
