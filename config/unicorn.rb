@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 # Heavily inspired by GitLab:
 # https://github.com/gitlabhq/gitlabhq/blob/master/config/unicorn.rb.example
 
