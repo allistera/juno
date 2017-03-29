@@ -1,5 +1,5 @@
 class SlackSettingsController < ApplicationController
-  before_action :set_slack_setting, only: [:show, :edit, :update, :destroy]
+  before_action :set_slack_setting, only: %i(show edit update destroy)
 
   # GET /slack_settings
   # GET /slack_settings.json
