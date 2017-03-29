@@ -52,8 +52,8 @@ end
 
 group :production do
   gem 'pg'
+  gem 'sentry-raven'
   gem 'unicorn'
-  gem "sentry-raven"
 end
 
 group :test do
