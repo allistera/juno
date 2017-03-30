@@ -6,7 +6,7 @@ class Check < ApplicationRecord
   private
 
   def notification
-    SlackNotificationJob.perform_later(self) if newly_failed?
+    SlackNotificationJob.perform_later(site) if newly_failed?
   end
 
   def newly_failed?
