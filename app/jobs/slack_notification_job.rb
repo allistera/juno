@@ -3,10 +3,13 @@ require 'slack-notifier'
 class SlackNotificationJob < ApplicationJob
   queue_as :default
 
-  def perform(site)
+  def perform(site, status)
     return false unless site.project.slack_setting
 
-    notifier(site).ping "#{site.name} failing to return a successful status code."
+    notifier(site).post(
+      text: "[#{site.name}](#{site.url}) HTTP check returning #{status} status code.",
+      icon_emoji: ':exclamation:'
+    )
   end
 
   def notifier(site)
