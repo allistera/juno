@@ -24,8 +24,8 @@
         <th><%= link_to site.name, site_path(site) %></th>
         <td><%= site.url %></td>
         <td>
-          <span class="tag <%= site.active? ? 'is-success' : 'is-danger' %>">
-            <%= site.active? ? 'Up' : 'Down' %>
+          <span class="tag <%= site_status_class(site) %>">
+            <%= site.state.to_s.titleize %>
           </span>
         </td>
       </tr>
