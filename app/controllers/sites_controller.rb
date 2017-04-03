@@ -1,6 +1,6 @@
 class SitesController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_site, only: %i(show edit update destroy)
+  before_action :set_site, only: %i[show edit update destroy]
 
   # GET /sites
   # GET /sites.json
