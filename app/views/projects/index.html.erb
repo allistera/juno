@@ -18,7 +18,7 @@
 
         <div class="content">
           <% project.sites.each do |site| %>
-            <span class="tag <%= site.active? ? 'is-success' : 'is-danger' %>">
+            <span class="tag <%= site_status_class(site) %>">
               <%= site.name %>
             </span>
           <% end %>

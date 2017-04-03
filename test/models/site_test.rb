@@ -38,4 +38,19 @@ class SiteTest < ActiveSupport::TestCase
     site = sites(:one)
     assert site.active?
   end
+
+  test 'state is active' do
+    site = sites(:one)
+    assert_equal :active, site.state
+  end
+
+  test 'state is inactive' do
+    site = sites(:two)
+    assert_equal :inactive, site.state
+  end
+
+  test 'state is unknown by default' do
+    site = Site.create(name: 'John', url: 'http://foo.bar', project: projects(:one))
+    assert_equal :unknown, site.state
+  end
 end
