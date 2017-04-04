@@ -1,7 +1,8 @@
 class Site < ApplicationRecord
   belongs_to :project
   has_many :checks
-  validates :name, :url, presence: true
+  validates :name, presence: true
+  validates :url, url: true
 
   def active?
     last = checks.order('created_at desc').limit(1).first
