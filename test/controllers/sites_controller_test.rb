@@ -53,6 +53,6 @@ class SitesControllerTest < ActionDispatch::IntegrationTest
       delete site_url(@site)
     end
 
-    assert_redirected_to sites_url
+    assert_redirected_to project_url(@site.project)
   end
 end
