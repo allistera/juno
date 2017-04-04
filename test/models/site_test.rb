@@ -53,4 +53,10 @@ class SiteTest < ActiveSupport::TestCase
     site = Site.create(name: 'John', url: 'http://foo.bar', project: projects(:one))
     assert_equal :unknown, site.state
   end
+
+  test 'url must be valid address' do
+    site = Site.create(name: 'John', url: 'bar', project: projects(:one))
+    refute site.valid?
+    assert_not_nil site.errors[:url]
+  end
 end
