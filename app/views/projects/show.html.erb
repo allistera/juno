@@ -1,6 +1,7 @@
 <h1 class="title is-1"><%= @project.name %></h1>
 
 <div class="actions">
+  <%= link_to 'Delete Project', project_path(@project), class: 'button is-danger', method: :delete, :data => {:confirm => 'Are you sure?'} %>
   <% if @project.slack_setting %>
     <%= link_to 'Slack Settings', edit_slack_setting_path(@project.slack_setting), class: 'button is-success is-outlined' %>
   <% else %>
@@ -14,7 +15,7 @@
     <tr>
       <th>Name</th>
       <th>URL</th>
-      <th>Status</th>
+      <th></th>
     </tr>
   </thead>
 

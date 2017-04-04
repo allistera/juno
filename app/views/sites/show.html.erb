@@ -1,5 +1,10 @@
 <h2>Site</h2>
 
+<br>
+<div class="actions">
+  <%= link_to 'Delete Site', site_path(@site), class: 'button is-danger', method: :delete, :data => {:confirm => 'Are you sure?'} %>
+</div>
+
 <p>
   <strong>Name:</strong>
   <%= @site.name %>

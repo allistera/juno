@@ -1,6 +1,6 @@
 class Site < ApplicationRecord
   belongs_to :project
-  has_many :checks
+  has_many :checks, dependent: :destroy
   validates :name, presence: true
   validates :url, url: true
 
