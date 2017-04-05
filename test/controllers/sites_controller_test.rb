@@ -49,9 +49,9 @@ class SitesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test 'should destroy site' do
-    assert_difference('Site.count', -1) do
-      delete site_url(@site)
-    end
+    ModelDeleteJob.expects(:perform_later).with(@site)
+
+    delete site_url(@site)
 
     assert_redirected_to project_url(@site.project)
   end

@@ -53,7 +53,7 @@ class SitesController < ApplicationController
   # DELETE /sites/1
   # DELETE /sites/1.json
   def destroy
-    @site.destroy
+    ModelDeleteJob.perform_later(@site)
     respond_to do |format|
       format.html { redirect_to project_url(@site.project), notice: 'Site was successfully destroyed.' }
       format.json { head :no_content }
