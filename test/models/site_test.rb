@@ -59,4 +59,15 @@ class SiteTest < ActiveSupport::TestCase
     refute site.valid?
     assert_not_nil site.errors[:url]
   end
+
+  test 'name must be unique to project' do
+    site = Site.new(name: 'Foo Bar', url: 'http://foo.bar', project: projects(:one))
+    refute site.valid?
+    assert_not_nil site.errors[:name]
+  end
+
+  test 'name can be used in diffrent projects' do
+    site = Site.new(name: 'Foo Bar', url: 'http://foo.bar', project: projects(:two))
+    assert site.valid?
+  end
 end

@@ -27,7 +27,7 @@ class SitesControllerTest < ActionDispatch::IntegrationTest
 
   test 'should create site' do
     assert_difference('Site.count') do
-      post sites_url, params: { site: { name: @site.name, project_id: @site.project_id, url: @site.url } }
+      post sites_url, params: { site: { name: 'Zigo', project_id: @site.project_id, url: @site.url } }
     end
 
     assert_redirected_to site_url(Site.last)
