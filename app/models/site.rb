@@ -1,7 +1,8 @@
 class Site < ApplicationRecord
   belongs_to :project
   has_many :checks, dependent: :destroy
-  validates :name, presence: true
+  validates :name, presence: true, uniqueness: { scope: :project,
+                                                 message: 'name must be unique' }
   validates :url, url: true
 
   def active?

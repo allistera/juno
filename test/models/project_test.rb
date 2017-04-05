@@ -11,4 +11,10 @@ class ProjectTest < ActiveSupport::TestCase
     refute project.valid?, 'project is valid without a name'
     assert_not_nil project.errors[:name], 'no validation error for name present'
   end
+
+  test 'name must be unique' do
+    project = Project.new(name: 'MyString')
+    refute project.valid?, 'project is valid without a unique name'
+    assert_not_nil project.errors[:name], 'no validation error for name present'
+  end
 end
