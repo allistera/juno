@@ -49,9 +49,9 @@ class ProjectsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test 'should destroy project' do
-    assert_difference('Project.count', -1) do
-      delete project_url(@project)
-    end
+    ModelDeleteJob.expects(:perform_later).with(@project)
+
+    delete project_url(@project)
 
     assert_redirected_to projects_url
   end
