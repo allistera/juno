@@ -13,14 +13,14 @@
 
     <% if notice %>
       <div class="notification is-success">
-        <button class="delete"></button>
+        <button class="delete" onclick="this.parentNode.style.display = 'none'"></button>
         <%= notice %>
       </div>
     <% end %>
 
     <% if alert %>
       <div class="notification is-warning">
-        <button class="delete"></button>
+        <button class="delete" onclick="this.parentNode.style.display = 'none'"></button>
         <%= alert %>
       </div>
     <% end %>
