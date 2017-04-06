@@ -78,6 +78,8 @@ GEM
     globalid (0.3.7)
       activesupport (>= 4.1.0)
     hashdiff (0.3.2)
+    httparty (0.14.0)
+      multi_xml (>= 0.5.2)
     i18n (0.8.1)
     jbuilder (2.6.3)
       activesupport (>= 3.0.0, < 5.2)
@@ -105,6 +107,7 @@ GEM
     mocha (1.2.1)
       metaclass (~> 0.0.1)
     multi_json (1.12.1)
+    multi_xml (0.6.0)
     multipart-post (2.0.0)
     nio4r (2.0.0)
     nokogiri (1.7.1)
@@ -242,6 +245,7 @@ DEPENDENCIES
   coffee-rails (~> 4.2)
   devise
   font-awesome-rails
+  httparty
   jbuilder (~> 2.5)
   jquery-rails
   listen (~> 3.0.5)
