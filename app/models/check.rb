@@ -6,11 +6,15 @@ class Check < ApplicationRecord
   private
 
   def notification
-    SlackNotificationJob.perform_later(site, status) if newly_failed?
+    SlackNotificationJob.perform_later(site, status) if newly_changed?
   end
 
-  def newly_failed?
-    return false if status.between?(200, 299)
-    site.active?
+  def newly_changed?
+    return false if site.state == :unknown
+    (site.active? && failed?) || (!site.active? && !failed?)
+  end
+
+  def failed?
+    !status.between?(200, 299)
   end
 end

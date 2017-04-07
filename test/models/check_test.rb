@@ -16,4 +16,9 @@ class CheckTest < ActiveSupport::TestCase
     SlackNotificationJob.expects(:perform_later)
     Check.create(status: 401, site: sites(:one))
   end
+
+  test 'sends notification if newly active' do
+    SlackNotificationJob.expects(:perform_later)
+    Check.create(status: 201, site: sites(:two))
+  end
 end
