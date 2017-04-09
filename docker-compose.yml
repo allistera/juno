@@ -16,6 +16,7 @@ services:
       - "3000:80"
     links:
       - db
+      - smtp
     volumes:
       - .:/myapp
     command: bundle exec unicorn -c config/unicorn.rb -E production
@@ -38,3 +39,6 @@ services:
     - PG_PORT_5432_TCP_ADDR=db
     - SECRET_KEY=oiwefhoin230w0ifh203h0hfewo
     - REDIS_URL=redis://redis
+
+  smtp:
+    image: namshi/smtp
