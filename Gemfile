@@ -34,6 +34,7 @@ gem 'bulma-rails', '~> 0.3.2'
 gem 'font-awesome-rails'
 
 gem 'devise'
+gem 'devise_invitable'
 
 gem 'sidekiq-cron'
 

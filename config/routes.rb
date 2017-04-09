@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   resources :slack_settings
   root 'projects#index'
   devise_for :users
+  resources :users
   resources :checks
   resources :sites
   resources :projects
