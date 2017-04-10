@@ -8,6 +8,12 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     sign_in users(:joe)
   end
 
+  test 'should be authenticated' do
+    sign_out :user
+    get users_url
+    assert_redirected_to new_user_session_url
+  end
+
   test 'should get index' do
     get users_url
     assert_response :success
