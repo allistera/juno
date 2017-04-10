@@ -26,6 +26,7 @@ services:
     - PG_PORT_5432_TCP_ADDR=db
     - SECRET_KEY=oiwefhoin230w0ifh203h0hfewo
     - RAILS_ENV=production
+    - SITE_ADDRESS=localhost
 
   sidekiq:
     image: allistera/juno:latest
