@@ -6,20 +6,28 @@ class HttpCheckJob < ApplicationJob
 
   def perform(*_args)
     Site.all.each do |site|
+      response = http_check(site)
       Check.create(site: site,
-                   status: http_check(site))
+                   status: response[:code],
+                   time: response[:time])
     end
   end
 
   def http_check(site)
-    response = get(site.url).code
+    response = get(site.url)
     # Try again if it fails for verification
-    response = get(site.url).code unless response.to_i.between?(200, 299)
+    response = get(site.url) unless response[:code].to_i.between?(200, 299)
     response
   end
 
   def get(path)
-    HTTParty.get(path)
+    start = Time.now
+    response = HTTParty.get(path)
+    response_time = Time.now - start
+    {
+      code: response.code,
+      time: response_time
+    }
   rescue HTTParty::ResponseError
     nil
   end
