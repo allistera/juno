@@ -24,6 +24,6 @@
 
 <ul>
   <% @site.checks.last(10).each do |check| %>
-      <li><%= check.created_at %> - <%= check.status %></li>
+      <li><%= check.created_at %> - <%= check.status %> - <%= check.time %></li>
   <% end %>
 </ul>
