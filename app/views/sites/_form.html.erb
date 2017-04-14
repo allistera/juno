@@ -22,12 +22,7 @@
     <%= f.text_field :url, class: 'input' %>
   </div>
 
-  <%= f.label :project_id, class: 'label' %>
-  <p class="control">
-    <span class="select">
-      <%= f.select(:project_id, Project.all.collect {|a| [a.name, a.id]}, class: 'select') -%>
-    </span>
-  </p>
+  <%= f.hidden_field(:project_id, value: site.project_id) %>
 
   <div class="control is-grouped">
     <p class="control">
