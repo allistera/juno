@@ -7,7 +7,7 @@
   <% else %>
     <%= link_to 'Slack Settings', new_slack_setting_path(project_id: @project.id), class: 'button is-outlined' %>
   <% end %>
-  <%= link_to 'New Site', new_site_path, class: 'button is-success' %>
+  <%= link_to 'New Site', new_site_path(project: @project.id), class: 'button is-success' %>
 </div>
 
 <table class="table">

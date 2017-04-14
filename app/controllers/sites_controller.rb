@@ -14,7 +14,7 @@ class SitesController < ApplicationController
 
   # GET /sites/new
   def new
-    @site = Site.new
+    @site = Site.new(project_id: params[:project].to_i)
   end
 
   # GET /sites/1/edit
