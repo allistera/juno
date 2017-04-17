@@ -1,3 +1,7 @@
 http_check_job:
   cron: "* * * * *"
   class: "HttpCheckJob"
+
+http_check_job:
+  cron: "30 2 * * * "
+  class: "CleanupJob"
