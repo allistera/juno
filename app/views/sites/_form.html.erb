@@ -16,10 +16,14 @@
     <%= f.text_field :name, autofocus: true, class: 'input' %>
   </div>
 
-
   <%= f.label :url, class: 'label' %>
   <div class="control">
     <%= f.text_field :url, class: 'input' %>
+  </div>
+
+  <%= f.label :verify_ssl, class: 'label' %>
+  <div class="control">
+    <%= f.check_box :verify_ssl %>
   </div>
 
   <%= f.hidden_field(:project_id, value: site.project_id) %>

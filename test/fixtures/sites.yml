@@ -4,8 +4,10 @@ one:
   name: Foo Bar
   url: http://foo.bar
   project: one
+  verify_ssl: true
 
 two:
   name: Test
   url: https://test.com
   project: two
+  verify_ssl: false
