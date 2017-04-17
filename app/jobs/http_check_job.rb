@@ -14,15 +14,15 @@ class HttpCheckJob < ApplicationJob
   end
 
   def http_check(site)
-    response = get(site.url)
+    response = get(site.url, site.verify_ssl)
     # Try again if it fails for verification
-    response = get(site.url) unless response[:code].to_i.between?(200, 299)
+    response = get(site.url, site.verify_ssl) unless response[:code].to_i.between?(200, 299)
     response
   end
 
-  def get(path)
+  def get(path, verify_ssl)
     start = Time.now
-    response = HTTParty.get(path)
+    response = HTTParty.get(path, verify: verify_ssl)
     response_time = Time.now - start
     {
       code: response.code,

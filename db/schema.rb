@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170411144741) do
+ActiveRecord::Schema.define(version: 20170417141752) do
 
   create_table "checks", force: :cascade do |t|
     t.integer  "status"
@@ -31,8 +31,9 @@ ActiveRecord::Schema.define(version: 20170411144741) do
     t.string   "name"
     t.string   "url"
     t.integer  "project_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
+    t.boolean  "verify_ssl", default: true
     t.index ["project_id"], name: "index_sites_on_project_id"
   end
 
