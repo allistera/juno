@@ -19,7 +19,7 @@ services:
       - smtp
     volumes:
       - .:/myapp
-    command: bundle exec unicorn -c config/unicorn.rb -E production
+    command: ./start.sh
     environment:
     - PG_ENV_POSTGRES_USER=juno
     - PG_ENV_POSTGRES_PASSWORD=Password123!
