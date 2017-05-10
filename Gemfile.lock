@@ -48,6 +48,8 @@ GEM
     bulma-rails (0.3.2)
       sass (~> 3.2)
     byebug (9.0.6)
+    chartjs-ror (3.3.1)
+      rails (>= 3.1)
     coffee-rails (4.2.1)
       coffee-script (>= 2.2.0)
       railties (>= 4.0.0, < 5.2.x)
@@ -245,6 +247,7 @@ PLATFORMS
 DEPENDENCIES
   bulma-rails (~> 0.3.2)
   byebug
+  chartjs-ror
   coffee-rails (~> 4.2)
   devise
   devise_invitable

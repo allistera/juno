@@ -1,6 +1,7 @@
 class SitesController < ApplicationController
   before_action :authenticate_user!
   before_action :set_site, only: %i[show edit update destroy]
+  before_action :construct_chart, only: %i[show]
 
   # GET /sites
   # GET /sites.json
@@ -71,4 +72,29 @@ class SitesController < ApplicationController
   def site_params
     params.require(:site).permit(:name, :url, :project_id, :verify_ssl)
   end
+
+  # rubocop:disable Metrics/MethodLength
+  def construct_chart
+    checks = @site.checks.last(20)
+
+    @data = {
+      labels: checks.map { |check| check.created_at.to_formatted_s(:short) },
+      datasets: [
+        {
+          label: 'Response Time',
+          data: checks.pluck(:time),
+          fill: false,
+          pointBackgroundColor: 'green',
+          borderColor: 'green'
+        }
+      ]
+    }
+    @options = {
+      height: 100,
+      legend: {
+        display: false
+      }
+    }
+  end
+  # rubocop:enable Metrics/MethodLength
 end
