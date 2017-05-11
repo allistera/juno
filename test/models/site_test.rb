@@ -96,7 +96,7 @@ class SiteTest < ActiveSupport::TestCase
     Check.create(status: 501, site: site, time: 100)
     check = Check.create(status: 501, site: site, time: 100)
 
-    assert_equal check.created_at, site.last_downtime
+    assert_in_delta check.created_at, site.last_downtime
   end
 
   test 'last_downtime returns nil if no downtime' do

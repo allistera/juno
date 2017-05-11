@@ -10,14 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170417141752) do
+ActiveRecord::Schema.define(version: 20170511075630) do
 
   create_table "checks", force: :cascade do |t|
     t.integer  "status"
     t.integer  "site_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string   "time"
+    t.decimal  "time"
     t.index ["site_id"], name: "index_checks_on_site_id"
   end
 
