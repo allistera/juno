@@ -30,6 +30,9 @@ gem 'jbuilder', '~> 2.5'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
+# Skip 5.10.2 due to https://github.com/seattlerb/minitest/issues/689
+gem 'minitest', '~> 5.10', '!= 5.10.2'
+
 gem 'bulma-rails', '~> 0.3.2'
 gem 'font-awesome-rails'
 
