@@ -1,34 +1,45 @@
-<h2>Site</h2>
+<h2>
+  <%= @site.name %>
+</h2>
 
 <br>
 <div class="actions">
   <%= link_to 'Delete Site', site_path(@site), class: 'button is-danger', method: :delete, :data => {:confirm => 'Are you sure?'} %>
 </div>
 
-<p>
-  <strong>Name:</strong>
-  <%= @site.name %>
-</p>
+<%= line_chart @data, @options %>
 
-<p>
-  <strong>Url:</strong>
-  <%= @site.url %>
-</p>
-
-<p>
-  <strong>Project:</strong>
-  <%= @site.project.name %>
-</p>
-
-<p>
-  <strong>Verify SSL:</strong>
-  <%= @site.verify_ssl %>
-</p>
-
-<h2>Checks</h2>
-
-<ul>
-  <% @site.checks.last(10).each do |check| %>
-      <li><%= check.created_at %> - <%= check.status %> - <%= check.time %></li>
-  <% end %>
-</ul>
+<div class="columns site-stats">
+  <div class="column">
+    <h1>Uptime</h1>
+    <p>
+      <%- if @site.checks.count > 0 %>
+        <%= @site.uptime %>%
+      <% else %>
+        N/A
+      <% end %>
+    </p>
+  </div>
+  <div class="column">
+    <h1>Average Response</h1>
+    <p>
+      <%- if @site.checks.count > 0 %>
+        <%= @site.checks.average(:time) %>ms
+      <% else %>
+        N/A
+      <% end %>
+    </p>
+  </div>
+  <div class="column">
+    <h1>Last Downtime</h1>
+    <p>
+      <%= @site.last_downtime ? time_ago_in_words(@site.last_downtime) + ' ago' : 'N/A' %>
+    </p>
+  </div>
+  <div class="column">
+    <h1>Status</h1>
+    <p>
+      <%= @site.state.to_s.titleize %>
+    </p>
+  </div>
+</div>

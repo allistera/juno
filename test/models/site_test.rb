@@ -55,7 +55,7 @@ class SiteTest < ActiveSupport::TestCase
   end
 
   test 'url must be valid address' do
-    site = Site.create(name: 'John', url: 'bar', project: projects(:one))
+    site = Site.new(name: 'John', url: 'bar', project: projects(:one))
     refute site.valid?
     assert_not_nil site.errors[:url]
   end
@@ -69,5 +69,46 @@ class SiteTest < ActiveSupport::TestCase
   test 'name can be used in diffrent projects' do
     site = Site.new(name: 'Foo Bar', url: 'http://foo.bar', project: projects(:two))
     assert site.valid?
+  end
+
+  test 'uptime returns nil if no checks' do
+    site = Site.create(name: 'John', url: 'http://foo.bar', project: projects(:one))
+    assert_nil site.uptime
+  end
+
+  test 'uptime returns 100 if all checks have succeeded' do
+    site = Site.create(name: 'John', url: 'http://foo.bar', project: projects(:one))
+    Check.create(status: 201, site: site, time: 100)
+    assert_equal 100, site.uptime
+  end
+
+  test 'uptime returns correct percentage' do
+    site = Site.create(name: 'John', url: 'http://foo.bar', project: projects(:one))
+    Check.create(status: 201, site: site, time: 100)
+    Check.create(status: 501, site: site, time: 100)
+    Check.create(status: 201, site: site, time: 100)
+
+    assert_equal 66.67, site.uptime
+  end
+
+  test 'last_downtime returns last failed check time' do
+    site = Site.create(name: 'John', url: 'http://foo.bar', project: projects(:one))
+    Check.create(status: 501, site: site, time: 100)
+    check = Check.create(status: 501, site: site, time: 100)
+
+    assert_in_delta check.created_at, site.last_downtime
+  end
+
+  test 'last_downtime returns nil if no downtime' do
+    site = Site.create(name: 'John', url: 'http://foo.bar', project: projects(:one))
+    Check.create(status: 201, site: site, time: 100)
+
+    assert_nil site.last_downtime
+  end
+
+  test 'last_downtime returns nil if no checks' do
+    site = Site.create(name: 'John', url: 'http://foo.bar', project: projects(:one))
+
+    assert_nil site.last_downtime
   end
 end
