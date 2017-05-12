@@ -82,7 +82,7 @@ class SitesController < ApplicationController
       datasets: [
         {
           label: 'Response Time',
-          data: checks.pluck(:time),
+          data: checks.map { |check| (check.time * 1000).round if check.time },
           fill: false,
           pointBackgroundColor: 'green',
           borderColor: 'green'
