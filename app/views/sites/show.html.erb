@@ -23,8 +23,8 @@
   <div class="column">
     <h1>Average Response</h1>
     <p>
-      <%- if @site.checks.count > 0 %>
-        <%= (@site.checks.average(:time) * 1000).round %>ms
+      <%- if @site.checks.average(:time) %>
+        <%= (@site.checks.average(:time) * 1000).round  %>ms
       <% else %>
         N/A
       <% end %>
