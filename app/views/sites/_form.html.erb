@@ -26,6 +26,13 @@
     <%= f.check_box :verify_ssl %>
   </div>
 
+  <%= f.label 'Expected Status Code', class: 'label' %>
+  <div class="control">
+    <input type="radio" name="site[custom_status]" id="success_status" value="" checked> 2xx<br>
+    <input type="radio" name="site[custom_status]" id="custom_status"> Custom:
+    <%= f.text_field :custom_status, id: 'custom_status_value', disabled: true %>
+  </div>
+
   <%= f.hidden_field(:project_id, value: site.project_id) %>
 
   <div class="control is-grouped">

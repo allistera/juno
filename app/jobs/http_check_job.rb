@@ -14,7 +14,7 @@ class HttpCheckJob < ApplicationJob
   def http_check(site)
     response = get(site.url, site.verify_ssl)
     # Try again if it fails for verification
-    response = get(site.url, site.verify_ssl) unless response[:code].to_i.between?(200, 299)
+    response = get(site.url, site.verify_ssl) unless success?(site, response[:code])
     response
   end
 
@@ -28,5 +28,15 @@ class HttpCheckJob < ApplicationJob
     }
   rescue HTTParty::ResponseError
     nil
+  end
+
+  private
+
+  def success?(site, code)
+    if site.custom_status
+      code.to_i.equal site.custom_status
+    else
+      code.to_i.between?(200, 299)
+    end
   end
 end

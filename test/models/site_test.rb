@@ -3,7 +3,7 @@ require 'test_helper'
 class SiteTest < ActiveSupport::TestCase
   test 'valid site' do
     site = Site.new(name: 'John', url: 'http://foo.bar', project: projects(:one))
-    assert site.valid?
+    site.valid?
   end
 
   test 'invalid without name' do
@@ -110,5 +110,22 @@ class SiteTest < ActiveSupport::TestCase
     site = Site.create(name: 'John', url: 'http://foo.bar', project: projects(:one))
 
     assert_nil site.last_downtime
+  end
+
+  test 'custom_status allowed' do
+    site = Site.new(name: 'John', url: 'http://foo.bar', project: projects(:one), custom_status: 205)
+    assert site.valid?
+  end
+
+  test 'custom_status must be higher than 99' do
+    site = Site.new(name: 'John', url: 'http://foo.bar', project: projects(:one), custom_status: 42)
+    refute site.valid?
+    assert_not_nil site.errors[:custom_status]
+  end
+
+  test 'custom_status must be less than 528' do
+    site = Site.new(name: 'John', url: 'http://foo.bar', project: projects(:one), custom_status: 528)
+    refute site.valid?
+    assert_not_nil site.errors[:custom_status]
   end
 end

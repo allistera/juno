@@ -3,6 +3,9 @@ Metrics/LineLength:
 Metrics/BlockLength:
   Exclude:
   - 'config/environments/*.rb'
+Metrics/ClassLength:
+    Exclude:
+    - 'test/**/*.rb'
 Documentation:
   Enabled: false
 AllCops:

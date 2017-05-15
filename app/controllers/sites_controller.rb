@@ -70,7 +70,7 @@ class SitesController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def site_params
-    params.require(:site).permit(:name, :url, :project_id, :verify_ssl)
+    params.require(:site).permit(:name, :url, :project_id, :verify_ssl, :custom_status)
   end
 
   # rubocop:disable Metrics/MethodLength
