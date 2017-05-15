@@ -4,13 +4,11 @@ require 'uri'
 class HttpCheckJob < ApplicationJob
   queue_as :default
 
-  def perform(*_args)
-    Site.all.each do |site|
-      response = http_check(site)
-      Check.create(site: site,
-                   status: response[:code],
-                   time: response[:time])
-    end
+  def perform(site)
+    response = http_check(site)
+    Check.create(site: site,
+                 status: response[:code],
+                 time: response[:time])
   end
 
   def http_check(site)
