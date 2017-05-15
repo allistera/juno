@@ -11,7 +11,7 @@ services:
     image: redis
 
   web:
-    image: allistera/juno:latest
+    build: . 
     ports:
       - "3000:80"
     links:
@@ -29,7 +29,7 @@ services:
     - SITE_ADDRESS=localhost
 
   sidekiq:
-    image: allistera/juno:latest
+    build: .
     links:
       - db
       - redis
