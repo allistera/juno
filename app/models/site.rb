@@ -4,18 +4,19 @@ class Site < ApplicationRecord
   validates :name, presence: true, uniqueness: { scope: :project,
                                                  message: 'name must be unique' }
   validates :url, url: true
+  validates :custom_status, numericality: { only_integer: true,
+                                            greater_than_or_equal_to: 100,
+                                            less_than_or_equal_to: 527 }, allow_nil: true
 
   def active?
-    last = checks.order('created_at desc').limit(1).first
-    return false unless last && last.status
-    last.status.between?(200, 299)
+    success?
   end
 
   def state
     last = checks.order('created_at desc').limit(1).first
     return :unknown unless last
-    return :active if last.status.between?(200, 299)
-    return :inactive if last.status < 200 || last.status > 299
+    return :active if success?
+    return :inactive unless success?
   end
 
   def uptime
@@ -23,7 +24,7 @@ class Site < ApplicationRecord
     total = checks.count
 
     # Number of inactive checks
-    inactive = checks.where('status < 199 OR status > 300').count
+    inactive = inactive_checks.count
 
     if total.zero?
       nil
@@ -35,6 +36,25 @@ class Site < ApplicationRecord
   end
 
   def last_downtime
-    checks.where('status < 199 OR status > 300').last.try(:created_at)
+    inactive_checks.last.try(:created_at)
+  end
+
+  def inactive_checks
+    if custom_status
+      checks.where.not(status: custom_status)
+    else
+      checks.where('status < 199 OR status > 300 OR status == null')
+    end
+  end
+
+  def success?
+    last = checks.order('created_at desc').limit(1).first
+    return false unless last && last.status
+
+    if custom_status
+      last.status == custom_status
+    else
+      last.status.between?(200, 299)
+    end
   end
 end
