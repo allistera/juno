@@ -34,7 +34,7 @@ class HttpCheckJob < ApplicationJob
 
   def success?(site, code)
     if site.custom_status
-      code.to_i.equal site.custom_status
+      code.to_i == site.custom_status
     else
       code.to_i.between?(200, 299)
     end

@@ -9,8 +9,6 @@ class Site < ApplicationRecord
                                             less_than_or_equal_to: 527 }, allow_nil: true
 
   def active?
-    last = checks.order('created_at desc').limit(1).first
-    return false unless last && last.status
     success?
   end
 
@@ -50,10 +48,13 @@ class Site < ApplicationRecord
   end
 
   def success?
+    last = checks.order('created_at desc').limit(1).first
+    return false unless last && last.status
+
     if custom_status
-      checks.last.status.equal site.custom_status
+      last.status == custom_status
     else
-      checks.last.status.between?(200, 299)
+      last.status.between?(200, 299)
     end
   end
 end

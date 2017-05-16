@@ -11,3 +11,10 @@ two:
   url: https://test.com
   project: two
   verify_ssl: false
+
+three:
+  name: Test2
+  url: https://test2.com
+  custom_status: 301
+  project: two
+  verify_ssl: true

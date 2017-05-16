@@ -128,4 +128,18 @@ class SiteTest < ActiveSupport::TestCase
     refute site.valid?
     assert_not_nil site.errors[:custom_status]
   end
+
+  test 'success returns custom status' do
+    site = sites(:three)
+    refute site.success?
+  end
+
+  test 'inactive_checks returns custom status' do
+    site = Site.create(name: 'John', url: 'http://foo.bar', project: projects(:one), custom_status: 422)
+    Check.create(status: 422, site: site, time: 100)
+    check = Check.create(status: 501, site: site, time: 100)
+
+    assert_equal 1, site.inactive_checks.count
+    assert_equal check, site.inactive_checks.first
+  end
 end
