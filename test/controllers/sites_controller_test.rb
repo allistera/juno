@@ -8,51 +8,80 @@ class SitesControllerTest < ActionDispatch::IntegrationTest
     sign_in users(:joe)
   end
 
-  test 'should be authenticated' do
-    sign_out :user
-
-    get checks_url
-    assert_redirected_to new_user_session_url
-  end
-
-  test 'should get index' do
-    get sites_url
-    assert_response :success
-  end
-
-  test 'should get new' do
-    get new_site_url
-    assert_response :success
-  end
-
-  test 'should create site' do
-    assert_difference('Site.count') do
-      post sites_url, params: { site: { name: 'Zigo', project_id: @site.project_id, url: @site.url } }
+  describe '#index' do
+    it 'requires authentication' do
+      sign_out :user
+      get sites_url
+      assert_redirected_to new_user_session_url
     end
 
-    assert_redirected_to site_url(Site.last)
+    it 'returns all sites' do
+      get sites_url
+      assert_response :success
+    end
   end
 
-  test 'should show site' do
-    get site_url(@site)
-    assert_response :success
+  describe '#show' do
+    it 'requires authentication' do
+      sign_out :user
+      get site_url(@site)
+      assert_redirected_to new_user_session_url
+    end
+
+    it 'returns specific site' do
+      get site_url(@site)
+      assert_response :success
+    end
   end
 
-  test 'should get edit' do
-    get edit_site_url(@site)
-    assert_response :success
+  describe '#new' do
+    it 'requires authentication' do
+      sign_out :user
+      get new_site_url
+      assert_redirected_to new_user_session_url
+    end
+
+    it 'renders new form' do
+      get new_site_url
+      assert_response :success
+    end
   end
 
-  test 'should update site' do
-    patch site_url(@site), params: { site: { name: @site.name, project_id: @site.project_id, url: @site.url } }
-    assert_redirected_to site_url(@site)
+  describe '#create' do
+    it 'requires authentication' do
+      sign_out :user
+      post sites_url, params: { site: { name: 'Foobar' } }
+      assert_redirected_to new_user_session_url
+    end
+
+    it 'creates new site' do
+      assert_difference('Site.count') do
+        post sites_url, params: { site: { name: 'Zigo', project_id: @site.project_id, url: @site.url } }
+      end
+
+      assert_redirected_to site_url(Site.last)
+    end
+
+    it 'renders new form on save error' do
+      post sites_url, params: { site: { name: '' } }
+
+      assert_template :new
+    end
   end
 
-  test 'should destroy site' do
-    ModelDeleteJob.expects(:perform_later).with(@site)
+  describe '#destroy' do
+    it 'requires authentication' do
+      sign_out :user
+      delete site_url(@site)
+      assert_redirected_to new_user_session_url
+    end
 
-    delete site_url(@site)
+    it 'destroys site' do
+      ModelDeleteJob.expects(:perform_later).with(@site)
 
-    assert_redirected_to project_url(@site.project)
+      delete site_url(@site)
+
+      assert_redirected_to project_url(@site.project)
+    end
   end
 end

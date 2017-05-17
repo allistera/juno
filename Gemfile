@@ -67,7 +67,9 @@ group :production do
 end
 
 group :test do
+  gem 'minitest-spec-rails'
   gem 'mocha'
+  gem 'rails-controller-testing'
   gem 'simplecov', require: false
 end
 

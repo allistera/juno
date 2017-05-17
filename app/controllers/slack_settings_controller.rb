@@ -2,12 +2,6 @@ class SlackSettingsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_slack_setting, only: %i[show edit update destroy]
 
-  # GET /slack_settings
-  # GET /slack_settings.json
-  def index
-    @slack_settings = SlackSetting.all
-  end
-
   # GET /slack_settings/1
   # GET /slack_settings/1.json
   def show; end
