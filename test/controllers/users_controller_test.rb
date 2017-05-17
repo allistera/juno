@@ -8,42 +8,58 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     sign_in users(:joe)
   end
 
-  test 'should be authenticated' do
-    sign_out :user
-    get users_url
-    assert_redirected_to new_user_session_url
-  end
-
-  test 'should get index' do
-    get users_url
-    assert_response :success
-  end
-
-  test 'should get new' do
-    get new_user_url
-    assert_response :success
-  end
-
-  test 'should show user' do
-    get user_url(@user)
-    assert_response :success
-  end
-
-  test 'should get edit' do
-    get edit_user_url(@user)
-    assert_response :success
-  end
-
-  test 'should update user' do
-    patch user_url(@user), params: { user: {} }
-    assert_redirected_to user_url(@user)
-  end
-
-  test 'should destroy user' do
-    assert_difference('User.count', -1) do
-      delete user_url(@user)
+  describe '#index' do
+    it 'requires authentication' do
+      sign_out :user
+      get users_url
+      assert_redirected_to new_user_session_url
     end
 
-    assert_redirected_to users_url
+    it 'returns all users' do
+      get users_url
+      assert_response :success
+    end
+  end
+
+  describe '#show' do
+    it 'requires authentication' do
+      sign_out :user
+      get user_url(@user)
+      assert_redirected_to new_user_session_url
+    end
+
+    it 'returns specific user' do
+      get user_url(@user)
+      assert_response :success
+    end
+  end
+
+  describe '#new' do
+    it 'requires authentication' do
+      sign_out :user
+      get new_user_url
+      assert_redirected_to new_user_session_url
+    end
+
+    it 'renders new form' do
+      get new_user_url
+      assert_response :success
+    end
+  end
+
+  describe '#destroy' do
+    it 'requires authentication' do
+      sign_out :user
+      delete user_url(@user)
+      assert_redirected_to new_user_session_url
+    end
+
+    it 'destroys user' do
+      assert_difference('User.count', -1) do
+        delete user_url(@user)
+      end
+
+      assert_redirected_to users_url
+    end
   end
 end

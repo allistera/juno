@@ -8,51 +8,80 @@ class ProjectsControllerTest < ActionDispatch::IntegrationTest
     sign_in users(:joe)
   end
 
-  test 'should be authenticated' do
-    sign_out :user
-
-    get checks_url
-    assert_redirected_to new_user_session_url
-  end
-
-  test 'should get index' do
-    get projects_url
-    assert_response :success
-  end
-
-  test 'should get new' do
-    get new_project_url
-    assert_response :success
-  end
-
-  test 'should create project' do
-    assert_difference('Project.count') do
-      post projects_url, params: { project: { name: 'Foobar' } }
+  describe '#index' do
+    it 'requires authentication' do
+      sign_out :user
+      get projects_url
+      assert_redirected_to new_user_session_url
     end
 
-    assert_redirected_to project_url(Project.last)
+    it 'returns all projects' do
+      get projects_url
+      assert_response :success
+    end
   end
 
-  test 'should show project' do
-    get project_url(@project)
-    assert_response :success
+  describe '#show' do
+    it 'requires authentication' do
+      sign_out :user
+      get project_url(@project)
+      assert_redirected_to new_user_session_url
+    end
+
+    it 'returns specific project' do
+      get project_url(@project)
+      assert_response :success
+    end
   end
 
-  test 'should get edit' do
-    get edit_project_url(@project)
-    assert_response :success
+  describe '#new' do
+    it 'requires authentication' do
+      sign_out :user
+      get new_project_url
+      assert_redirected_to new_user_session_url
+    end
+
+    it 'renders new form' do
+      get new_project_url
+      assert_response :success
+    end
   end
 
-  test 'should update project' do
-    patch project_url(@project), params: { project: { name: @project.name } }
-    assert_redirected_to project_url(@project)
+  describe '#create' do
+    it 'requires authentication' do
+      sign_out :user
+      post projects_url, params: { project: { name: 'Foobar' } }
+      assert_redirected_to new_user_session_url
+    end
+
+    it 'creates new project' do
+      assert_difference('Project.count') do
+        post projects_url, params: { project: { name: 'Foobar' } }
+      end
+
+      assert_redirected_to project_url(Project.last)
+    end
+
+    it 'renders new form on save error' do
+      post projects_url, params: { project: { name: '' } }
+
+      assert_template :new
+    end
   end
 
-  test 'should destroy project' do
-    ModelDeleteJob.expects(:perform_later).with(@project)
+  describe '#destroy' do
+    it 'requires authentication' do
+      sign_out :user
+      delete project_url(@project)
+      assert_redirected_to new_user_session_url
+    end
 
-    delete project_url(@project)
+    it 'destroys project' do
+      ModelDeleteJob.expects(:perform_later).with(@project)
 
-    assert_redirected_to projects_url
+      delete project_url(@project)
+
+      assert_redirected_to projects_url
+    end
   end
 end

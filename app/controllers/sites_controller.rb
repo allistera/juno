@@ -1,6 +1,6 @@
 class SitesController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_site, only: %i[show edit update destroy]
+  before_action :set_site, only: %i[show destroy]
   before_action :construct_chart, only: %i[show]
 
   # GET /sites
@@ -18,9 +18,6 @@ class SitesController < ApplicationController
     @site = Site.new(project_id: params[:project].to_i)
   end
 
-  # GET /sites/1/edit
-  def edit; end
-
   # POST /sites
   # POST /sites.json
   def create
@@ -32,20 +29,6 @@ class SitesController < ApplicationController
         format.json { render :show, status: :created, location: @site }
       else
         format.html { render :new }
-        format.json { render json: @site.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
-  # PATCH/PUT /sites/1
-  # PATCH/PUT /sites/1.json
-  def update
-    respond_to do |format|
-      if @site.update(site_params)
-        format.html { redirect_to @site, notice: 'Site was successfully updated.' }
-        format.json { render :show, status: :ok, location: @site }
-      else
-        format.html { render :edit }
         format.json { render json: @site.errors, status: :unprocessable_entity }
       end
     end

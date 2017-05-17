@@ -20,6 +20,7 @@ class HttpCheckJob < ApplicationJob
 
   def get(path, verify_ssl)
     start = Time.now
+
     response = HTTParty.get(path, verify: verify_ssl)
     response_time = Time.now - start
     {
@@ -27,7 +28,7 @@ class HttpCheckJob < ApplicationJob
       time: response_time
     }
   rescue HTTParty::ResponseError
-    nil
+    { code: '' }
   end
 
   private

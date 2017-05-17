@@ -8,25 +8,70 @@ class SlackSettingsControllerTest < ActionDispatch::IntegrationTest
     sign_in users(:joe)
   end
 
-  test 'should be authenticated' do
-    sign_out :user
-    get slack_settings_url
-    assert_redirected_to new_user_session_url
+  describe '#show' do
+    it 'requires authentication' do
+      sign_out :user
+      get slack_setting_url(@slack_setting)
+      assert_redirected_to new_user_session_url
+    end
+
+    it 'returns specific slack setting' do
+      get slack_setting_url(@slack_setting)
+      assert_response :success
+    end
   end
 
-  test 'should get index' do
-    get slack_settings_url
-    assert_response :success
+  describe '#new' do
+    it 'requires authentication' do
+      sign_out :user
+      get new_slack_setting_url
+      assert_redirected_to new_user_session_url
+    end
+
+    it 'renders new form' do
+      get new_slack_setting_url
+      assert_response :success
+    end
   end
 
-  test 'should get new' do
-    get new_slack_setting_url
-    assert_response :success
+  describe '#create' do
+    it 'requires authentication' do
+      sign_out :user
+      post slack_settings_url
+      assert_redirected_to new_user_session_url
+    end
+
+    it 'creates new slack setting' do
+      assert_difference('SlackSetting.count') do
+        post slack_settings_url, params: {
+          slack_setting: {
+            channel: @slack_setting.channel,
+            project_id: @slack_setting.project_id,
+            username: @slack_setting.username,
+            webhook_url: @slack_setting.webhook_url
+          }
+        }
+      end
+
+      assert_redirected_to project_url(SlackSetting.last.project)
+    end
+
+    it 'renders new form on save error' do
+      post slack_settings_url, params: { slack_setting: { channel: '' } }
+
+      assert_template :new
+    end
   end
 
-  test 'should create slack_setting' do
-    assert_difference('SlackSetting.count') do
-      post slack_settings_url, params: {
+  describe '#update' do
+    it 'requires authentication' do
+      sign_out :user
+      patch slack_setting_url(@slack_setting)
+      assert_redirected_to new_user_session_url
+    end
+
+    it 'creates update slack setting' do
+      patch slack_setting_url(@slack_setting), params: {
         slack_setting: {
           channel: @slack_setting.channel,
           project_id: @slack_setting.project_id,
@@ -34,38 +79,29 @@ class SlackSettingsControllerTest < ActionDispatch::IntegrationTest
           webhook_url: @slack_setting.webhook_url
         }
       }
+      assert_redirected_to project_url(@slack_setting.project)
     end
 
-    assert_redirected_to project_url(SlackSetting.last.project)
+    it 'renders edit form on save error' do
+      patch slack_setting_url(@slack_setting), params: { slack_setting: { webhook_url: '' } }
+
+      assert_template :edit
+    end
   end
 
-  test 'should show slack_setting' do
-    get slack_setting_url(@slack_setting)
-    assert_response :success
-  end
-
-  test 'should get edit' do
-    get edit_slack_setting_url(@slack_setting)
-    assert_response :success
-  end
-
-  test 'should update slack_setting' do
-    patch slack_setting_url(@slack_setting), params: {
-      slack_setting: {
-        channel: @slack_setting.channel,
-        project_id: @slack_setting.project_id,
-        username: @slack_setting.username,
-        webhook_url: @slack_setting.webhook_url
-      }
-    }
-    assert_redirected_to project_url(@slack_setting.project)
-  end
-
-  test 'should destroy slack_setting' do
-    assert_difference('SlackSetting.count', -1) do
+  describe '#destroy' do
+    it 'requires authentication' do
+      sign_out :user
       delete slack_setting_url(@slack_setting)
+      assert_redirected_to new_user_session_url
     end
 
-    assert_redirected_to project_url(@slack_setting.project)
+    it 'destroys slack setting' do
+      assert_difference('SlackSetting.count', -1) do
+        delete slack_setting_url(@slack_setting)
+      end
+
+      assert_redirected_to project_url(@slack_setting.project)
+    end
   end
 end
