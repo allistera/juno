@@ -43,7 +43,7 @@ class Site < ApplicationRecord
     if custom_status
       checks.where.not(status: custom_status)
     else
-      checks.where('status < 199 OR status > 300 OR status == null')
+      checks.where('status < 199 OR status > 300')
     end
   end
 
