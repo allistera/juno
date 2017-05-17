@@ -71,6 +71,7 @@ group :test do
   gem 'mocha'
   gem 'rails-controller-testing'
   gem 'simplecov', require: false
+  gem "codeclimate-test-reporter", "~> 1.0.0"
 end
 
 group :development do
