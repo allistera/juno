@@ -10,3 +10,6 @@ script:
   - bin/rake test
   - bin/bundle exec rubocop
   - bin/bundle exec codeclimate-test-reporter
+
+after_success:
+  - bin/bundle exec codeclimate-test-reporter
