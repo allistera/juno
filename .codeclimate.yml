@@ -1,7 +1,4 @@
 engines:
   rubocop:
     enabled: true
-    
-ratings:
-   paths:
-   - "**.rb"
+    channel: rubocop-0-48
