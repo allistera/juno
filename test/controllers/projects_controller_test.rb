@@ -84,4 +84,18 @@ class ProjectsControllerTest < ActionDispatch::IntegrationTest
       assert_redirected_to projects_url
     end
   end
+
+  describe '#workers_active?' do
+    it 'does not display if active checks' do
+      get projects_url
+      assert_equal false, assigns(:no_checks)
+    end
+
+    it 'does not display if active checks' do
+      Check.delete_all
+
+      get projects_url
+      assert_equal true, assigns(:no_checks)
+    end
+  end
 end

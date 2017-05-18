@@ -11,6 +11,13 @@
   <body>
     <%= render 'layouts/header' %>
 
+    <% if @no_checks && user_signed_in? %>
+      <div class="notification is-danger">
+        <button class="delete" onclick="this.parentNode.style.display = 'none'"></button>
+        No checks have ran in last two minutes, background workers may be disconnected.
+      </div>
+    <% end %>
+
     <% if notice %>
       <div class="notification is-success">
         <button class="delete" onclick="this.parentNode.style.display = 'none'"></button>
