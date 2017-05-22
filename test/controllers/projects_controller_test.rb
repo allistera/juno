@@ -91,8 +91,19 @@ class ProjectsControllerTest < ActionDispatch::IntegrationTest
       assert_equal false, assigns(:no_checks)
     end
 
-    it 'does not display if active checks' do
+    it 'does not display if no checks' do
       Check.delete_all
+
+      get projects_url
+      assert_equal false, assigns(:no_checks)
+    end
+
+    it 'displays if no checks in past two mins' do
+      Check.delete_all
+      Site.delete_all
+
+      site = Site.new(name: 'John', url: 'http://foo.bar', project: projects(:one), created_at: 3.minutes.ago)
+      Check.create(status: 401, site: site, created_at: 3.minutes.ago)
 
       get projects_url
       assert_equal true, assigns(:no_checks)
