@@ -6,6 +6,8 @@ class ApplicationController < ActionController::Base
   private
 
   def workers_active?
-    @no_checks = Site.count > 0 && Check.where('created_at >= ?', 2.minutes.ago).count.zero?
+    sites = Site.where('created_at <= ?', 2.minutes.ago).count
+    checks = Check.where('created_at >= ?', 2.minutes.ago).count
+    @no_checks = !sites.zero? && checks.zero?
   end
 end
