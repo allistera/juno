@@ -3,6 +3,7 @@ Metrics/LineLength:
 Metrics/BlockLength:
   Exclude:
   - 'config/environments/*.rb'
+  - 'test/**/*.rb'
 Metrics/ClassLength:
     Exclude:
     - 'test/**/*.rb'

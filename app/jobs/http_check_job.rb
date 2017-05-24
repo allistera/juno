@@ -27,7 +27,7 @@ class HttpCheckJob < ApplicationJob
       code: response.code,
       time: response_time
     }
-  rescue HTTParty::ResponseError
+  rescue HTTParty::ResponseError, SocketError
     { code: '' }
   end
 

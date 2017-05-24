@@ -28,9 +28,18 @@ class HttpCheckJobTest < ActiveJob::TestCase
       assert_equal 501, Check.last.status
     end
 
-    it 'returns nil on exception' do
+    it 'returns nil on HTTParty::ResponseError exception' do
       stub_request(:get, 'https://test2.com/').to_raise(HTTParty::ResponseError)
       stub_request(:get, 'https://test2.com/').to_raise(HTTParty::ResponseError)
+
+      HttpCheckJob.perform_now(sites(:three))
+
+      assert_nil Check.last.status
+    end
+
+    it 'returns nil on SocketError exception' do
+      stub_request(:get, 'https://test2.com/').to_raise(SocketError)
+      stub_request(:get, 'https://test2.com/').to_raise(SocketError)
 
       HttpCheckJob.perform_now(sites(:three))
 
