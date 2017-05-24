@@ -38,6 +38,8 @@ Once all the services have started browse to [http://localhost:3000](http://loca
 
 ## Contribute
 
+Feel free to open a pull request or issue report. Please include tests and keep an eye on code coverage and rubocop.
+
 ## License
 
 [Unlicense](UNLICENSE)
