@@ -1,4 +1,7 @@
 <%= form_for(site) do |f| %>
+  <h1>Add Site</h1>
+  <hr>
+
   <% if site.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(site.errors.count, "error") %> prohibited this site from being saved:</h2>
@@ -11,33 +14,86 @@
     </div>
   <% end %>
 
-  <%= f.label :name, class: 'label' %>
-  <div class="control">
-    <%= f.text_field :name, autofocus: true, class: 'input' %>
+  <div class="field is-horizontal">
+    <div class="field-label is-medium label">
+      <label class="label">Name of Site</label>
+    </div>
+    <div class="field-body">
+        <p class="control is-expanded">
+          <input class="input is-medium" type="text" name="site[name]">
+        </p>
+      </div>
   </div>
 
-  <%= f.label :url, class: 'label' %>
-  <div class="control">
-    <%= f.text_field :url, class: 'input' %>
+  <div class="tabs is-right is-medium is-boxed">
+    <ul>
+      <li class="tab-link" data-tab="optional"><a>Optional</a></li>
+      <li class="tab-link is-active" data-tab="required"><a>Required</a></li>
+    </ul>
   </div>
 
-  <%= f.label :verify_ssl, class: 'label' %>
-  <div class="control">
-    <%= f.check_box :verify_ssl %>
+  <div id="required" class="tab-content">
+    <div class="field is-horizontal has-addons">
+      <div class="field-label is-medium label">
+        <label class="label">URL</label>
+      </div>
+      <div class="field-body">
+        <p class="control">
+          <span class="select is-medium">
+            <select name="site[protocol]">
+              <option>https://</option>
+              <option>http://</option>
+            </select>
+          </span>
+        </p>
+        <p class="control is-expanded">
+          <input class="input is-medium" type="text" name="site[url]">
+        </p>
+        </div>
+    </div>
   </div>
 
-  <%= f.label 'Expected Status Code', class: 'label' %>
-  <div class="control">
-    <input type="radio" name="site[custom_status]" id="success_status" value="" checked> 2xx<br>
-    <input type="radio" name="site[custom_status]" id="custom_status"> Custom:
-    <%= f.text_field :custom_status, id: 'custom_status_value', disabled: true %>
+  <div id="optional" class="tab-content hidden">
+    <div class="field is-horizontal">
+      <div class="field-label is-medium label">
+        <label class="label">Expected Status Code</label>
+      </div>
+      <div class="field-body">
+          <p class="control is-expanded">
+            <input class="input is-medium" type="number" min="1" max="65535" name="site[custom_status]">
+          </p>
+        </div>
+    </div>
+
+    <div class="field is-horizontal">
+      <div class="field-label is-medium label">
+        <label class="label">Verify SSL</label>
+      </div>
+      <div class="field-body">
+        <label class="checkbox">
+          <%= f.check_box :verify_ssl %>
+        </label>
+        </div>
+    </div>
   </div>
 
   <%= f.hidden_field(:project_id, value: site.project_id) %>
 
-  <div class="control is-grouped">
-    <p class="control">
-      <%= f.submit "Save", class: 'button is-primary' %>
-    </p>
+  <div class="field is-horizontal">
+    <div class="field-label">
+      <!-- Left empty for spacing -->
+    </div>
+    <div class="field-body">
+      <div class="field">
+        <div class="control">
+          <button type="submit" class="button is-success is-medium is-pulled-right">
+            <span class="icon is-small">
+              <i class="fa fa-check"></i>
+            </span>
+            <span>Create</span>
+          </button>
+        </div>
+      </div>
+    </div>
   </div>
 <% end %>

@@ -21,7 +21,9 @@ class SitesController < ApplicationController
   # POST /sites
   # POST /sites.json
   def create
-    @site = Site.new(site_params)
+    # Concat protocol and url
+
+    @site = Site.new(site_params.merge(url: site_params[:protocol] + site_params[:url]).except(:protocol))
 
     respond_to do |format|
       if @site.save
@@ -53,7 +55,7 @@ class SitesController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def site_params
-    params.require(:site).permit(:name, :url, :project_id, :verify_ssl, :custom_status)
+    params.require(:site).permit(:name, :protocol, :url, :project_id, :verify_ssl, :custom_status)
   end
 
   # rubocop:disable Metrics/MethodLength

@@ -13,4 +13,15 @@ document.addEventListener("turbolinks:load", function() {
       $('#custom_status_value').removeAttr("disabled");
     }
   });
+
+  $('.tabs ul li').click(function(){
+    var tab_id = $(this).attr('data-tab');
+
+    $('.tabs ul li').removeClass('is-active');
+    $('.tab-content').addClass('hidden');
+
+    $(this).addClass('is-active');
+    $("#" + tab_id).removeClass('hidden');
+  })
+
 });
