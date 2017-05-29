@@ -58,7 +58,8 @@ class SitesController < ApplicationController
   end
 
   def site_create_params
-    site_params.merge(url: site_params[:protocol] + site_params[:url]).except(:protocol)
+    url = site_params[:protocol] && site_params[:url] ? site_params[:protocol] + site_params[:url] : nil
+    site_params.merge(url: url).except(:protocol)
   end
 
   # rubocop:disable Metrics/MethodLength
