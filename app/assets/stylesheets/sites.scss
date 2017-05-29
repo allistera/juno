@@ -34,76 +34,6 @@
   display: none;
 }
 
-
-.field:not(:last-child) {
-  margin-bottom: 0.75rem;
-}
-
-.field.has-addons {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: start;
-      -ms-flex-pack: start;
-          justify-content: flex-start;
-}
-
-.field.has-addons .control {
-  margin-right: -1px;
-}
-
-.field.has-addons .control:first-child .button,
-.field.has-addons .control:first-child .input,
-.field.has-addons .control:first-child .select select {
-  border-bottom-left-radius: 3px;
-  border-top-left-radius: 3px;
-}
-
-.field.has-addons .control:last-child .button,
-.field.has-addons .control:last-child .input,
-.field.has-addons .control:last-child .select select {
-  border-bottom-right-radius: 3px;
-  border-top-right-radius: 3px;
-}
-
-.field.has-addons .control .button,
-.field.has-addons .control .input,
-.field.has-addons .control .select select {
-  border-radius: 0;
-}
-
-.field.has-addons .control .button:hover, .field.has-addons .control .button.is-hovered,
-.field.has-addons .control .input:hover,
-.field.has-addons .control .input.is-hovered,
-.field.has-addons .control .select select:hover,
-.field.has-addons .control .select select.is-hovered {
-  z-index: 2;
-}
-
-.field.has-addons .control .button:focus, .field.has-addons .control .button.is-focused, .field.has-addons .control .button:active, .field.has-addons .control .button.is-active,
-.field.has-addons .control .input:focus,
-.field.has-addons .control .input.is-focused,
-.field.has-addons .control .input:active,
-.field.has-addons .control .input.is-active,
-.field.has-addons .control .select select:focus,
-.field.has-addons .control .select select.is-focused,
-.field.has-addons .control .select select:active,
-.field.has-addons .control .select select.is-active {
-  z-index: 3;
-}
-
-.field.has-addons .control .button:focus:hover, .field.has-addons .control .button.is-focused:hover, .field.has-addons .control .button:active:hover, .field.has-addons .control .button.is-active:hover,
-.field.has-addons .control .input:focus:hover,
-.field.has-addons .control .input.is-focused:hover,
-.field.has-addons .control .input:active:hover,
-.field.has-addons .control .input.is-active:hover,
-.field.has-addons .control .select select:focus:hover,
-.field.has-addons .control .select select.is-focused:hover,
-.field.has-addons .control .select select:active:hover,
-.field.has-addons .control .select select.is-active:hover {
-  z-index: 4;
-}
-
 .field.has-addons .control.is-expanded {
   -webkit-box-flex: 1;
       -ms-flex-positive: 1;
@@ -112,64 +42,7 @@
       flex-shrink: 0;
 }
 
-.field.has-addons.has-addons-centered {
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-}
 
-.field.has-addons.has-addons-right {
-  -webkit-box-pack: end;
-      -ms-flex-pack: end;
-          justify-content: flex-end;
-}
-
-.field.has-addons.has-addons-fullwidth .control {
-  -webkit-box-flex: 1;
-      -ms-flex-positive: 1;
-          flex-grow: 1;
-  -ms-flex-negative: 0;
-      flex-shrink: 0;
-}
-
-.field.is-grouped {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: start;
-      -ms-flex-pack: start;
-          justify-content: flex-start;
-}
-
-.field.is-grouped > .control {
-  -ms-flex-negative: 0;
-      flex-shrink: 0;
-}
-
-.field.is-grouped > .control:not(:last-child) {
-  margin-bottom: 0;
-  margin-right: 0.75rem;
-}
-
-.field.is-grouped > .control.is-expanded {
-  -webkit-box-flex: 1;
-      -ms-flex-positive: 1;
-          flex-grow: 1;
-  -ms-flex-negative: 1;
-      flex-shrink: 1;
-}
-
-.field.is-grouped.is-grouped-centered {
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-}
-
-.field.is-grouped.is-grouped-right {
-  -webkit-box-pack: end;
-      -ms-flex-pack: end;
-          justify-content: flex-end;
-}
 
 @media screen and (min-width: 769px), print {
   .field.is-horizontal {
@@ -179,44 +52,6 @@
   }
 }
 
-.field-label .label {
-  font-size: inherit;
-}
-
-@media screen and (max-width: 768px) {
-  .field-label {
-    margin-bottom: 0.5rem;
-  }
-}
-
-@media screen and (min-width: 769px), print {
-  .field-label {
-    -ms-flex-preferred-size: 0;
-        flex-basis: 0;
-    -webkit-box-flex: 1;
-        -ms-flex-positive: 1;
-            flex-grow: 1;
-    -ms-flex-negative: 0;
-        flex-shrink: 0;
-    margin-right: 1.5rem;
-    text-align: right;
-  }
-  .field-label.is-small {
-    font-size: 0.75rem;
-    padding-top: 0.375em;
-  }
-  .field-label.is-normal {
-    padding-top: 0.375em;
-  }
-  .field-label.is-medium {
-    font-size: 1.25rem;
-    padding-top: 0.375em;
-  }
-  .field-label.is-large {
-    font-size: 1.5rem;
-    padding-top: 0.375em;
-  }
-}
 
 @media screen and (min-width: 769px), print {
   .field-body {
@@ -231,17 +66,14 @@
     -ms-flex-negative: 1;
         flex-shrink: 1;
   }
-  .field-body .field {
-    -ms-flex-negative: 1;
-        flex-shrink: 1;
-  }
+
   .field-body .field:not(.is-narrow) {
     -webkit-box-flex: 1;
         -ms-flex-positive: 1;
             flex-grow: 1;
   }
-  .field-body .field:not(:last-child) {
-    margin-bottom: 0;
-    margin-right: 0.75rem;
-  }
+}
+
+.field {
+  margin-bottom: 20px;
 }
