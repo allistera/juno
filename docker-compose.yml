@@ -17,6 +17,8 @@ services:
     links:
       - db
       - smtp
+      - redis
+      - sidekiq
     volumes:
       - .:/myapp
     command: ./start.sh
@@ -27,6 +29,7 @@ services:
     - SECRET_KEY=oiwefhoin230w0ifh203h0hfewo
     - RAILS_ENV=production
     - SITE_ADDRESS=localhost
+    - REDIS_URL=redis://redis
 
   sidekiq:
     build: .
