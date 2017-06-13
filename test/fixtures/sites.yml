@@ -18,3 +18,11 @@ three:
   custom_status: 301
   project: two
   verify_ssl: true
+
+basic_auth:
+  name: Foo Bar
+  url: http://foo.bar
+  project: one
+  verify_ssl: true
+  basic_auth_username: foo
+  basic_auth_password: bar
