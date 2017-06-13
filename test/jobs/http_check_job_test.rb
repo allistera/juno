@@ -45,5 +45,15 @@ class HttpCheckJobTest < ActiveJob::TestCase
 
       assert_nil Check.last.status
     end
+
+    it 'supports basic auth' do
+      stub_request(:get, 'http://foo.bar/')
+        .with(headers: { 'Authorization' => 'Basic Zm9vOmJhcg==' })
+        .to_return(status: 200)
+
+      HttpCheckJob.perform_now(sites(:basic_auth))
+
+      assert_equal 200, Check.last.status
+    end
   end
 end

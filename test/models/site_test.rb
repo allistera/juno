@@ -142,4 +142,13 @@ class SiteTest < ActiveSupport::TestCase
     assert_equal 1, site.inactive_checks.count
     assert_equal check, site.inactive_checks.first
   end
+
+  test 'accepts basic auth' do
+    site = Site.new(name: 'John',
+                    url: 'http://foo.bar',
+                    project: projects(:one),
+                    basic_auth_username: 'foo',
+                    basic_auth_password: 'bar')
+    assert site.valid?
+  end
 end

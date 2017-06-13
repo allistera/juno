@@ -60,7 +60,9 @@ class SitesControllerTest < ActionDispatch::IntegrationTest
           name: 'Zigo',
           project_id: @site.project_id,
           url: 'foo.bar',
-          protocol: 'https://'
+          protocol: 'https://',
+          basic_auth_username: 'foo',
+          basic_auth_password: 'bar'
         } }
       end
 

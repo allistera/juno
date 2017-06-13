@@ -12,16 +12,16 @@ class HttpCheckJob < ApplicationJob
   end
 
   def http_check(site)
-    response = get(site.url, site.verify_ssl)
+    response = get(site.url, site.verify_ssl, basic_auth(site))
     # Try again if it fails for verification
-    response = get(site.url, site.verify_ssl) unless success?(site, response[:code])
+    response = get(site.url, site.verify_ssl, basic_auth(site)) unless success?(site, response[:code])
     response
   end
 
-  def get(path, verify_ssl)
+  def get(path, verify_ssl, basic_auth)
     start = Time.now
 
-    response = HTTParty.get(path, verify: verify_ssl)
+    response = HTTParty.get(path, verify: verify_ssl, basic_auth: basic_auth)
     response_time = Time.now - start
     {
       code: response.code,
@@ -39,5 +39,9 @@ class HttpCheckJob < ApplicationJob
     else
       code.to_i.between?(200, 299)
     end
+  end
+
+  def basic_auth(site)
+    { username: site.basic_auth_username, password: site.basic_auth_password }
   end
 end

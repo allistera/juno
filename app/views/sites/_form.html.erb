@@ -75,6 +75,25 @@
         </label>
         </div>
     </div>
+
+    <div class="field is-horizontal">
+      <div class="field-label is-normal">
+        <label class="label">Basic Auth</label>
+      </div>
+      <div class="field-body">
+        <div class="field is-grouped">
+          <p class="control is-expanded">
+            <input class="input" type="text" placeholder="Username" name="site[basic_auth_username">
+          </p>
+        </div>
+        <div class="field">
+          <p class="control is-expanded">
+            <input class="input" type="text" placeholder="Password" name="site[basic_auth_password">
+          </p>
+        </div>
+      </div>
+    </div>
+
   </div>
 
   <%= f.hidden_field(:project_id, value: site.project_id) %>
