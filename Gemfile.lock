@@ -130,6 +130,7 @@ GEM
     pg (0.21.0)
     powerpack (0.1.1)
     public_suffix (2.0.5)
+    puma (3.9.1)
     rack (2.0.3)
     rack-protection (2.0.0)
       rack
@@ -273,8 +274,10 @@ DEPENDENCIES
   mocha
   okcomputer
   pg
+  puma
   rails (~> 5.0.1)
   rails-controller-testing
+  redis (~> 3.0)
   rubocop
   sass-rails (~> 5.0)
   sentry-raven

@@ -36,10 +36,8 @@
       <%= @site.last_downtime ? time_ago_in_words(@site.last_downtime) + ' ago' : 'N/A' %>
     </p>
   </div>
-  <div class="column">
+  <div class="column success-in-label">
     <h1>Status</h1>
-    <p>
-      <%= @site.state.to_s.titleize %>
-    </p>
+    <p class="<%= site_status_class(@site) %> site-status-<%= @site.id %>"></p>
   </div>
 </div>

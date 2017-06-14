@@ -9,6 +9,12 @@ class HttpCheckJob < ApplicationJob
     Check.create(site: site,
                  status: response[:code],
                  time: response[:time])
+
+    ActionCable.server.broadcast 'status',
+                                 site: site.id,
+                                 name: site.name,
+                                 url: site.url,
+                                 state: site.state
   end
 
   def http_check(site)

@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  mount ActionCable.server => '/cable'
+
   root 'projects#index'
   devise_for :users
   resources :users, only: %i[index show new destroy]
