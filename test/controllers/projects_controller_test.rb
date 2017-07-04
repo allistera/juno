@@ -67,6 +67,11 @@ class ProjectsControllerTest < ActionDispatch::IntegrationTest
 
       assert_template :new
     end
+
+    it 'sets organisation to users' do
+      post projects_url, params: { project: { name: 'Teris' } }
+      assert_equal 'Peachstones', Project.last.organisation.name
+    end
   end
 
   describe '#destroy' do

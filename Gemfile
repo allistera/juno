@@ -50,8 +50,7 @@ gem 'httparty'
 gem 'chartjs-ror'
 
 gem 'okcomputer'
-gem "skylight"
-
+gem 'skylight'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

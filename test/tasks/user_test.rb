@@ -3,8 +3,10 @@ require 'test_helper'
 class UserTest < ActiveSupport::TestCase
   test 'creates new user account' do
     assert_difference('User.count') do
-      silenced do
-        Rake::Task['user:create'].invoke('aabcd@gmail.com', '12341212')
+      assert_difference('Organisation.count') do
+        silenced do
+          Rake::Task['user:create'].invoke('aabcd@gmail.com', '12341212', 'FooBar')
+        end
       end
     end
   end
