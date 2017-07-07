@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   root 'projects#index'
   devise_for :users
   resources :users, only: %i[index show new destroy]
+  resources :organisations
   resources :checks, only: %i[index show]
   resources :sites, only: %i[index show new create destroy]
   resources :projects, only: %i[index show new create destroy]

@@ -4,6 +4,7 @@
   <thead>
     <tr>
       <th>Email</th>
+      <th>Organisation</th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -12,6 +13,7 @@
     <% @users.each do |user| %>
       <tr>
         <td><%= user.email %></td>
+        <td><%= user.organisation.name %></td>
         <td><%= link_to 'Destroy', user, method: :delete, data: { confirm: 'Are you sure?' } unless user == current_user %></td>
       </tr>
     <% end %>
