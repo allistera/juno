@@ -1,7 +1,13 @@
 require 'test_helper'
 
 class UserTest < ActiveSupport::TestCase
-  # test "the truth" do
-  #   assert true
-  # end
+  test 'user requires organisation' do
+    user = User.new(email: 'foo@bar.com', password: '1110009')
+    refute user.valid?
+  end
+
+  test 'admin does not require organisation' do
+    user = User.new(email: 'foo@bar.com', password: '1110009', admin: true)
+    assert user.valid?
+  end
 end

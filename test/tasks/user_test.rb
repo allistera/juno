@@ -1,14 +1,13 @@
 require 'test_helper'
 
 class UserTest < ActiveSupport::TestCase
-  test 'creates new user account' do
+  test 'creates new admin account' do
     assert_difference('User.count') do
-      assert_difference('Organisation.count') do
-        silenced do
-          Rake::Task['user:create'].invoke('aabcd@gmail.com', '12341212', 'FooBar')
-        end
+      silenced do
+        Rake::Task['user:create_admin'].invoke('aabcd@gmail.com', '12341212')
       end
     end
+    assert User.find_by_email('aabcd@gmail.com').admin
   end
 
   private

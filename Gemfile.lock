@@ -133,9 +133,9 @@ GEM
       pundit (>= 1.0.0)
     powerpack (0.1.1)
     public_suffix (2.0.5)
+    puma (3.9.1)
     pundit (1.1.0)
       activesupport (>= 3.0.0)
-    puma (3.9.1)
     rack (2.0.3)
     rack-protection (2.0.0)
       rack
@@ -286,8 +286,8 @@ DEPENDENCIES
   okcomputer
   pg
   policy-assertions
-  pundit
   puma
+  pundit
   rails (~> 5.0.1)
   rails-controller-testing
   redis (~> 3.0)
