@@ -8,6 +8,8 @@ class SlackSettingsController < ApplicationController
 
   # GET /slack_settings/new
   def new
+    authorize :slack_setting, :new?
+
     @slack_setting = SlackSetting.new(project_id: params[:project_id])
   end
 
@@ -18,14 +20,12 @@ class SlackSettingsController < ApplicationController
   # POST /slack_settings.json
   def create
     @slack_setting = SlackSetting.new(slack_setting_params)
-
+    authorize @slack_setting
     respond_to do |format|
       if @slack_setting.save
         format.html { redirect_to @slack_setting.project, notice: 'Slack settings where successfully updated.' }
-        format.json { render :show, status: :created, location: @slack_setting }
       else
         format.html { render :new }
-        format.json { render json: @slack_setting.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -36,10 +36,8 @@ class SlackSettingsController < ApplicationController
     respond_to do |format|
       if @slack_setting.update(slack_setting_params)
         format.html { redirect_to @slack_setting.project, notice: 'Slack settings where successfully updated.' }
-        format.json { render :show, status: :ok, location: @slack_setting.project }
       else
         format.html { render :edit }
-        format.json { render json: @slack_setting.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -50,7 +48,6 @@ class SlackSettingsController < ApplicationController
     @slack_setting.destroy
     respond_to do |format|
       format.html { redirect_to @slack_setting.project, notice: 'Slack notifications where successfully disabled.' }
-      format.json { head :no_content }
     end
   end
 
@@ -59,6 +56,7 @@ class SlackSettingsController < ApplicationController
   # Use callbacks to share common setup or constraints between actions.
   def set_slack_setting
     @slack_setting = SlackSetting.find(params[:id])
+    authorize @slack_setting
   end
 
   # Never trust parameters from the scary internet, only allow the white list through.

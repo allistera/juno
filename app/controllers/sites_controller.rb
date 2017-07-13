@@ -3,18 +3,14 @@ class SitesController < ApplicationController
   before_action :set_site, only: %i[show destroy]
   before_action :construct_chart, only: %i[show]
 
-  # GET /sites
-  # GET /sites.json
-  def index
-    @sites = Site.all
-  end
-
   # GET /sites/1
   # GET /sites/1.json
   def show; end
 
   # GET /sites/new
   def new
+    authorize :site, :new?
+
     @site = Site.new(project_id: params[:project].to_i)
   end
 
@@ -23,14 +19,13 @@ class SitesController < ApplicationController
   def create
     # Concat protocol and url
     @site = Site.new(site_create_params)
+    authorize @site
 
     respond_to do |format|
       if @site.save
         format.html { redirect_to @site, notice: 'Site was successfully created.' }
-        format.json { render :show, status: :created, location: @site }
       else
         format.html { render :new }
-        format.json { render json: @site.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -41,7 +36,6 @@ class SitesController < ApplicationController
     ModelDeleteJob.perform_later(@site)
     respond_to do |format|
       format.html { redirect_to project_url(@site.project), notice: 'Site was successfully destroyed.' }
-      format.json { head :no_content }
     end
   end
 
@@ -50,6 +44,7 @@ class SitesController < ApplicationController
   # Use callbacks to share common setup or constraints between actions.
   def set_site
     @site = Site.find(params[:id])
+    authorize @site
   end
 
   # Never trust parameters from the scary internet, only allow the white list through.

@@ -21,7 +21,7 @@ class SlackNotificationJobTest < ActiveJob::TestCase
     end
 
     it 'fails if no slack settings' do
-      refute SlackNotificationJob.perform_now(sites(:two), 301)
+      refute SlackNotificationJob.perform_now(sites(:no_slack_settings), 301)
     end
   end
 end

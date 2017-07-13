@@ -26,3 +26,9 @@ basic_auth:
   verify_ssl: true
   basic_auth_username: foo
   basic_auth_password: bar
+
+no_slack_settings:
+  name: Foo Bar
+  url: http://foo.bar
+  project: no_slack_settings
+  verify_ssl: true

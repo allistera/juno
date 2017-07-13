@@ -7,3 +7,7 @@
 joe:
   email: joeblogs@foo.com
   organisation: peachstones
+
+paul:
+  email: paul@bar.com
+  admin: true

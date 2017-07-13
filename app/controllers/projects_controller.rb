@@ -5,7 +5,7 @@ class ProjectsController < ApplicationController
   # GET /projects
   # GET /projects.json
   def index
-    @projects = Project.all
+    @projects = policy_scope(Project)
   end
 
   # GET /projects/1
@@ -14,6 +14,8 @@ class ProjectsController < ApplicationController
 
   # GET /projects/new
   def new
+    authorize :project, :new?
+
     @project = Project.new
   end
 
@@ -21,14 +23,13 @@ class ProjectsController < ApplicationController
   # POST /projects.json
   def create
     @project = Project.new(project_params)
+    authorize @project
 
     respond_to do |format|
       if @project.save
         format.html { redirect_to @project, notice: 'Project was successfully created.' }
-        format.json { render :show, status: :created, location: @project }
       else
         format.html { render :new }
-        format.json { render json: @project.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -40,7 +41,6 @@ class ProjectsController < ApplicationController
 
     respond_to do |format|
       format.html { redirect_to projects_url, notice: 'Project was successfully destroyed.' }
-      format.json { head :no_content }
     end
   end
 
@@ -49,6 +49,7 @@ class ProjectsController < ApplicationController
   # Use callbacks to share common setup or constraints between actions.
   def set_project
     @project = Project.find(params[:id])
+    authorize @project
   end
 
   # Never trust parameters from the scary internet, only allow the white list through.

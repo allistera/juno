@@ -4,26 +4,28 @@ class OrganisationsController < ApplicationController
   # GET /organisations
   # GET /organisations.json
   def index
-    @organisations = Organisation.all
+    @organisations = policy_scope(Organisation)
   end
 
   # GET /organisations/new
   def new
+    authorize :organisation, :new?
+
     @organisation = Organisation.new
   end
 
   # POST /organisation
   # POST /organisation.json
   def create
+    authorize :organisation, :create?
+
     @organisation = Organisation.new(organisation_params)
 
     respond_to do |format|
       if @organisation.save
         format.html { redirect_to organisations_path, notice: 'Organisation was successfully created.' }
-        format.json { render :show, status: :created, location: @organisation }
       else
         format.html { render :new }
-        format.json { render json: @organisation.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -34,7 +36,6 @@ class OrganisationsController < ApplicationController
     @organisation.destroy
     respond_to do |format|
       format.html { redirect_to organisations_url, notice: 'Organisation was successfully destroyed.' }
-      format.json { head :no_content }
     end
   end
 

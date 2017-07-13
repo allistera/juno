@@ -2,6 +2,12 @@
 
 one:
   name: MyString
+  organisation: peachstones
 
 two:
   name: MyString2
+  organisation: berryware
+
+no_slack_settings:
+  name: NaySlack
+  organisation: peachstones

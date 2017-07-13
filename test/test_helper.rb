@@ -6,10 +6,17 @@ require File.expand_path('../../config/environment', __FILE__)
 require 'rails/test_help'
 require 'webmock/minitest'
 require 'mocha/mini_test'
+require 'policy_assertions'
 
 module ActiveSupport
   class TestCase
     # Setup all fixtures in test/fixtures/*.yml for all tests in alphabetical order.
     fixtures :all
+
+    # Helper method for verifying that the specified Policy applies the expected scope
+    def assert_policy_scoped(expected_scope, policy)
+      assert expected_scope.count > 0
+      assert_equal expected_scope.map(&:id).sort, policy.map(&:id).sort
+    end
   end
 end

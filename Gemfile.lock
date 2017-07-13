@@ -128,8 +128,13 @@ GEM
     parser (2.4.0.0)
       ast (~> 2.2)
     pg (0.21.0)
+    policy-assertions (0.0.3)
+      activesupport (>= 3.0.0)
+      pundit (>= 1.0.0)
     powerpack (0.1.1)
     public_suffix (2.0.5)
+    pundit (1.1.0)
+      activesupport (>= 3.0.0)
     rack (2.0.3)
     rack-protection (2.0.0)
       rack
@@ -275,6 +280,8 @@ DEPENDENCIES
   mocha
   okcomputer
   pg
+  policy-assertions
+  pundit
   rails (~> 5.0.1)
   rails-controller-testing
   rubocop

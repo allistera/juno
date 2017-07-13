@@ -5,6 +5,8 @@
     <tr>
       <th>Name</th>
       <th>Number of Users</th>
+      <th>Number of Projects</th>
+      <th>Number of Checks</th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -14,6 +16,8 @@
       <tr>
         <td><%= organisation.name %></td>
         <td><%= organisation.users.count %></td>
+        <td><%= organisation.projects.count %></td>
+        <td><%= organisation.projects.sum { |project| project.sites.count} %></td>
         <td><%= link_to 'Destroy', organisation, method: :delete, data: { confirm: 'Are you sure?' } unless organisation == current_user.organisation %></td>
       </tr>
     <% end %>

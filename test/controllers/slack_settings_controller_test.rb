@@ -57,7 +57,7 @@ class SlackSettingsControllerTest < ActionDispatch::IntegrationTest
     end
 
     it 'renders new form on save error' do
-      post slack_settings_url, params: { slack_setting: { channel: '' } }
+      post slack_settings_url, params: { slack_setting: { channel: '', project_id: projects(:one).id } }
 
       assert_template :new
     end
@@ -83,7 +83,10 @@ class SlackSettingsControllerTest < ActionDispatch::IntegrationTest
     end
 
     it 'renders edit form on save error' do
-      patch slack_setting_url(@slack_setting), params: { slack_setting: { webhook_url: '' } }
+      patch slack_setting_url(@slack_setting), params: {
+        slack_setting: { webhook_url: '',
+                         project_id: @slack_setting.project_id }
+      }
 
       assert_template :edit
     end

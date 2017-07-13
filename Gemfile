@@ -50,6 +50,7 @@ gem 'httparty'
 gem 'chartjs-ror'
 
 gem 'okcomputer'
+gem 'pundit'
 gem 'skylight'
 
 group :development, :test do
@@ -61,6 +62,8 @@ group :development, :test do
   gem 'webmock'
 
   gem 'sqlite3'
+
+  gem 'policy-assertions'
 end
 
 group :production do
