@@ -18,8 +18,8 @@
   <div class="nav-right nav-menu">
 
     <% if user_signed_in? %>
-      <%= link_to 'Organisations', organisations_path, class: 'nav-item' %>
-      <%= link_to 'Users', users_path, class: 'nav-item' %>
+      <%= link_to 'Organisations', organisations_path, class: 'nav-item' if policy(:organisation).show? %>
+      <%= link_to 'Users', users_path, class: 'nav-item' if policy(:user).show? %>
       <%= link_to 'Logout', destroy_user_session_path, class: 'nav-item', method: :delete %>
     <% end %>
   </div>
