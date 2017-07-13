@@ -1,7 +1,6 @@
 require 'test_helper'
 
 class OrganisationPolicyTest < PolicyAssertions::Test
-
   describe 'admin' do
     describe 'index' do
       it 'returns if admin' do
@@ -9,7 +8,6 @@ class OrganisationPolicyTest < PolicyAssertions::Test
                              OrganisationPolicy::Scope.new(users(:paul), Organisation).resolve
       end
     end
-
   end
 
   describe 'user' do

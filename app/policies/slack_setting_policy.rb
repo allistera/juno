@@ -1,5 +1,4 @@
 class SlackSettingPolicy < ApplicationPolicy
-
   def show?
     record.project.organisation == user.organisation
   end
