@@ -12,10 +12,15 @@ class ProjectTest < ActiveSupport::TestCase
     assert_not_nil project.errors[:name], 'no validation error for name present'
   end
 
-  test 'name must be unique' do
-    project = Project.new(name: 'MyString', organisation: organisations(:berryware))
+  test 'name must be unique to organisation' do
+    project = Project.new(name: 'MyString2', organisation: organisations(:berryware))
     refute project.valid?, 'project is valid without a unique name'
     assert_not_nil project.errors[:name], 'no validation error for name present'
+  end
+
+  test 'name does not need to be unique across organisations' do
+    project = Project.new(name: 'MyString', organisation: organisations(:berryware))
+    assert project.valid?
   end
 
   test 'must belong to an organisation' do
