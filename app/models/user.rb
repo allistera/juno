@@ -4,5 +4,5 @@ class User < ApplicationRecord
   devise :invitable, :database_authenticatable, :rememberable, :trackable, :validatable
 
   belongs_to :organisation, optional: true
-  validates :organisation, presence: true, unless: proc { admin == true }
+  validates :organisation, presence: true, unless: proc { admin }
 end

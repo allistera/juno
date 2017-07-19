@@ -12,7 +12,12 @@
   <tbody>
     <% @users.each do |user| %>
       <tr>
-        <td><%= user.email %></td>
+        <td>
+          <%= user.email %>
+          <% if user.admin? %>
+              <span class="tag is-info is-pulled-right">Admin</span>
+        <% end %>
+        </td>
         <td><%= user.organisation.name if user.organisation %></td>
         <td><%= link_to 'Destroy', user, method: :delete, data: { confirm: 'Are you sure?' } unless user == current_user %></td>
       </tr>
