@@ -9,7 +9,7 @@ class UsersController < ApplicationController
 
   # GET /users/new
   def new
-    authorize :organisation, :new?
+    authorize :user, :new?
     @user = User.new
   end
 
