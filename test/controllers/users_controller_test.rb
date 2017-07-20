@@ -4,8 +4,8 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
   include Devise::Test::IntegrationHelpers
 
   setup do
-    @user = users(:joe)
-    sign_in users(:joe)
+    @user = users(:paul)
+    sign_in users(:paul)
   end
 
   describe '#index' do
@@ -17,19 +17,6 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
 
     it 'returns all users' do
       get users_url
-      assert_response :success
-    end
-  end
-
-  describe '#show' do
-    it 'requires authentication' do
-      sign_out :user
-      get user_url(@user)
-      assert_redirected_to new_user_session_url
-    end
-
-    it 'returns specific user' do
-      get user_url(@user)
       assert_response :success
     end
   end

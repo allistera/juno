@@ -8,19 +8,6 @@ class SitesControllerTest < ActionDispatch::IntegrationTest
     sign_in users(:joe)
   end
 
-  describe '#index' do
-    it 'requires authentication' do
-      sign_out :user
-      get sites_url
-      assert_redirected_to new_user_session_url
-    end
-
-    it 'returns all sites' do
-      get sites_url
-      assert_response :success
-    end
-  end
-
   describe '#show' do
     it 'requires authentication' do
       sign_out :user
@@ -70,7 +57,7 @@ class SitesControllerTest < ActionDispatch::IntegrationTest
     end
 
     it 'renders new form on save error' do
-      post sites_url, params: { site: { name: '' } }
+      post sites_url, params: { site: { name: '', project_id: @site.project_id } }
 
       assert_template :new
     end

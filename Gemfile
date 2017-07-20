@@ -50,8 +50,8 @@ gem 'httparty'
 gem 'chartjs-ror'
 
 gem 'okcomputer'
-gem "skylight"
-
+gem 'pundit'
+gem 'skylight'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
@@ -62,6 +62,8 @@ group :development, :test do
   gem 'webmock'
 
   gem 'sqlite3'
+
+  gem 'policy-assertions'
 end
 
 group :production do

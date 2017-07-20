@@ -5,3 +5,9 @@ one:
   channel: bots
   username: MyString
   project: one
+
+two:
+  webhook_url: http://foo.bar
+  channel: bots
+  username: MyString
+  project: two

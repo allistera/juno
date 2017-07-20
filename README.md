@@ -12,7 +12,7 @@
 * HTTP Health Checking
 * Custom Status Codes
 * Slack Notifications
-* Multi-User
+* Multi-User / Multi-Tenant
 
 ## Requirements
 
@@ -29,10 +29,10 @@ $ docker-compose up
 The first time Juno is ran you will need to create an administrator account:
 
 ```
-$ docker exec -d juno bundle exec rake user:create[foo@bar.com,Password]
+$ docker exec -d juno bundle exec rake user:create_admin[foo@bar.com,Password]
 ```
 
-Replacing the email address and password with your own.
+Replacing the Email Address and Password with your own.
 
 Once all the services have started browse to [http://localhost:3000](http://localhost:3000) and login.
 

@@ -1,7 +1,14 @@
 class ApplicationController < ActionController::Base
+  include Pundit
+
   protect_from_forgery with: :exception
   before_action :authenticate_user!
   before_action :workers_active?
+
+  after_action :verify_authorized, except: :index, unless: proc {
+    controller_name == 'sessions' || controller_name == 'invitations'
+  }
+  after_action :verify_policy_scoped, only: :index
 
   private
 

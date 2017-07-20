@@ -1,13 +1,14 @@
 namespace :user do
-  desc 'Create a new user account'
-  task :create, %i[email password] => :environment do |_t, args|
+  desc 'Create a new admin account'
+  task :create_admin, %i[email password] => :environment do |_t, args|
     if args.email && args.password
       user = User.create(email: args.email,
                          password: args.password,
-                         password_confirmation: args.password)
+                         password_confirmation: args.password,
+                         admin: true)
 
       if user.valid?
-        puts 'User account created.'
+        puts 'Admin account created.'
       else
         puts "ERROR: #{user.errors.messages}"
       end
