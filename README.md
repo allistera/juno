@@ -12,7 +12,7 @@
 * HTTP Health Checking
 * Custom Status Codes
 * Slack Notifications
-* Multi-User
+* Multi-User / Multi-Tenant
 
 ## Requirements
 
