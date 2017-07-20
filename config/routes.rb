@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   mount ActionCable.server => '/cable'
 
   root 'projects#index'
-  devise_for :users
+  devise_for :users, controllers: { invitations: 'users/invitations' }
   resources :users, only: %i[index show new destroy]
   resources :organisations
   resources :sites, only: %i[show new create destroy]

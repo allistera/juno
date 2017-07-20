@@ -5,7 +5,6 @@ class ApplicationController < ActionController::Base
   before_action :authenticate_user!
   before_action :workers_active?
 
-  after_action :verify_authorized, except: :index, unless: proc { controller_name == 'sessions' }
   after_action :verify_policy_scoped, only: :index
 
   private
