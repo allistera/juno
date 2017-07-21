@@ -16,7 +16,10 @@
           <%= user.email %>
           <% if user.admin? %>
               <span class="tag is-info is-pulled-right">Admin</span>
-        <% end %>
+          <% end %>
+          <% if user.invited_to_sign_up? %>
+              <span class="tag is-success is-pulled-right">Invite Pending</span>
+          <% end %>
         </td>
         <td><%= user.organisation.name if user.organisation %></td>
         <td><%= link_to 'Destroy', user, method: :delete, data: { confirm: 'Are you sure?' } unless user == current_user %></td>
