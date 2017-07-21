@@ -9,17 +9,14 @@ class OrganisationsController < ApplicationController
 
   # GET /organisations/new
   def new
-    authorize :organisation, :new?
-
     @organisation = Organisation.new
   end
 
   # POST /organisation
   # POST /organisation.json
   def create
-    authorize :organisation, :create?
-
     @organisation = Organisation.new(organisation_params)
+    authorize @organisation
 
     respond_to do |format|
       if @organisation.save
@@ -44,6 +41,7 @@ class OrganisationsController < ApplicationController
   # Use callbacks to share common setup or constraints between actions.
   def set_organisation
     @organisation = Organisation.find(params[:id])
+    authorize @organisation
   end
 
   def organisation_params
