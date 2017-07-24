@@ -9,6 +9,7 @@ class OrganisationsController < ApplicationController
 
   # GET /organisations/new
   def new
+    authorize :organisation, :new?
     @organisation = Organisation.new
   end
 
