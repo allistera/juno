@@ -28,6 +28,16 @@ class SlackSettingPolicyTest < ActiveSupport::TestCase
       end
     end
 
+    describe 'edit' do
+      it 'allows if own organisation' do
+        assert SlackSettingPolicy.new(users(:joe), slack_settings(:one)).edit?
+      end
+
+      it 'rejects if not own organisation' do
+        refute SlackSettingPolicy.new(users(:joe), slack_settings(:two)).edit?
+      end
+    end
+
     describe 'update' do
       it 'rejects outright' do
         assert SlackSettingPolicy.new(users(:joe), slack_settings(:one)).update?
