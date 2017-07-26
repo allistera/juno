@@ -11,6 +11,10 @@ class SlackSettingPolicy < ApplicationPolicy
     true
   end
 
+  def edit?
+    record.project.organisation == user.organisation
+  end
+
   def update?
     record.project.organisation == user.organisation
   end
