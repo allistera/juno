@@ -41,3 +41,26 @@
     <p class="<%= site_status_class(@site) %> site-status-<%= @site.id %>"></p>
   </div>
 </div>
+
+<hr>
+
+<div>
+  <h3 class="is-3">Latest Checks</h3>
+</div>
+
+<table class="table latest-checks">
+  <thead>
+    <tr>
+      <th>Date/Time</th>
+      <th>Status Code</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @site.checks.order('created_at desc').take(10).each do |check| %>
+      <tr>
+        <th><%= check.created_at %></th>
+        <th><%= check.status %></th>
+      </tr>
+     <% end %>
+  </tbody>
+</table>
