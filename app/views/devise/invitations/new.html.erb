@@ -2,14 +2,24 @@
 
 <%= form_for resource, :as => resource_name, :url => invitation_path(resource_name), :html => {:method => :post} do |f| %>
   <%= devise_error_messages! %>
+  <% resource.class.invite_key_fields.each do |field| %>
+    <%= f.label field, class: 'label' %>
+    <div class="control">
+      <%= f.text_field field, autofocus: true, class: 'input' %>
+    </div>
+  <% end %>
 
-<% resource.class.invite_key_fields.each do |field| -%>
-  <p><%= f.label field %><br />
-  <%= f.text_field field %></p>
-<% end -%>
+    <%= f.label :organisation_id, class: 'label' %>
+    <div class="select">
+    <%= f.collection_select(:organisation_id, Organisation.all, :id, :name) %>
+    </div>
 
-    <p><%= f.label :organisation_id %><br />
-    <%= f.collection_select(:organisation_id, Organisation.all, :id, :name) %></p>
+    <br>
+    <br>
 
-    <p><%= f.submit t("devise.invitations.new.submit_button") %></p>
+    <div class="control is-grouped">
+      <p class="control">
+        <%= f.submit "Invite", class: 'button is-primary' %>
+      </p>
+    </div>
 <% end %>
