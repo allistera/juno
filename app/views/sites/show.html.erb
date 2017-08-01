@@ -58,8 +58,8 @@
   <tbody>
     <% @site.checks.order('created_at desc').take(10).each do |check| %>
       <tr>
-        <th><%= check.created_at %></th>
-        <th><%= check.status %></th>
+        <td><%= check.created_at %></td>
+        <td><%= check.status %></td>
       </tr>
      <% end %>
   </tbody>
