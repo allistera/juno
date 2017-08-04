@@ -18,7 +18,7 @@
 
         <div class="content">
           <% project.sites.each do |site| %>
-            <span class="tag <%= site_status_class(site) %> site-<%= site.id %>">
+            <span class="tag <%= site_status_class(site) %> site-status-<%= site.id %>">
               <%= site.name %>
             </span>
           <% end %>
