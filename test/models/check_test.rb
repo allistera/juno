@@ -11,14 +11,4 @@ class CheckTest < ActiveSupport::TestCase
     refute check.valid?, 'check is valid without a site'
     assert_not_nil check.errors[:site], 'no validation error for site present'
   end
-
-  test 'sends notification if newly failed' do
-    SlackNotificationJob.expects(:perform_later)
-    Check.create(status: 401, site: sites(:one))
-  end
-
-  test 'sends notification if newly active' do
-    SlackNotificationJob.expects(:perform_later)
-    Check.create(status: 201, site: sites(:two))
-  end
 end

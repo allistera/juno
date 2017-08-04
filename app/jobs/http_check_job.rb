@@ -6,16 +6,10 @@ class HttpCheckJob < ApplicationJob
 
   def perform(site)
     response = http_check(site)
-    Check.create(site: site,
-                 status: response[:code],
-                 time: response[:time])
-
-    ActionCable.server.broadcast 'status',
-                                 site: site.id,
-                                 name: site.name,
-                                 url: site.url,
-                                 state: site.state
+    record_response(response, site)
   end
+
+  private
 
   def http_check(site)
     response = get(site.url, site.verify_ssl, basic_auth(site))
@@ -37,8 +31,6 @@ class HttpCheckJob < ApplicationJob
     { code: '' }
   end
 
-  private
-
   def success?(site, code)
     if site.custom_status
       code.to_i == site.custom_status
@@ -49,5 +41,13 @@ class HttpCheckJob < ApplicationJob
 
   def basic_auth(site)
     { username: site.basic_auth_username, password: site.basic_auth_password }
+  end
+
+  def record_response(response, site)
+    Check.create(site: site,
+                 status: response[:code],
+                 time: response[:time])
+
+    success?(site, response[:code]) ? site.success! : site.fail!
   end
 end

@@ -39,19 +39,19 @@ class SiteTest < ActiveSupport::TestCase
     assert site.active?
   end
 
-  test 'state is active' do
+  test 'status is active' do
     site = sites(:one)
-    assert_equal :active, site.state
+    assert_equal 'active', site.status
   end
 
-  test 'state is inactive' do
+  test 'status is inactive' do
     site = sites(:two)
-    assert_equal :inactive, site.state
+    assert_equal 'inactive', site.status
   end
 
-  test 'state is unknown by default' do
+  test 'status is unknown by default' do
     site = Site.create(name: 'John', url: 'http://foo.bar', project: projects(:one))
-    assert_equal :unknown, site.state
+    assert_equal 'unknown', site.status
   end
 
   test 'url must be valid address' do
@@ -131,7 +131,7 @@ class SiteTest < ActiveSupport::TestCase
 
   test 'success returns custom status' do
     site = sites(:three)
-    refute site.success?
+    refute site.active?
   end
 
   test 'inactive_checks returns custom status' do
@@ -150,5 +150,22 @@ class SiteTest < ActiveSupport::TestCase
                     basic_auth_username: 'foo',
                     basic_auth_password: 'bar')
     assert site.valid?
+  end
+
+  test 'sends slack notification if recently inactive' do
+    SlackNotificationJob.expects(:perform_later)
+    sites(:one).fail
+  end
+
+  test 'sends slack notification if recently active' do
+    SlackNotificationJob.expects(:perform_later)
+    sites(:two).success
+  end
+
+  test 'broadcasts change' do
+    ActionCable.server.expects(:broadcast)
+    SlackNotificationJob.expects(:perform_later)
+
+    sites(:two).success!
   end
 end

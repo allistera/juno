@@ -45,6 +45,7 @@ gem 'slack-notifier'
 
 gem 'validate_url'
 
+gem 'aasm'
 gem 'httparty'
 
 gem 'chartjs-ror'

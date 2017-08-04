@@ -1,22 +1,39 @@
 class Site < ApplicationRecord
+  include AASM
+
   belongs_to :project
   has_many :checks, dependent: :destroy
+  after_commit :broadcast_change
   validates :name, presence: true, uniqueness: { scope: :project,
                                                  message: 'name must be unique' }
+
   validates :url, url: true
   validates :custom_status, numericality: { only_integer: true,
                                             greater_than_or_equal_to: 100,
                                             less_than_or_equal_to: 527 }, allow_nil: true
 
-  def active?
-    success?
+  aasm column: 'status' do
+    state :unknown, initial: true
+    state :active
+    state :inactive
+
+    event :success do
+      transitions from: :unknown, to: :active
+      transitions from: :inactive, to: :active, after: proc { |*_args| slack_notification }
+    end
+
+    event :fail do
+      transitions from: :unknown, to: :inactive
+      transitions from: :active, to: :inactive, after: proc { |*_args| slack_notification }
+    end
   end
 
-  def state
-    last = checks.order('created_at desc').limit(1).first
-    return :unknown unless last
-    return :active if success?
-    return :inactive unless success?
+  def broadcast_change
+    ActionCable.server.broadcast 'status',
+                                 site: id,
+                                 name: name,
+                                 url: url,
+                                 status: status
   end
 
   def uptime
@@ -47,14 +64,7 @@ class Site < ApplicationRecord
     end
   end
 
-  def success?
-    last = checks.order('created_at desc').limit(1).first
-    return false unless last && last.status
-
-    if custom_status
-      last.status == custom_status
-    else
-      last.status.between?(200, 299)
-    end
+  def slack_notification
+    SlackNotificationJob.perform_later(self, checks.last.status)
   end
 end

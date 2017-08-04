@@ -2,7 +2,7 @@ require 'test_helper'
 
 class HttpCheckJobTest < ActiveJob::TestCase
   describe '#perform_now' do
-    it 'checks all sites' do
+    it 'checks site' do
       stub_request(:get, 'https://test.com/').to_return(status: 200)
 
       HttpCheckJob.perform_now(sites(:two))

@@ -4,12 +4,14 @@ one:
   name: Foo Bar
   url: http://foo.bar
   project: one
+  status: active
   verify_ssl: true
 
 two:
   name: Test
   url: https://test.com
   project: two
+  status: inactive
   verify_ssl: false
 
 three:
