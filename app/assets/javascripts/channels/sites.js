@@ -7,7 +7,6 @@ App.cable = ActionCable.createConsumer();
 
 App.messages = App.cable.subscriptions.create('SiteChannel', {
     received: function(data) {
-        console.log(data.status)
         if (data.status === 'active') {
             var css_class = 'is-success';
         }else if (data.status === 'inactive') {
