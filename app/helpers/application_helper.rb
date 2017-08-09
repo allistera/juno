@@ -4,4 +4,10 @@ module ApplicationHelper
     return 'is-success' if site.status == 'active'
     return 'is-danger' if site.status == 'inactive'
   end
+
+  def check_status_class(check)
+    return 'is-success' if check.state == 'active'
+    return 'is-danger' if check.state == 'inactive'
+    'unknown'
+  end
 end

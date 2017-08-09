@@ -52,14 +52,18 @@
   <thead>
     <tr>
       <th>Date/Time</th>
-      <th>Status Code</th>
+      <th>Response</th>
     </tr>
   </thead>
   <tbody>
     <% @site.checks.order('created_at desc').take(10).each do |check| %>
       <tr>
         <td><%= check.created_at %></td>
-        <td><%= check.status %></td>
+        <td>
+          <p class="tag <%= check_status_class(check) %>">
+            <%= check.status %>
+          </p>
+        </td>
       </tr>
      <% end %>
   </tbody>
