@@ -61,7 +61,7 @@
         <td><%= check.created_at %></td>
         <td>
           <p class="tag <%= check_status_class(check) %>">
-            <%= check.status %>
+            <%= check.status ? check.status : 'Host Unreachable' %>
           </p>
         </td>
       </tr>
