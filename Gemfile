@@ -30,7 +30,7 @@ gem 'redis', '~> 3.0'
 gem 'minitest', '~> 5.10', '!= 5.10.2'
 
 # CSS Framework
-gem 'bulma-rails', '~> 0.5.1'
+gem 'bulma-rails', '~> 0.5.2'
 
 # Text Icons
 gem 'font-awesome-rails'
