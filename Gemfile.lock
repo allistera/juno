@@ -47,7 +47,7 @@ GEM
     bcrypt (3.1.11)
     bindex (0.5.0)
     builder (3.2.3)
-    bulma-rails (0.5.1)
+    bulma-rails (0.5.3)
       sass (~> 3.2)
     byebug (9.1.0)
     chartjs-ror (3.3.1)
@@ -266,7 +266,7 @@ PLATFORMS
 
 DEPENDENCIES
   aasm
-  bulma-rails (~> 0.5.1)
+  bulma-rails (~> 0.5.3)
   byebug
   chartjs-ror
   codeclimate-test-reporter (~> 1.0.0)
