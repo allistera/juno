@@ -1,5 +1,6 @@
 class OrganisationsController < ApplicationController
   before_action :set_organisation, only: %i[show edit update destroy]
+  skip_before_action :authenticate_user!, expect: %i[new create]
 
   # GET /organisations
   # GET /organisations.json
@@ -21,10 +22,19 @@ class OrganisationsController < ApplicationController
 
     respond_to do |format|
       if @organisation.save
-        format.html { redirect_to organisations_path, notice: 'Organisation was successfully created.' }
+        create_success(format)
       else
         format.html { render :new }
       end
+    end
+  end
+
+  def create_success(format)
+    if current_user.admin?
+      format.html { redirect_to index, notice: 'Organisation was successfully created.' }
+    else
+      current_user.update(organisation: @organisation)
+      format.html { redirect_to root_path }
     end
   end
 

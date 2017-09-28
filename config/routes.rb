@@ -3,7 +3,7 @@ Rails.application.routes.draw do
 
   root 'projects#index'
   devise_for :users, controllers: { invitations: 'users/invitations' }
-  resources :users, only: %i[index show new destroy]
+  resources :users
   resources :organisations
   resources :sites, only: %i[show new create destroy]
   resources :projects, only: %i[index show new create destroy]

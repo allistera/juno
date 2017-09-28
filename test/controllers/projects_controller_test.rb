@@ -19,6 +19,20 @@ class ProjectsControllerTest < ActionDispatch::IntegrationTest
       get projects_url
       assert_response :success
     end
+
+    it 'redirects if user with no organisation' do
+      sign_out :user
+      sign_in users(:greg)
+      get projects_url
+      assert_redirected_to new_organisation_url
+    end
+
+    it 'does not redirect if admin' do
+      sign_out :user
+      sign_in users(:paul)
+      get projects_url
+      assert_response :success
+    end
   end
 
   describe '#show' do
