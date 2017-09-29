@@ -13,7 +13,7 @@
     <% @users.each do |user| %>
       <tr>
         <td>
-          <%= user.email %>
+          <%= link_to user.email, user_path(user) %>
           <% if user.admin? %>
               <span class="tag is-info is-pulled-right">Admin</span>
           <% end %>

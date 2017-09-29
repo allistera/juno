@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: %i[destroy]
+  before_action :set_user, only: %i[show update destroy]
   skip_before_action :authenticate_user!, only: %i[new create]
 
   # GET /users
@@ -7,6 +7,9 @@ class UsersController < ApplicationController
   def index
     @users = policy_scope(User)
   end
+
+  # GET /users/1
+  def show; end
 
   # GET /users/new
   def new
@@ -25,6 +28,18 @@ class UsersController < ApplicationController
         format.html { redirect_to new_user_session_path, notice: 'User was successfully created, please login.' }
       else
         format.html { render :new }
+      end
+    end
+  end
+
+  # PATCH/PUT /users/1
+  # PATCH/PUT /users/1.json
+  def update
+    respond_to do |format|
+      if @user.update(users_update_params)
+        format.html { redirect_to users_path, notice: 'User was successfully updated.' }
+      else
+        format.html { render :show }
       end
     end
   end
@@ -49,5 +64,9 @@ class UsersController < ApplicationController
   # Never trust parameters from the scary internet, only allow the white list through.
   def users_params
     params.require(:user).permit(:email, :password, :password_confirmation)
+  end
+
+  def users_update_params
+    params.require(:user).permit(:email, :organisation_id, :admin)
   end
 end
