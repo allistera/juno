@@ -1,6 +1,5 @@
 class OrganisationsController < ApplicationController
   before_action :set_organisation, only: %i[show edit update destroy]
-  skip_before_action :authenticate_user!, expect: %i[new create]
 
   # GET /organisations
   # GET /organisations.json
@@ -31,7 +30,7 @@ class OrganisationsController < ApplicationController
 
   def create_success(format)
     if current_user.admin?
-      format.html { redirect_to index, notice: 'Organisation was successfully created.' }
+      format.html { redirect_to root_path, notice: 'Organisation was successfully created.' }
     else
       current_user.update(organisation: @organisation)
       format.html { redirect_to root_path }
@@ -41,7 +40,8 @@ class OrganisationsController < ApplicationController
   # DELETE /organisations/1
   # DELETE /organisations/1.json
   def destroy
-    @organisation.destroy
+    ModelDeleteJob.perform_later(@organisation)
+
     respond_to do |format|
       format.html { redirect_to organisations_url, notice: 'Organisation was successfully destroyed.' }
     end

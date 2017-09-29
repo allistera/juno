@@ -9,9 +9,18 @@ class ApplicationController < ActionController::Base
   }
 
   after_action :verify_authorized, except: :index, unless: proc {
-    controller_name == 'sessions' || controller_name == 'invitations'
+    controller_name == 'sessions' ||
+      controller_name == 'invitations' ||
+      (controller_name == 'organisations' && (action_name == 'new' || action_name == 'create'))
   }
   after_action :verify_policy_scoped, only: :index
+  rescue_from Pundit::NotAuthorizedError, with: :not_authorized
+
+  protected
+
+  def not_authorized
+    redirect_to root_path, error: 'Not authorized to view resource.'
+  end
 
   private
 
@@ -22,7 +31,6 @@ class ApplicationController < ActionController::Base
   end
 
   def organisation_exist?
-    return if controller_name == 'organisations' && (action_name == 'new' || action_name == 'create')
     redirect_to new_organisation_path unless current_user.organisation || current_user.admin
   end
 end

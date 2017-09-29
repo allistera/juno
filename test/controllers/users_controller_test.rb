@@ -32,11 +32,11 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     it 'creates new user' do
       assert_difference('User.count') do
         post users_url, params: {
-            user: {
-                email: 'foo@gmail.com',
-                password: 'FooBar!',
-                password_confirmation: 'FooBar!'
-            }
+          user: {
+            email: 'foo@gmail.com',
+            password: 'FooBar!',
+            password_confirmation: 'FooBar!'
+          }
         }
       end
 
@@ -44,7 +44,7 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     end
 
     it 'renders new form on save error' do
-      post users_url, params: { user: { email: '', password: '', password_confirmation: 'a'} }
+      post users_url, params: { user: { email: '', password: '', password_confirmation: 'a' } }
 
       assert_template :new
     end
