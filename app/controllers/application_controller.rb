@@ -5,13 +5,13 @@ class ApplicationController < ActionController::Base
   before_action :authenticate_user!
   before_action :workers_active?
   before_action :organisation_exist?, unless: proc {
-    !current_user || controller_name == 'sessions' || controller_name == 'invitations'
+    !current_user || controller_name == 'sessions' || controller_name == 'invitations' ||
+      (controller_name == 'organisations' && (action_name == 'new' || action_name == 'create'))
   }
 
   after_action :verify_authorized, except: :index, unless: proc {
     controller_name == 'sessions' ||
-      controller_name == 'invitations' ||
-      (controller_name == 'organisations' && (action_name == 'new' || action_name == 'create'))
+      controller_name == 'invitations'
   }
   after_action :verify_policy_scoped, only: :index
   rescue_from Pundit::NotAuthorizedError, with: :not_authorized
