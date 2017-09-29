@@ -23,9 +23,15 @@ class OrganisationPolicyTest < PolicyAssertions::Test
       end
     end
 
+    describe 'new' do
+      it 'public' do
+        assert OrganisationPolicy.new(users(:joe), organisations(:peachstones)).new?
+      end
+    end
+
     describe 'create' do
-      it 'rejects outright' do
-        refute OrganisationPolicy.new(users(:joe), organisations(:peachstones)).create?
+      it 'public' do
+        assert OrganisationPolicy.new(users(:joe), organisations(:peachstones)).create?
       end
     end
 

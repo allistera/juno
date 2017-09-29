@@ -21,17 +21,27 @@ class OrganisationsController < ApplicationController
 
     respond_to do |format|
       if @organisation.save
-        format.html { redirect_to organisations_path, notice: 'Organisation was successfully created.' }
+        create_success(format)
       else
         format.html { render :new }
       end
     end
   end
 
+  def create_success(format)
+    if current_user.admin?
+      format.html { redirect_to root_path, notice: 'Organisation was successfully created.' }
+    else
+      current_user.update(organisation: @organisation)
+      format.html { redirect_to root_path }
+    end
+  end
+
   # DELETE /organisations/1
   # DELETE /organisations/1.json
   def destroy
-    @organisation.destroy
+    ModelDeleteJob.perform_later(@organisation)
+
     respond_to do |format|
       format.html { redirect_to organisations_url, notice: 'Organisation was successfully destroyed.' }
     end

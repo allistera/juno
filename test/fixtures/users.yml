@@ -11,3 +11,6 @@ joe:
 paul:
   email: paul@bar.com
   admin: true
+
+greg:
+  email: greg@bar.com

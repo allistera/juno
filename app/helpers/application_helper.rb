@@ -6,8 +6,8 @@ module ApplicationHelper
   end
 
   def check_status_class(check)
-    return 'is-success' if check.state == 'active'
-    return 'is-danger' if check.state == 'inactive'
+    return 'is-success' if check.status == 'active'
+    return 'is-danger' if check.status == 'inactive'
     'unknown'
   end
 end

@@ -14,9 +14,15 @@ class UserPolicyTest < ActiveSupport::TestCase
       end
     end
 
+    describe 'new' do
+      it 'allows' do
+        assert UserPolicy.new(users(:joe), users(:paul)).new?
+      end
+    end
+
     describe 'create' do
-      it 'rejects outright' do
-        refute UserPolicy.new(users(:joe), users(:paul)).create?
+      it 'allows' do
+        assert UserPolicy.new(users(:joe), users(:paul)).create?
       end
     end
 
