@@ -7,7 +7,23 @@
   <%= link_to 'Delete Site', site_path(@site), class: 'button is-danger', method: :delete, :data => {:confirm => 'Are you sure?'} %>
 </div>
 
-<%= line_chart @data, @options %>
+<div class="control has-icons-left">
+  <div class="select is-small">
+    <select id="chart-scope" data-id="<%= @site.id %>">
+      <option selected value="second">1 hour</option>
+      <option value="day">1 day</option>
+      <option value="week">1 week</option>
+      <option value="month">1 month</option>
+    </select>
+  </div>
+  <span class="icon is-small is-left">
+    <i class="fa fa-clock-o"></i>
+  </span>
+</div>
+
+<br>
+
+<%= line_chart site_checks_url(@site, { range: 'second' }), download: true %>
 
 <div class="columns site-stats">
   <div class="column">

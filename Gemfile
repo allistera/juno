@@ -56,14 +56,17 @@ gem 'aasm'
 # Sending HTTP requests
 gem 'httparty'
 
-# Javascript Charting Library
-gem 'chartjs-ror'
-
 # Healthcheck Endpoint
 gem 'okcomputer'
 
 # Authorization Library
 gem 'pundit'
+
+# Charting Library
+gem 'chartkick'
+
+# Allows grouping temporal data
+gem 'groupdate'
 
 group :development, :test do
   # Debugging

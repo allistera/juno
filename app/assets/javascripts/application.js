@@ -12,6 +12,8 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require Chart.min
+//= require Chart.bundle
+//= require chartkick
 //= require turbolinks
 //= require_tree .
+

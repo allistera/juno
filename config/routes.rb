@@ -5,7 +5,9 @@ Rails.application.routes.draw do
   devise_for :users, controllers: { invitations: 'users/invitations' }
   resources :users
   resources :organisations
-  resources :sites, only: %i[show new create destroy]
+  resources :sites, only: %i[show new create destroy] do
+    get '/checks', to: 'sites#checks'
+  end
   resources :projects, only: %i[index show new create destroy]
   resources :slack_settings, only: %i[show new create update edit destroy]
 

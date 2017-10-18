@@ -14,4 +14,8 @@ class SitePolicy < ApplicationPolicy
   def destroy?
     record.project.organisation == user.organisation
   end
+
+  def checks?
+    record.project.organisation == user.organisation
+  end
 end

@@ -1,0 +1,29 @@
+default: &default
+  second:
+    range_from: <%= 1.hour.ago.utc %>
+    format: '%H:%M'
+    period: 'second'
+
+  day:
+    range_from: <%= 1.day.ago.utc %>
+    format: '%H:%M'
+    period: 'hour'
+
+  week:
+    range_from: <%= 1.week.ago.utc %>
+    format: '%e/%b/%y'
+    period: 'day'
+
+  month:
+    range_from: <%= 1.month.ago.utc %>
+    format: '%e/%b/%y'
+    period: 'day'
+
+development:
+  <<: *default
+
+test:
+  <<: *default
+
+production:
+  <<: *default

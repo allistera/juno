@@ -22,6 +22,12 @@ document.addEventListener("turbolinks:load", function() {
 
     $(this).addClass('is-active');
     $("#" + tab_id).removeClass('hidden');
-  })
+  });
+
+    $( "#chart-scope" ).change(function() {
+        var siteID = $('#chart-scope').data('id');
+        new Chartkick.LineChart("chart-1", "/sites/" + siteID + "/checks?range=" + this.value, {});
+    });
+
 
 });

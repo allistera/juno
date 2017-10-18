@@ -43,5 +43,15 @@ class SitePolicyTest < ActiveSupport::TestCase
         refute SitePolicy.new(users(:joe), sites(:two)).destroy?
       end
     end
+
+    describe 'checks' do
+      it 'allows if own organisation' do
+        assert SitePolicy.new(users(:joe), sites(:one)).checks?
+      end
+
+      it 'rejects if not own organisation' do
+        refute SitePolicy.new(users(:joe), sites(:two)).checks?
+      end
+    end
   end
 end

@@ -21,6 +21,24 @@ class SitesControllerTest < ActionDispatch::IntegrationTest
     end
   end
 
+  describe '#checks' do
+    it 'requires authentication' do
+      sign_out :user
+      get site_checks_url(@site)
+      assert_redirected_to new_user_session_url
+    end
+
+    it 'returns specific site' do
+      get site_checks_url(@site)
+      assert_response :success
+    end
+
+    it 'returns specific site for a given range' do
+      get site_checks_url(@site, range: 'month')
+      assert_response :success
+    end
+  end
+
   describe '#new' do
     it 'requires authentication' do
       sign_out :user
