@@ -1,7 +1,6 @@
 class SitesController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_site, only: %i[show destroy]
-  before_action :construct_chart, only: %i[show]
+  before_action :set_site, only: %i[show checks destroy checks]
 
   # GET /sites/1
   # GET /sites/1.json
@@ -12,6 +11,11 @@ class SitesController < ApplicationController
     authorize :site, :new?
 
     @site = Site.new(project_id: params[:project].to_i)
+  end
+
+  # GET /sites/1/checks
+  def checks
+    render json: grouped_checks
   end
 
   # POST /sites
@@ -43,7 +47,7 @@ class SitesController < ApplicationController
 
   # Use callbacks to share common setup or constraints between actions.
   def set_site
-    @site = Site.find(params[:id])
+    @site = Site.find(params[:id] || params[:site_id])
     authorize @site
   end
 
@@ -58,28 +62,19 @@ class SitesController < ApplicationController
     site_params.merge(url: url).except(:protocol)
   end
 
-  # rubocop:disable Metrics/MethodLength
-  def construct_chart
-    checks = @site.checks.last(20)
+  def grouped_checks
+    Groupdate.time_zone = false
 
-    @data = {
-      labels: checks.map { |check| check.created_at.to_formatted_s(:short) },
-      datasets: [
-        {
-          label: 'Response Time',
-          data: checks.map { |check| (check.time * 1000).round if check.time },
-          fill: false,
-          pointBackgroundColor: 'green',
-          borderColor: 'green'
-        }
-      ]
-    }
-    @options = {
-      height: 100,
-      legend: {
-        display: false
-      }
-    }
+    @site.checks.group_by_period(
+      chart_config['period'],
+      :created_at,
+      series: false,
+      format: chart_config['format'],
+      range: chart_config['range_from'].to_time(:utc)..Time.now.utc
+    ).average(:time)
   end
-  # rubocop:enable Metrics/MethodLength
+
+  def chart_config
+    Rails.application.config_for(:chart)[params[:range].nil? ? 'second' : params[:range]]
+  end
 end
