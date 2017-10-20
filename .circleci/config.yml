@@ -4,11 +4,11 @@
 #
 version: 2
 jobs:
-  build:
+  test:
     docker:
       # specify the version you desire here
        - image: circleci/ruby:2.4.1-node-browsers
-      
+
 
     working_directory: ~/repo
 
@@ -31,7 +31,7 @@ jobs:
           paths:
             - ./vendor/bundle
           key: v1-dependencies-{{ checksum "Gemfile.lock" }}
-        
+
       # Database setup
       - run: bundle exec rake db:create
       - run: bundle exec rake db:schema:load
@@ -42,3 +42,8 @@ jobs:
           command: |
             bundle exec rake test
 
+workflows:
+  version: 2
+  build_and_test:
+    jobs:
+      - test
