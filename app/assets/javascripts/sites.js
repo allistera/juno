@@ -1,5 +1,6 @@
 document.addEventListener("turbolinks:load", function() {
-  $('#success_status').click(function(){
+
+    $('#success_status').click(function(){
     if ($(this).is(':checked'))
     {
       $('#custom_status_value').attr("disabled", "disabled");

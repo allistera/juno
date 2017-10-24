@@ -21,7 +21,7 @@
               <span class="tag is-success is-pulled-right">Invite Pending</span>
           <% end %>
         </td>
-        <td><%= user.organisation.name if user.organisation %></td>
+        <td><%= user.organisation.try(:name) %></td>
         <td><%= link_to 'Destroy', user, method: :delete, data: { confirm: 'Are you sure?' } unless user == current_user %></td>
       </tr>
     <% end %>
