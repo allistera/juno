@@ -1,7 +1,12 @@
 pipeline {
-  agent any
+  agent {
+    docker {
+      image 'ruby'
+    }
+    
+  }
   stages {
-    stage('') {
+    stage('error') {
       steps {
         sh 'bundle install'
       }
