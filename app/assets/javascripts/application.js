@@ -15,5 +15,6 @@
 //= require Chart.bundle
 //= require chartkick
 //= require turbolinks
+//= require rails-timeago
 //= require_tree .
 

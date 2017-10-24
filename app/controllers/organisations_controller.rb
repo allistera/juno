@@ -28,15 +28,6 @@ class OrganisationsController < ApplicationController
     end
   end
 
-  def create_success(format)
-    if current_user.admin?
-      format.html { redirect_to root_path, notice: 'Organisation was successfully created.' }
-    else
-      current_user.update(organisation: @organisation)
-      format.html { redirect_to root_path }
-    end
-  end
-
   # DELETE /organisations/1
   # DELETE /organisations/1.json
   def destroy
@@ -48,6 +39,15 @@ class OrganisationsController < ApplicationController
   end
 
   private
+
+  def create_success(format)
+    if current_user.admin?
+      format.html { redirect_to root_path, notice: 'Organisation was successfully created.' }
+    else
+      current_user.update(organisation: @organisation)
+      format.html { redirect_to root_path }
+    end
+  end
 
   # Use callbacks to share common setup or constraints between actions.
   def set_organisation

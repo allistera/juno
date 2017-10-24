@@ -49,7 +49,7 @@
   <div class="column">
     <h1>Last Downtime</h1>
     <p>
-      <%= @site.last_downtime ? time_ago_in_words(@site.last_downtime) + ' ago' : 'N/A' %>
+      <%= timeago_tag @site.last_downtime, limit: nil, default: 'N/A' %>
     </p>
   </div>
   <div class="column success-in-label">

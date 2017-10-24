@@ -68,11 +68,15 @@ gem 'chartkick'
 # Allows grouping temporal data
 gem 'groupdate'
 
+# Create time tags usable for jQuery Timeago plugin
+gem 'rails-timeago', '~> 2.0'
+
 group :development, :test do
   # Debugging
   gem 'byebug', platform: :mri
 
   # Code linting
+  gem 'rails_best_practices'
   gem 'rubocop', require: false
 
   # Mock HTTP requests

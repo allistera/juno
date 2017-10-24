@@ -3,8 +3,8 @@ Rails.application.routes.draw do
 
   root 'projects#index'
   devise_for :users, controllers: { invitations: 'users/invitations' }
-  resources :users
-  resources :organisations
+  resources :users, only: %i[index show new create destroy update]
+  resources :organisations, only: %i[index new create destroy]
   resources :sites, only: %i[show new create destroy] do
     get '/checks', to: 'sites#checks'
   end
