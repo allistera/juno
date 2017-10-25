@@ -8,9 +8,9 @@ rvm:
 jobs:
   include:
     - stage: test
-      script: bin/rake db:migrate RAILS_ENV=test
-      script: bin/rake test
-    - stage: rubocop
+      script: 
+      - bin/rake db:migrate RAILS_ENV=test
+      - bin/rake test
       script: bin/bundle exec rubocop
 
 
