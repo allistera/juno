@@ -11,6 +11,5 @@ jobs:
       script: 
       - bin/rake db:migrate RAILS_ENV=test
       - bin/rake test
-      - bin/bundle exec codeclimate-test-reporter
     - script: bin/bundle exec rubocop
 
