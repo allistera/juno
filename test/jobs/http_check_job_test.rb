@@ -46,6 +46,20 @@ class HttpCheckJobTest < ActiveJob::TestCase
       assert_nil Check.last.status
     end
 
+    it 'allows calling success event on active site' do
+      stub_request(:get, 'https://test.com/').to_return(status: 200)
+
+      HttpCheckJob.perform_now(sites(:two))
+      HttpCheckJob.perform_now(sites(:two))
+    end
+
+    it 'allows calling fail event on inactive site' do
+      stub_request(:get, 'https://test.com/').to_return(status: 500)
+
+      HttpCheckJob.perform_now(sites(:two))
+      HttpCheckJob.perform_now(sites(:two))
+    end
+
     it 'supports basic auth' do
       stub_request(:get, 'http://foo.bar/')
         .with(headers: { 'Authorization' => 'Basic Zm9vOmJhcg==' })

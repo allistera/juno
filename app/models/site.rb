@@ -19,10 +19,12 @@ class Site < ApplicationRecord
 
     event :success do
       transitions from: :unknown, to: :active
+      transitions from: :active, to: :active
       transitions from: :inactive, to: :active, after: proc { |*_args| slack_notification }
     end
 
     event :fail do
+      transitions from: :inactive, to: :inactive
       transitions from: :unknown, to: :inactive
       transitions from: :active, to: :inactive, after: proc { |*_args| slack_notification }
     end
