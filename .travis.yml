@@ -12,4 +12,5 @@ jobs:
       - bin/rake db:migrate RAILS_ENV=test
       - bin/rake test
     - script: bin/bundle exec rubocop
+    - script: bin/bundle exec rails_best_practices
 
