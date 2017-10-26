@@ -53,8 +53,6 @@ GEM
     chartkick (2.2.4)
     code_analyzer (0.4.8)
       sexp_processor
-    codeclimate-test-reporter (1.0.8)
-      simplecov (<= 0.13)
     concurrent-ruby (1.0.5)
     connection_pool (2.2.1)
     crack (0.4.3)
@@ -228,7 +226,7 @@ GEM
     sidekiq-cron (0.6.3)
       rufus-scheduler (>= 3.3.0)
       sidekiq (>= 4.2.1)
-    simplecov (0.13.0)
+    simplecov (0.15.1)
       docile (~> 1.1.0)
       json (>= 1.8, < 3)
       simplecov-html (~> 0.10.0)
@@ -289,7 +287,6 @@ DEPENDENCIES
   bulma-rails (~> 0.5.1)
   byebug
   chartkick
-  codeclimate-test-reporter (~> 1.0.0)
   devise
   devise_invitable
   font-awesome-rails

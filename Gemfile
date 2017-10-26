@@ -104,9 +104,6 @@ group :production do
 end
 
 group :test do
-  # Report metrics to CodeClimate
-  gem 'codeclimate-test-reporter', '~> 1.0.0'
-
   # Makes ActiveSupport::TestCase to utilize the MiniTest::Spec::DSL
   gem 'minitest-spec-rails'
 
