@@ -78,6 +78,7 @@ group :development, :test do
   # Code linting
   gem 'rails_best_practices'
   gem 'rubocop', require: false
+  gem 'brakeman', :require => false
 
   # Mock HTTP requests
   gem 'webmock'

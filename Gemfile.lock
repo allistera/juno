@@ -46,6 +46,7 @@ GEM
     ast (2.3.0)
     bcrypt (3.1.11)
     bindex (0.5.0)
+    brakeman (4.0.1)
     builder (3.2.3)
     bulma-rails (0.5.3)
       sass (~> 3.2)
@@ -284,6 +285,7 @@ PLATFORMS
 
 DEPENDENCIES
   aasm
+  brakeman
   bulma-rails (~> 0.5.1)
   byebug
   chartkick
