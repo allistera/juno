@@ -14,4 +14,3 @@ jobs:
     - script: bin/bundle exec rubocop
     - script: bin/bundle exec rails_best_practices
     - script: bin/bundle exec brakeman
-
