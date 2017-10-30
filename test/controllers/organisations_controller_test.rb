@@ -5,7 +5,7 @@ class OrganisationsControllerTest < ActionDispatch::IntegrationTest
 
   setup do
     @organisation = organisations(:peachstones)
-    sign_in users(:paul)
+    sign_in users(:elton)
   end
 
   describe '#index' do
@@ -15,13 +15,19 @@ class OrganisationsControllerTest < ActionDispatch::IntegrationTest
       assert_redirected_to new_user_session_url
     end
 
-    it 'returns all organisations for admins' do
+    it 'returns all organisations for platform admins' do
       get organisations_url
       assert_response :success
     end
 
     it 'does not return all organisations for users' do
       sign_in users(:joe)
+      get organisations_url
+      assert_redirected_to root_path
+    end
+
+    it 'does not return all organisations for admins' do
+      sign_in users(:paul)
       get organisations_url
       assert_redirected_to root_path
     end

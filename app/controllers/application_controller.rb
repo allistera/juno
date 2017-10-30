@@ -31,6 +31,6 @@ class ApplicationController < ActionController::Base
   end
 
   def organisation_exist?
-    redirect_to new_organisation_path unless current_user.organisation || current_user.admin
+    redirect_to new_organisation_path unless current_user.organisation || current_user.platform_admin
   end
 end

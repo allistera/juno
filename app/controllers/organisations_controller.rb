@@ -41,10 +41,10 @@ class OrganisationsController < ApplicationController
   private
 
   def create_success(format)
-    if current_user.admin?
+    if current_user.platform_admin
       format.html { redirect_to root_path, notice: 'Organisation was successfully created.' }
     else
-      current_user.update(organisation: @organisation)
+      current_user.update(organisation: @organisation, admin: true)
       format.html { redirect_to root_path }
     end
   end
