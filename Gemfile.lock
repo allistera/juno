@@ -46,11 +46,12 @@ GEM
     ast (2.3.0)
     bcrypt (3.1.11)
     bindex (0.5.0)
+    brakeman (4.0.1)
     builder (3.2.3)
     bulma-rails (0.5.3)
       sass (~> 3.2)
     byebug (9.1.0)
-    chartkick (2.2.4)
+    chartkick (2.2.5)
     code_analyzer (0.4.8)
       sexp_processor
     concurrent-ruby (1.0.5)
@@ -204,7 +205,7 @@ GEM
     rufus-scheduler (3.4.2)
       et-orbi (~> 1.0)
     safe_yaml (1.0.4)
-    sass (3.5.2)
+    sass (3.5.3)
       sass-listen (~> 4.0.0)
     sass-listen (4.0.0)
       rb-fsevent (~> 0.9, >= 0.9.4)
@@ -253,7 +254,7 @@ GEM
     turbolinks (5.0.1)
       turbolinks-source (~> 5)
     turbolinks-source (5.0.3)
-    tzinfo (1.2.3)
+    tzinfo (1.2.4)
       thread_safe (~> 0.1)
     uglifier (3.2.0)
       execjs (>= 0.3.0, < 3)
@@ -284,6 +285,7 @@ PLATFORMS
 
 DEPENDENCIES
   aasm
+  brakeman
   bulma-rails (~> 0.5.1)
   byebug
   chartkick

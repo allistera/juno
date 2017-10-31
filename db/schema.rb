@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170803105056) do
+ActiveRecord::Schema.define(version: 20171027163606) do
 
   create_table "checks", force: :cascade do |t|
     t.integer "status"
@@ -82,6 +82,7 @@ ActiveRecord::Schema.define(version: 20170803105056) do
     t.integer "invitations_count", default: 0
     t.integer "organisation_id"
     t.boolean "admin", default: false
+    t.boolean "platform_admin", default: false
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["invitation_token"], name: "index_users_on_invitation_token", unique: true
     t.index ["invitations_count"], name: "index_users_on_invitations_count"

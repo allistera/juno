@@ -5,7 +5,7 @@ class OrganisationPolicyTest < PolicyAssertions::Test
     describe 'index' do
       it 'returns if admin' do
         assert_policy_scoped Organisation.all,
-                             OrganisationPolicy::Scope.new(users(:paul), Organisation).resolve
+                             OrganisationPolicy::Scope.new(users(:elton), Organisation).resolve
       end
     end
   end

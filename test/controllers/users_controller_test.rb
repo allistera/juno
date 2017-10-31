@@ -4,8 +4,8 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
   include Devise::Test::IntegrationHelpers
 
   setup do
-    @user = users(:paul)
-    sign_in users(:paul)
+    @user = users(:elton)
+    sign_in users(:elton)
   end
 
   describe '#index' do

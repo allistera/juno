@@ -10,7 +10,13 @@ joe:
 
 paul:
   email: paul@bar.com
+  organisation: berryware
   admin: true
 
 greg:
   email: greg@bar.com
+
+elton:
+  email: elton@bar.com
+  organisation: peachstones
+  platform_admin: true

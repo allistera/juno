@@ -1,11 +1,7 @@
 module Users
   class InvitationsController < Devise::InvitationsController
-    before_action :configure_permitted_parameters, if: :devise_controller?
-
-    protected
-
-    def configure_permitted_parameters
-      devise_parameter_sanitizer.permit(:invite, keys: [:organisation_id])
+    def invite_params
+      super.merge(organisation_id: current_user.organisation.id)
     end
   end
 end

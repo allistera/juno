@@ -1,17 +1,17 @@
 class OrganisationPolicy < ApplicationPolicy
   class Scope < Scope
     def resolve
-      raise Pundit::NotAuthorizedError, 'must be logged in' unless user.admin
+      raise Pundit::NotAuthorizedError, 'must be logged in' unless user.platform_admin
       scope.all
     end
   end
 
   def index?
-    user.admin
+    user.platform_admin
   end
 
   def show?
-    user.admin
+    user.platform_admin
   end
 
   def create?
@@ -23,10 +23,10 @@ class OrganisationPolicy < ApplicationPolicy
   end
 
   def update?
-    user.admin
+    user.platform_admin
   end
 
   def destroy?
-    user.admin
+    user.platform_admin
   end
 end

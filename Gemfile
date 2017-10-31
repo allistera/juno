@@ -76,6 +76,7 @@ group :development, :test do
   gem 'byebug', platform: :mri
 
   # Code linting
+  gem 'brakeman', require: false
   gem 'rails_best_practices'
   gem 'rubocop', require: false
 
