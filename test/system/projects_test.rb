@@ -4,7 +4,7 @@ class ProjectsTest < ApplicationSystemTestCase
   test 'create new project and configure slack' do
     sign_in users(:paul)
     visit root_path
-    click_on 'New Project'
+    find('a', text: 'New Project').trigger('click')
 
     assert_text 'Creating Project'
     fill_in 'project_name', with: 'Production'

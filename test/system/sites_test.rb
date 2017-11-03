@@ -6,7 +6,7 @@ class SitesTest < ApplicationSystemTestCase
     visit root_path
     click_on 'MyString'
 
-    click_on 'New Site'
+    find('a', text: 'New Site').trigger('click')
 
     assert_text 'Add Site'
     fill_in 'site[name]', with: 'Google'

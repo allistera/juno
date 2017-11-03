@@ -118,7 +118,7 @@ group :test do
   gem 'simplecov', require: false
 
   gem 'capybara'
-  gem 'selenium-webdriver'
+  gem 'poltergeist'
 end
 
 group :development do
