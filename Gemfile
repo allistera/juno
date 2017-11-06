@@ -76,8 +76,6 @@ group :development, :test do
   gem 'byebug', platform: :mri
 
   # Code linting
-  gem 'brakeman', require: false
-  gem 'rails_best_practices'
   gem 'rubocop', require: false
 
   # Mock HTTP requests
@@ -116,6 +114,9 @@ group :test do
 
   # Provides line coverage reports
   gem 'simplecov', require: false
+
+  gem 'capybara'
+  gem 'poltergeist'
 end
 
 group :development do
