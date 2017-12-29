@@ -12,7 +12,7 @@ class ProbesController < ApplicationController
 
   # POST /probes
   def create
-    @probe = Probe.new(probe_params)
+    @probe = Probe.where(probe_params).first_or_create
     authorize @probe
 
     return render json: @probe, status: :created if @probe.save
