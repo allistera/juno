@@ -1,0 +1,32 @@
+<h1 class="title is-1">Probes</h1>
+
+<div class="actions">
+ <div class="field has-addons">
+   <p class="control">
+     <a class="button is-static">
+       Probe Secret:
+     </a>
+   </p>
+   <p class="control">
+     <input class="input" type="text" value="<%= ENV['JUNO_PROBE_SECRET'] %>">
+   </p>
+ </div>
+</div>
+
+<table class="table projects-table">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @probes.each do |probe| %>
+      <tr>
+        <td><%= probe.name %></td>
+        <td></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
