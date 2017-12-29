@@ -11,7 +11,7 @@ services:
     image: redis
 
   web:
-    build: . 
+    build: .
     ports:
       - "3000:80"
     links:
@@ -30,6 +30,7 @@ services:
     - RAILS_ENV=production
     - SITE_ADDRESS=localhost
     - REDIS_URL=redis://redis
+    - JUNO_PROBE_SECRET=sda23r23fwedsfergv32r3r
 
   sidekiq:
     build: .
@@ -43,6 +44,7 @@ services:
     - PG_PORT_5432_TCP_ADDR=db
     - SECRET_KEY=oiwefhoin230w0ifh203h0hfewo
     - REDIS_URL=redis://redis
+    - JUNO_PROBE_SECRET=sda23r23fwedsfergv32r3r
 
   smtp:
     image: namshi/smtp
