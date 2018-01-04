@@ -48,3 +48,15 @@ services:
 
   smtp:
     image: namshi/smtp
+
+  juno-probe:
+    image: allistera/juno-probe
+    depends_on:
+      - web
+    ports:
+      - "9090:9090"
+    environment:
+      JUNO_URL: http://web
+      JUNO_PROBE_URL: http://juno-probe:9090
+      JUNO_PROBE_PORT: 9090
+      JUNO_PROBE_SECRET: sda23r23fwedsfergv32r3r

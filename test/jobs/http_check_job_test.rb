@@ -2,68 +2,101 @@ require 'test_helper'
 
 class HttpCheckJobTest < ActiveJob::TestCase
   describe '#perform_now' do
+    setup do
+      ENV.stubs(:[]).with('JUNO_PROBE_SECRET').returns('FooBar')
+    end
+
     it 'checks site' do
-      stub_request(:get, 'https://test.com/').to_return(status: 200)
+      submitted_payload = {
+        url: 'https://test.com',
+        verify_ssl: false,
+        basic_auth: {
+          username: nil,
+          password: nil
+        }
+      }
+      returned_payload = {
+        'Result' => {
+          'StatusCode' => 200,
+          'ResponseTime' => 12_121_212
+        }
+      }
+      stub_request(:post, 'http://eu.local/v1/request')
+        .to_return(status: 200, body: returned_payload.to_json)
+        .with(body: submitted_payload.to_json,
+              headers: { 'Authorization' => 'Bearer FooBar' })
 
       HttpCheckJob.perform_now(sites(:two))
 
       assert_equal 200, Check.last.status
+      assert_equal 12_121_212, Check.last.time
     end
 
-    it 'checks twice if first fails' do
-      stub_request(:get, 'http://foo.bar/').to_return(status: 501)
-      stub_request(:get, 'http://foo.bar/').to_return(status: 501)
-
-      HttpCheckJob.perform_now(sites(:one))
-
-      assert_equal 501, Check.last.status
-    end
-
-    it 'checks twice if first fails for a custom status' do
-      stub_request(:get, 'https://test2.com/').to_return(status: 501)
-      stub_request(:get, 'https://test2.com/').to_return(status: 501)
+    it 'supports custom status' do
+      submitted_payload = {
+        url: 'https://test2.com',
+        verify_ssl: true,
+        basic_auth: {
+          username: nil,
+          password: nil
+        }
+      }
+      returned_payload = {
+        'Result' => {
+          'StatusCode' => 501,
+          'ResponseTime' => 12_121_212
+        }
+      }
+      stub_request(:post, 'http://eu.local/v1/request')
+        .to_return(status: 200, body: returned_payload.to_json)
+        .with(body: submitted_payload.to_json,
+              headers: { 'Authorization' => 'Bearer FooBar' })
 
       HttpCheckJob.perform_now(sites(:three))
 
       assert_equal 501, Check.last.status
+      assert_equal 12_121_212, Check.last.time
     end
 
     it 'returns nil on HTTParty::ResponseError exception' do
-      stub_request(:get, 'https://test2.com/').to_raise(HTTParty::ResponseError)
-      stub_request(:get, 'https://test2.com/').to_raise(HTTParty::ResponseError)
+      stub_request(:post, 'http://eu.local/v1/request')
+        .to_raise(HTTParty::ResponseError)
 
-      HttpCheckJob.perform_now(sites(:three))
+      HttpCheckJob.perform_now(sites(:two))
 
       assert_nil Check.last.status
+      assert_nil Check.last.time
     end
 
     it 'returns nil on SocketError exception' do
-      stub_request(:get, 'https://test2.com/').to_raise(SocketError)
-      stub_request(:get, 'https://test2.com/').to_raise(SocketError)
+      stub_request(:post, 'http://eu.local/v1/request')
+        .to_raise(SocketError)
 
-      HttpCheckJob.perform_now(sites(:three))
+      HttpCheckJob.perform_now(sites(:two))
 
       assert_nil Check.last.status
-    end
-
-    it 'allows calling success event on active site' do
-      stub_request(:get, 'https://test.com/').to_return(status: 200)
-
-      HttpCheckJob.perform_now(sites(:two))
-      HttpCheckJob.perform_now(sites(:two))
-    end
-
-    it 'allows calling fail event on inactive site' do
-      stub_request(:get, 'https://test.com/').to_return(status: 500)
-
-      HttpCheckJob.perform_now(sites(:two))
-      HttpCheckJob.perform_now(sites(:two))
+      assert_nil Check.last.time
     end
 
     it 'supports basic auth' do
-      stub_request(:get, 'http://foo.bar/')
-        .with(headers: { 'Authorization' => 'Basic Zm9vOmJhcg==' })
-        .to_return(status: 200)
+      submitted_payload = {
+        url: 'http://foo.bar',
+        verify_ssl: true,
+        basic_auth: {
+          username: 'foo',
+          password: 'bar'
+        }
+      }
+      returned_payload = {
+        'Result' => {
+          'StatusCode' => 200,
+          'ResponseTime' => 12_121_212
+        }
+      }
+      stub_request(:post, 'http://eu.local/v1/request')
+        .to_return(status: 200, body: returned_payload.to_json)
+        .with(body: submitted_payload.to_json,
+              headers: { 'Authorization' => 'Bearer FooBar' })
 
       HttpCheckJob.perform_now(sites(:basic_auth))
 

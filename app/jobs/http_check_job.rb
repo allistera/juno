@@ -12,23 +12,33 @@ class HttpCheckJob < ApplicationJob
   private
 
   def http_check(site)
-    response = get(site.url, site.verify_ssl, basic_auth(site))
-    # Try again if it fails for verification
-    response = get(site.url, site.verify_ssl, basic_auth(site)) unless success?(site, response[:code])
-    response
+    payload = {
+      url: site.url,
+      verify_ssl: site.verify_ssl,
+      basic_auth: basic_auth(site)
+    }
+    get(payload)
   end
 
-  def get(path, verify_ssl, basic_auth)
-    start = Time.now
-
-    response = HTTParty.get(path, verify: verify_ssl, basic_auth: basic_auth)
-    response_time = Time.now - start
-    {
-      code: response.code,
-      time: response_time
-    }
+  def get(payload)
+    Probe.all.map do |probe|
+      response = JSON.parse(request(probe, payload))
+      {
+        code: response['Result']['StatusCode'],
+        time: response['Result']['ResponseTime']
+      }
+    end
   rescue HTTParty::ResponseError, SocketError
-    { code: '' }
+    [{ code: '', time: '' }]
+  end
+
+  def request(probe, payload)
+    HTTParty.post(probe.url + '/v1/request',
+                  body: payload.to_json,
+                  headers: {
+                    'Authorization' =>
+                    "Bearer #{ENV['JUNO_PROBE_SECRET']}"
+                  }).body
   end
 
   def success?(site, code)
@@ -43,11 +53,13 @@ class HttpCheckJob < ApplicationJob
     { username: site.basic_auth_username, password: site.basic_auth_password }
   end
 
-  def record_response(response, site)
-    Check.create(site: site,
-                 status: response[:code],
-                 time: response[:time])
+  def record_response(responses, site)
+    responses.each do |response|
+      Check.create(site: site,
+                   status: response[:code],
+                   time: response[:time])
 
-    success?(site, response[:code]) ? site.success! : site.fail!
+      success?(site, response[:code]) ? site.success! : site.fail!
+    end
   end
 end
