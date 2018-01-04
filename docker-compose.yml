@@ -48,3 +48,15 @@ services:
 
   smtp:
     image: namshi/smtp
+
+  juno-probe:
+    image: allistera/juno-probe
+    restart: on-failure
+    depends_on:
+      - web
+    environment:
+      JUNO_URL: http://web
+      JUNO_PROBE_URL: http://juno-probe:9090
+      JUNO_PROBE_PORT: 9090
+      JUNO_PROBE_SECRET: sda23r23fwedsfergv32r3r
+      JUNO_PROBE_NAME: Europe/London
