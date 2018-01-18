@@ -1,4 +1,4 @@
-FROM ruby:2.4.1-slim
+FROM ruby:latest
 
 MAINTAINER Allister Antosik <me@allisterantosik.com>
 

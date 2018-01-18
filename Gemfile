@@ -90,7 +90,7 @@ end
 
 group :production do
   # Postgres
-  gem 'pg'
+  gem 'pg', '~> 0.21.0'
 
   # Sentry exception handling
   gem 'sentry-raven'
