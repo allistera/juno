@@ -1,6 +1,6 @@
 class ProbesController < ApplicationController
   before_action :authenticate_user!, except: %i[create]
-  before_action :authenticate, except: [:index]
+  before_action :authenticate, except: %i[index health]
   skip_before_action :verify_authenticity_token, except: [:index]
 
   # GET /probes
@@ -17,6 +17,15 @@ class ProbesController < ApplicationController
 
     return render json: @probe, status: :created if @probe.save
     render json: { message: 'Validation error' }, status: :bad_request
+  end
+
+  # GET /probes/health/1
+  def health
+    @probe = Probe.find(params[:id])
+    authorize @probe, :show?
+    render json: { status: HTTParty.get(@probe.url + '/v1/healthcheck').success? }
+  rescue Errno::ECONNREFUSED
+    render json: { status: false }
   end
 
   private

@@ -25,8 +25,30 @@
     <% @probes.each do |probe| %>
       <tr>
         <td><%= probe.name %></td>
-        <td></td>
+        <td><span class="tag" data-id="<%= probe.id %>">Pinging...</span></td>
       </tr>
+      <script>
+          setInterval(function()
+          {
+              $.ajax({
+                  type: "get",
+                  url: "/probes/health/<%= probe.id %>",
+                  success:function(data)
+                  {
+                      if(data.status) {
+                          $('span[data-id="<%= probe.id %>"]').removeClass('is-danger');
+                          $('span[data-id="<%= probe.id %>"]').addClass('is-success');
+                          $('span[data-id="<%= probe.id %>"]').text('Healthy');
+                      }else{
+                          $('span[data-id="<%= probe.id %>"]').removeClass('is-success');
+                          $('span[data-id="<%= probe.id %>"]').addClass('is-danger');
+                          $('span[data-id="<%= probe.id %>"]').text('Unhealthy');
+                      }
+                  }
+              });
+          }, 2000);
+      </script>
     <% end %>
   </tbody>
 </table>
+
