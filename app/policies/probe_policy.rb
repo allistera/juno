@@ -13,4 +13,8 @@ class ProbePolicy < ApplicationPolicy
   def create?
     true
   end
+
+  def show?
+    user.platform_admin
+  end
 end

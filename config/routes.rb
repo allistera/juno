@@ -12,6 +12,7 @@ Rails.application.routes.draw do
   resources :slack_settings, only: %i[show new create update edit destroy]
   get '/probes', to: 'probes#index'
   post '/probes', to: 'probes#create'
+  get '/probes/health/:id', to: 'probes#health'
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

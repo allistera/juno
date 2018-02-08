@@ -33,6 +33,42 @@ class ProbesControllerTest < ActionDispatch::IntegrationTest
     end
   end
 
+  describe '#health' do
+    it 'requires authentication' do
+      sign_out :user
+      get "/probes/health/#{Probe.first.id}"
+      assert_redirected_to new_user_session_url
+    end
+
+    it 'returns probe health for admin' do
+      success = mock
+      success.stubs(:success?).returns(true)
+      HTTParty.expects(:get).with('http://eu.local/v1/healthcheck').returns(success)
+      get "/probes/health/#{Probe.first.id}"
+      assert_response :success
+      assert_equal '{"status":true}', response.body
+    end
+
+    it 'does not return probe health for users' do
+      sign_in users(:joe)
+      get "/probes/health/#{Probe.first.id}"
+      assert_redirected_to root_path
+    end
+
+    it 'does not return all probe health for admins' do
+      sign_in users(:paul)
+      get "/probes/health/#{Probe.first.id}"
+      assert_redirected_to root_path
+    end
+
+    it 'returns false if Errno::ECONNREFUSED expection' do
+      HTTParty.expects(:get).with('http://eu.local/v1/healthcheck').raises(Errno::ECONNREFUSED)
+      get "/probes/health/#{Probe.first.id}"
+      assert_response :success
+      assert_equal '{"status":false}', response.body
+    end
+  end
+
   describe '#create' do
     it 'requires shared secret' do
       sign_out :user
