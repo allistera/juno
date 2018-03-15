@@ -11,7 +11,7 @@ services:
     image: redis
 
   web:
-    build: .
+    image: allistera/juno:latest
     ports:
       - "3000:80"
     links:
@@ -19,8 +19,6 @@ services:
       - smtp
       - redis
       - sidekiq
-    volumes:
-      - .:/myapp
     command: ./start.sh
     environment:
     - PG_ENV_POSTGRES_USER=juno
@@ -33,7 +31,7 @@ services:
     - JUNO_PROBE_SECRET=sda23r23fwedsfergv32r3r
 
   sidekiq:
-    build: .
+    image: allistera/juno:latest
     links:
       - db
       - redis

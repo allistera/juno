@@ -1,0 +1,9 @@
+name: juno
+version: 0.0.3
+description: Juno is a HTTP monitoring application
+sources:
+  - https://github.com/allister/juno
+  - https://github.com/allister/juno-probe
+maintainers:
+  - name: Allister Antosik
+    email: me@allisterantosik.com
