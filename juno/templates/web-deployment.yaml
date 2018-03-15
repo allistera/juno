@@ -1,0 +1,73 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: kompose convert -f docker-compose.yml
+    kompose.version: 1.9.0 ()
+  creationTimestamp: null
+  labels:
+    io.kompose.service: web
+  name: web
+spec:
+  replicas: 1
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        io.kompose.service: web
+    spec:
+      containers:
+      - args:
+        - ./start.sh
+        readinessProbe:
+          httpGet:
+            path: /health
+            port: 80
+            scheme: HTTP
+          initialDelaySeconds: 30
+          periodSeconds: 10
+          successThreshold: 1
+          timeoutSeconds: 30
+          failureThreshold: 3
+        env:
+        - name: SENTRY_DSN
+          valueFrom:
+            secretKeyRef:
+              name: web-secrets
+              key: sentry
+        - name: JUNO_PROBE_SECRET
+          valueFrom:
+            secretKeyRef:
+              name: probe-secrets
+              key: secret
+        - name: PG_ENV_POSTGRES_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: db-secrets
+              key: password
+        - name: PG_ENV_POSTGRES_USER
+          valueFrom:
+            secretKeyRef:
+              name: db-secrets
+              key: username
+        - name: PG_PORT_5432_TCP_ADDR
+          value: db
+        - name: RAILS_ENV
+          value: production
+        - name: REDIS_URL
+          value: redis://redis
+        - name: SECRET_KEY
+          valueFrom:
+            secretKeyRef:
+              name: web-secrets
+              key: secret
+        - name: SITE_ADDRESS
+          value: localhost
+        image: allistera/juno:{{ .Values.web.tag }}
+        name: web-con
+        ports:
+        - containerPort: 80
+        resources: {}
+      restartPolicy: Always
+status: {}

@@ -1,0 +1,51 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: kompose convert -f docker-compose.yml
+    kompose.version: 1.9.0 ()
+  creationTimestamp: null
+  labels:
+    io.kompose.service: juno-probe
+  name: juno-probe
+spec:
+  replicas: 1
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        io.kompose.service: juno-probe
+    spec:
+      containers:
+        - args:
+          image: allistera/juno-probe:{{ .Values.probe.tag }}
+          readinessProbe:
+            httpGet:
+              path: /v1/healthcheck
+              port: 9090
+              scheme: HTTP
+            initialDelaySeconds: 30
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 30
+            failureThreshold: 3
+          name: juno-probe
+          resources: {}
+          env:
+          - name: JUNO_PROBE_NAME
+            value: {{ .Values.probe.name }}
+          - name: JUNO_PROBE_PORT
+            value: "9090"
+          - name: JUNO_PROBE_SECRET
+            valueFrom:
+              secretKeyRef:
+                name: probe-secrets
+                key: secret
+          - name: JUNO_PROBE_URL
+            value: http://juno-probe:9090
+          - name: JUNO_URL
+            value: http://web-service
+
+      restartPolicy: Always
+status: {}

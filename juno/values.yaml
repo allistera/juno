@@ -1,0 +1,16 @@
+database:
+  username:
+  password:
+
+probe:
+  name:
+  secret:
+  tag:
+
+web:
+  secret:
+  tag:
+  sentry:
+
+ingress:
+  host: 
