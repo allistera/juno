@@ -1,9 +1,12 @@
-<h2 class="title is-1"><%= @slack_setting.project.try(:name) %></h2>
-<h2 class="subtitle">Slack Settings</h2>
+<div class="card">
+  <div class="card-header">
+    <h3 class="card-title"><%= @slack_setting.project.try(:name) %> - Slack Settings</h3>
 
-
-<div class="actions">
-  <%= link_to 'Disable Notifications', @slack_setting, method: :delete, data: { confirm: 'Are you sure?' }, class: 'button is-danger' %>
+    <div class="card-options">
+      <%= link_to '<i class="fe fe-x"></i>'.html_safe, @slack_setting, method: :delete, data: { confirm: 'Are you sure?' }, class: 'card-options-remove' %>
+    </div>
+  </div>
+  <div class="card-body">
+    <%= render 'form', slack_setting: @slack_setting %>
+  </div>
 </div>
-
-<%= render 'form', slack_setting: @slack_setting %>

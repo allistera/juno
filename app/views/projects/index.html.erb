@@ -1,29 +1,41 @@
-<h1 class="title is-1">Projects</h1>
-
-<div class="actions">
-  <%= link_to 'New Project', new_project_path, class: 'button is-success create-button' %>
-</div>
-
-<br>
-
-<div class="columns projects">
-  <% @projects.each do |project| %>
-    <div class="card column is-one-quarter">
-      <div class="card-content">
-        <div class="media">
-          <div class="media-content">
-            <p class="title is-4"><%= link_to project.name, project %></p>
+<div class="my-3 my-md-5">
+  <div class="container">
+    <div class="row">
+      <% @projects.each do |project| %>
+      <div class="col-md-6 col-xl-4">
+        <div class="card">
+          <div class="card-status bg-green"></div>
+          <div class="card-header">
+            <h3 class="card-title"><%= project.name %></h3>
+            <div class="card-options">
+              <% if project.slack_setting %>
+                <%= link_to '<i class="fe fe-slack"></i>'.html_safe, edit_slack_setting_path(project.slack_setting), class: 'slack_settings' %>
+              <% else %>
+                <%= link_to '<i class="fe fe-slack"></i>'.html_safe, new_slack_setting_path(project_id: project.id), class: 'slack_settings' %>
+              <% end %>
+              <%= link_to '<i class="fe fe-plus-circle"></i>'.html_safe, new_site_path(project: project.id), class: 'new_site' %>
+            </div>
           </div>
+          <table class="table card-table">
+            <tbody>
+              <% project.sites.each do |site| %>
+                <tr>
+                  <td><%= link_to site.name, site %></td>
+                  <td class="text-right">
+                    <span class="badge badge-<%= site_status_class(site) %>"><%= site.status.titlecase %></span>
+                  </td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
         </div>
-
-        <div class="content">
-          <% project.sites.each do |site| %>
-            <span class="tag <%= site_status_class(site) %> site-status-<%= site.id %>">
-              <%= site.name %>
-            </span>
-          <% end %>
+      </div>
+      <% end %>
+      <div class="col-md-6 col-xl-4" style="text-align: center ">
+        <div class="card" style="height: 200px">
+          <%= link_to '<i class="fe fe-plus-circle" style="font-size: 30px;"></i>'.html_safe, new_project_path, style: 'margin-top: 80px; color: gray', id: 'new_project' %>
         </div>
       </div>
     </div>
-  <% end %>
+  </div>
 </div>

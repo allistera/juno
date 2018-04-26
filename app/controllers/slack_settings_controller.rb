@@ -23,7 +23,7 @@ class SlackSettingsController < ApplicationController
     authorize @slack_setting
     respond_to do |format|
       if @slack_setting.save
-        format.html { redirect_to @slack_setting.project, notice: 'Slack settings where successfully updated.' }
+        format.html { redirect_to projects_path, notice: 'Slack settings where successfully updated.' }
       else
         format.html { render :new }
       end
@@ -35,7 +35,7 @@ class SlackSettingsController < ApplicationController
   def update
     respond_to do |format|
       if @slack_setting.update(slack_setting_params)
-        format.html { redirect_to @slack_setting.project, notice: 'Slack settings where successfully updated.' }
+        format.html { redirect_to projects_path, notice: 'Slack settings where successfully updated.' }
       else
         format.html { render :edit }
       end
@@ -47,7 +47,7 @@ class SlackSettingsController < ApplicationController
   def destroy
     @slack_setting.destroy
     respond_to do |format|
-      format.html { redirect_to @slack_setting.project, notice: 'Slack notifications where successfully disabled.' }
+      format.html { redirect_to projects_path, notice: 'Slack notifications where successfully disabled.' }
     end
   end
 

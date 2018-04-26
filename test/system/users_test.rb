@@ -6,46 +6,42 @@ class UsersTest < ApplicationSystemTestCase
 
     assert_text 'You need to sign in or sign up before continuing'
 
-    click_on 'Sign Up'
+    click_on 'Sign up'
 
-    assert_text 'Sign Up'
+    assert_text 'Create new account'
 
+    fill_in 'user_name', with: 'Johnny Cash'
     fill_in 'user_email', with: 'foo@bar.com'
     fill_in 'user_password', with: 'SecUr3Pa33W0rD!'
-    fill_in 'user_password_confirmation', with: 'SecUr3Pa33W0rD!'
+    find('#user_terms_and_conditions', visible: false).trigger('click')
 
-    click_on 'Next'
+    click_on 'Create'
 
     assert_text 'User was successfully created, please login.'
 
     fill_in 'user_email', with: 'foo@bar.com'
     fill_in 'user_password', with: 'SecUr3Pa33W0rD!'
 
-    click_on 'Log in'
+    click_on 'Sign in'
 
     assert_text 'Signed in successfully'
     assert_text 'Create Organisation'
 
     fill_in 'organisation_name', with: 'OrgTest AA'
     click_on 'Save'
-
-    assert_text 'Projects'
-    assert_text 'Users'
   end
 
   test 'administrator can invite additional user' do
     sign_in users(:paul)
-    visit root_path
+    visit users_path
 
-    click_on 'Users'
     click_on 'Invite User'
-
-    assert_text 'Send invitation'
+    first('.btn-primary').click
 
     fill_in 'user_email', with: 'zoo@bar.com'
 
     assert_difference 'ActionMailer::Base.deliveries.size', +1 do
-      click_on 'Invite'
+      click_on 'Save'
     end
     invite_email = ActionMailer::Base.deliveries.last
 

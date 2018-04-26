@@ -53,7 +53,7 @@ class SlackSettingsControllerTest < ActionDispatch::IntegrationTest
         }
       end
 
-      assert_redirected_to project_url(SlackSetting.last.project)
+      assert_redirected_to projects_url
     end
 
     it 'renders new form on save error' do
@@ -79,7 +79,7 @@ class SlackSettingsControllerTest < ActionDispatch::IntegrationTest
           webhook_url: @slack_setting.webhook_url
         }
       }
-      assert_redirected_to project_url(@slack_setting.project)
+      assert_redirected_to projects_url
     end
 
     it 'renders edit form on save error' do
@@ -104,7 +104,7 @@ class SlackSettingsControllerTest < ActionDispatch::IntegrationTest
         delete slack_setting_url(@slack_setting)
       end
 
-      assert_redirected_to project_url(@slack_setting.project)
+      assert_redirected_to projects_url
     end
   end
 end
