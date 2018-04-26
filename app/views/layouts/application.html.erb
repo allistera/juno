@@ -3,7 +3,6 @@
   <head>
     <title>Juno</title>
     <%= csrf_meta_tags %>
-
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
@@ -12,22 +11,21 @@
     <%= render 'layouts/header' %>
 
     <% if @no_checks && user_signed_in? %>
-      <div class="notification is-danger">
-        <button class="delete" onclick="this.parentNode.style.display = 'none'"></button>
+      <div class="alert alert-warning">
         No checks have ran in last two minutes, background workers may be disconnected.
       </div>
     <% end %>
 
     <% if notice %>
-      <div class="notification is-success">
-        <button class="delete" onclick="this.parentNode.style.display = 'none'"></button>
+      <div class="alert alert-success alert-dismissible">
+        <button type="button" class="close" data-dismiss="alert"></button>
         <%= notice %>
       </div>
     <% end %>
 
     <% if alert %>
-      <div class="notification is-warning">
-        <button class="delete" onclick="this.parentNode.style.display = 'none'"></button>
+      <div class="alert alert-warning alert-dismissible">
+        <button type="button" class="close" data-dismiss="alert"></button>
         <%= alert %>
       </div>
     <% end %>

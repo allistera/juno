@@ -1,118 +1,78 @@
-<%= form_for(site) do |f| %>
-  <h1>Add Site</h1>
-  <hr>
+<div class="card">
+  <div class="card-header">
+    <h3 class="card-title">Create Check</h3>
+  </div>
+  <div class="card-body">
 
-  <% if site.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(site.errors.count, "error") %> prohibited this site from being saved:</h2>
+    <%= form_for(site) do |f| %>
 
-      <ul>
-      <% site.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
+      <div class="form-group">
+        <label class="form-label">Name of Site<span class="form-required">*</span></label>
+        <input type="text" class="form-control" name="site[name]" autofocus />
+      </div>
+
+      <ul class="nav nav-tabs">
+        <li class="nav-item"><a class="nav-link active" data-tab="required">Required</a></li>
+        <li class="nav-item"><a class="nav-link" data-tab="optional">Optional</a></li>
       </ul>
-    </div>
-  <% end %>
 
-  <div class="field is-horizontal">
-    <div class="field-label is-medium label">
-      <label class="label">Name of Site</label>
-    </div>
-    <div class="field-body">
-        <p class="control is-expanded">
-          <input class="input is-medium" type="text" name="site[name]">
-        </p>
-      </div>
-  </div>
+      <br>
 
-  <div class="tabs is-right is-medium is-boxed">
-    <ul>
-      <li class="tab-link" data-tab="optional"><a>Optional</a></li>
-      <li class="tab-link is-active" data-tab="required"><a>Required</a></li>
-    </ul>
-  </div>
+      <div id="required" class="tab-content">
 
-  <div id="required" class="tab-content">
-    <div class="field is-horizontal has-addons">
-      <div class="field-label is-medium label">
-        <label class="label">URL</label>
-      </div>
-      <div class="field-body">
-        <p class="control">
-          <span class="select is-medium">
-            <select name="site[protocol]">
-              <option>https://</option>
-              <option>http://</option>
-            </select>
-          </span>
-        </p>
-        <p class="control is-expanded">
-          <input class="input is-medium" type="text" name="site[url]">
-        </p>
+        <label class="form-label">URL<span class="form-required">*</span></label>
+
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <div class="input-group-text">
+              <select name="site[protocol]" class="btn btn-secondary dropdown-toggle" style="background: transparent; border: 0; box-shadow: none; -moz-appearance:none;appearance:none;">
+                <option>https://</option>
+                <option>http://</option>
+              </select>
+            </div>
+          </div>
+          <input class="form-control" type="text" name="site[url]">
         </div>
-    </div>
-  </div>
 
-  <div id="optional" class="tab-content hidden">
-    <div class="field is-horizontal">
-      <div class="field-label is-medium label">
-        <label class="label">Expected Status Code</label>
       </div>
-      <div class="field-body">
-          <p class="control is-expanded">
-            <input class="input is-medium" type="number" min="1" max="65535" name="site[custom_status]">
-          </p>
-        </div>
-    </div>
 
-    <div class="field is-horizontal">
-      <div class="field-label is-medium label">
-        <label class="label">Verify SSL</label>
-      </div>
-      <div class="field-body">
-        <label class="checkbox">
-          <%= f.check_box :verify_ssl %>
-        </label>
-        </div>
-    </div>
+      <div id="optional" class="tab-content hidden">
 
-    <div class="field is-horizontal">
-      <div class="field-label is-normal">
-        <label class="label">Basic Auth</label>
-      </div>
-      <div class="field-body">
-        <div class="field is-grouped">
-          <p class="control is-expanded">
-            <input class="input" type="text" placeholder="Username" name="site[basic_auth_username">
-          </p>
+        <div class="form-group">
+          <label class="form-label">Expected Status Code</label>
+          <input class="form-control" type="number" min="1" max="65535" name="site[custom_status]">
         </div>
-        <div class="field">
-          <p class="control is-expanded">
-            <input class="input" type="text" placeholder="Password" name="site[basic_auth_password">
-          </p>
+
+        <div class="form-group">
+          <label class="form-label">Verify SSL</label>
+          <label class="custom-switch">
+            <input name="custom-switch-checkbox" class="custom-switch-input" type="checkbox" checked>
+            <span class="custom-switch-indicator"></span>
+            <span class="custom-switch-description">Yes</span>
+          </label>
         </div>
+
+        <div class="form-group">
+          <label class="form-label">Basic Auth</label>
+
+          <div class="row">
+            <div class="col">
+              <input class="form-control" type="text" placeholder="Username" name="site[basic_auth_username]">
+            </div>
+            <div class="col">
+              <input class="form-control" type="text" placeholder="Password" name="site[basic_auth_password]">
+            </div>
+          </div>
+        </div>
+
       </div>
-    </div>
+
+      <%= f.hidden_field(:project_id, value: site.project_id) %>
+
+      <br>
+
+      <button type="submit" class="btn btn-primary">Save</button>
+    <% end %>
 
   </div>
-
-  <%= f.hidden_field(:project_id, value: site.project_id) %>
-
-  <div class="field is-horizontal">
-    <div class="field-label">
-      <!-- Left empty for spacing -->
-    </div>
-    <div class="field-body">
-      <div class="field">
-        <div class="control">
-          <button type="submit" class="button is-success is-medium is-pulled-right">
-            <span class="icon is-small">
-              <i class="fa fa-check"></i>
-            </span>
-            <span>Create</span>
-          </button>
-        </div>
-      </div>
-    </div>
-  </div>
-<% end %>
+</div>
