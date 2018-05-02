@@ -57,7 +57,8 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     it 'creates new user' do
       assert_difference('User.count') do
         post users_url, params: {
-          user: {
+          user: {\
+            name: 'Foo Bar',
             email: 'foo@gmail.com',
             password: 'FooBar!',
             password_confirmation: 'FooBar!'
@@ -82,9 +83,10 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
       assert_redirected_to new_user_session_url
     end
 
-    it 'creates update slack setting' do
+    it 'creates update user' do
       patch user_url(@user), params: {
         user: {
+          name: 'foo bar',
           email: 'foo@bar.com',
           organisation_id: organisations(:peachstones),
           admin: false

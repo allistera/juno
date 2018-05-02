@@ -29,12 +29,6 @@ gem 'redis', '~> 3.0'
 # Skip 5.10.2 due to https://github.com/seattlerb/minitest/issues/689
 gem 'minitest', '~> 5.10', '!= 5.10.2'
 
-# CSS Framework
-gem 'bulma-rails', '~> 0.5.1'
-
-# Text Icons
-gem 'font-awesome-rails'
-
 # Authentication Framework
 gem 'devise'
 
@@ -70,6 +64,9 @@ gem 'groupdate'
 
 # Create time tags usable for jQuery Timeago plugin
 gem 'rails-timeago', '~> 2.0'
+
+# Avatar
+gem 'gravtastic'
 
 group :development, :test do
   # Debugging

@@ -1,86 +1,100 @@
-<h2>
-  <%= @site.name %>
-</h2>
-
-<br>
-<div class="actions">
-  <%= link_to 'Delete Site', site_path(@site), class: 'button is-danger', method: :delete, :data => {:confirm => 'Are you sure?'} %>
-</div>
-
-<div class="control has-icons-left">
-  <div class="select is-small">
-    <select id="chart-scope" data-id="<%= @site.id %>">
-      <option selected value="second">1 hour</option>
-      <option value="day">1 day</option>
-      <option value="week">1 week</option>
-      <option value="month">1 month</option>
-    </select>
+<div class="card">
+  <div class="card-body">
+    <div class="float-right">
+      <div class="control has-icons-left">
+        <div class="select is-small">
+          <select class="custom-select" id="chart-scope" data-id="<%= @site.id %>">
+            <option selected value="second">1 hour</option>
+            <option value="day">1 day</option>
+            <option value="week">1 week</option>
+            <option value="month">1 month</option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <h3 class="mb-1"><%= @site.name %></h3>
+    <div class="text-muted"><%= @site.url %></div>
   </div>
-  <span class="icon is-small is-left">
-    <i class="fa fa-clock-o"></i>
-  </span>
-</div>
-
-<br>
-
-<%= line_chart site_checks_url(@site, { range: 'second' }), download: true %>
-
-<div class="columns site-stats">
-  <div class="column">
-    <h1>Uptime</h1>
-    <p>
-      <%- if @site.checks.count > 0 %>
-        <%= @site.uptime %>%
-      <% else %>
-        N/A
-      <% end %>
-    </p>
-  </div>
-  <div class="column">
-    <h1>Average Response</h1>
-    <p>
-      <%- if @site.checks.average(:time) %>
-        <%= (@site.checks.average(:time) * 1000).round  %>ms
-      <% else %>
-        N/A
-      <% end %>
-    </p>
-  </div>
-  <div class="column">
-    <h1>Last Downtime</h1>
-    <p>
-      <%= timeago_tag @site.last_downtime, limit: nil, default: 'N/A' %>
-    </p>
-  </div>
-  <div class="column success-in-label">
-    <h1>Status</h1>
-    <p class="<%= site_status_class(@site) %> site-status-<%= @site.id %>"></p>
+  <div class="card-chart-bg" style="height: 320px">
+    <%= line_chart site_checks_url(@site, { range: 'second' }), download: true %>
   </div>
 </div>
 
-<hr>
-
-<div>
-  <h3 class="is-3">Latest Checks</h3>
+<div class="row">
+  <div class="col-sm-3">
+    <div class="card">
+      <div class="card-body text-center">
+        <div class="h5">Uptime</div>
+        <div class="display-4 font-weight-bold mb-4" style="font-size: 35px;">
+          <%- if @site.checks.count > 0 %>
+            <%= @site.uptime %>%
+          <% else %>
+            N/A
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-3">
+    <div class="card">
+      <div class="card-body text-center">
+        <div class="h5">Average Response</div>
+        <div class="display-4 font-weight-bold mb-4" style="font-size: 35px;">
+          <%- if @site.checks.average(:time) %>
+            <%= (@site.checks.average(:time) * 1000).round  %>ms
+          <% else %>
+            N/A
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-3">
+    <div class="card">
+      <div class="card-body text-center">
+        <div class="h5">Last Downtime</div>
+        <div class="display-4 font-weight-bold mb-4" style="font-size: 35px;">
+            <%= timeago_tag @site.last_downtime, limit: nil, default: 'N/A' %>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-3">
+    <div class="card">
+      <div class="card-body text-center">
+        <div class="h5">Status</div>
+        <div class="display-4 font-weight-bold mb-4" style="font-size: 35px;">
+          <%= @site.status.titlecase %>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 
-<table class="table latest-checks">
-  <thead>
-    <tr>
-      <th>Date/Time</th>
-      <th>Response</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @site.checks.order('created_at desc').take(10).each do |check| %>
-      <tr>
-        <td><%= check.created_at %></td>
-        <td>
-          <p class="tag <%= check_status_class(check) %>">
-            <%= check.status ? check.status : 'Host Unreachable' %>
-          </p>
-        </td>
-      </tr>
-     <% end %>
-  </tbody>
-</table>
+<div class="card">
+  <div class="card-header">
+    <h3 class="card-title">Latest Checks</h3>
+  </div>
+  <div class="table-responsive">
+    <table class="table card-table table-striped table-vcenter">
+      <thead>
+        <tr>
+          <th>Date/Time</th>
+          <th>Response</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @site.checks.order('created_at desc').take(10).each do |check| %>
+        <tr>
+          <td><%= check.created_at %></td>
+          <td>
+            <p class="tag <%= check_status_class(check) %>">
+              <%= check.status ? check.status : 'Host Unreachable' %>
+            </p>
+          </td>
+        </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>

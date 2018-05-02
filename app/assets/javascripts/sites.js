@@ -1,34 +1,19 @@
 document.addEventListener("turbolinks:load", function() {
 
-    $('#success_status').click(function(){
-    if ($(this).is(':checked'))
-    {
-      $('#custom_status_value').attr("disabled", "disabled");
-      $('#custom_status_value').val('');
-    }
-  });
-
-  $('#custom_status').click(function(){
-    if ($(this).is(':checked'))
-    {
-      $('#custom_status_value').removeAttr("disabled");
-    }
-  });
-
-  $('.tabs ul li').click(function(){
+  $('.nav-tabs li a').click(function(){
     var tab_id = $(this).attr('data-tab');
+    
 
-    $('.tabs ul li').removeClass('is-active');
+    $('.nav-tabs li a').removeClass('active');
     $('.tab-content').addClass('hidden');
 
-    $(this).addClass('is-active');
+    $(this).addClass('active');
     $("#" + tab_id).removeClass('hidden');
   });
 
-    $( "#chart-scope" ).change(function() {
-        var siteID = $('#chart-scope').data('id');
-        new Chartkick.LineChart("chart-1", "/sites/" + siteID + "/checks?range=" + this.value, {});
-    });
-
+  $( "#chart-scope" ).change(function() {
+      var siteID = $('#chart-scope').data('id');
+      new Chartkick.LineChart("chart-1", "/sites/" + siteID + "/checks?range=" + this.value, {});
+  });
 
 });

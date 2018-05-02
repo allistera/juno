@@ -1,4 +1,91 @@
-<div class="login">
-  <h1 class="title">Signup</h1>
-  <%= render 'form', user: @user %>
+<div class="page">
+  <div class="page-single">
+    <div class="container">
+      <div class="row">
+        <div class="col col-login mx-auto">
+          <%= form_for(@user, html: {class: 'card'}) do |f| %>
+            <div class="card-body p-6">
+              <div class="card-title">Create new account</div>
+              <div class="form-group">
+                <label class="form-label">Name</label>
+                <%= f.text_field :name, autofocus: true, class: 'form-control', placeholder: 'Enter name' %>
+                <div class="invalid-feedback" style="display: block">
+                  <%= @user.errors[:name].join(', ') if @user.errors[:name].size > 0 %>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Email address</label>
+                <%= f.text_field :email, class: 'form-control', placeholder: 'Enter email' %>
+                <div class="invalid-feedback" style="display: block">
+                  <%= @user.errors[:email].join(', ') if @user.errors[:email].size > 0 %>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Password</label>
+                <%= f.password_field :password, class: 'form-control', placeholder: 'Password' %>
+                <div class="invalid-feedback" style="display: block">
+                  <%= @user.errors[:password].join(', ') if @user.errors[:password].size > 0 %>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="custom-control custom-checkbox">
+                  <input id="user_terms_and_conditions" type="checkbox" class="custom-control-input" name="user[terms_and_conditions]" value="yes"/>
+                  <span class="custom-control-label">Agree to the <a href="#" data-toggle="modal" data-target="#terms_and_conditions">Terms</a></span>
+                  <div class="invalid-feedback" style="display: block">
+                    <%= @user.errors[:terms_and_conditions].join(', ') if @user.errors[:terms_and_conditions].size > 0 %>
+                  </div>
+                </label>
+              </div>
+              <div class="form-footer">
+                <button type="submit" class="btn btn-primary btn-block">Create</button>
+              </div>
+            </div>
+          <% end %>
+          <div class="text-center text-muted">
+            Already have account? <%= link_to 'Sign in', new_user_session_path %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="terms_and_conditions" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Licence</h5>
+        <button type="button" class="close" data-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        This is free and unencumbered software released into the public domain.
+        <br><br>
+        Anyone is free to copy, modify, publish, use, compile, sell, or
+        distribute this software, either in source code form or as a compiled
+        binary, for any purpose, commercial or non-commercial, and by any
+        means.
+        <br><br>
+        In jurisdictions that recognize copyright laws, the author or authors
+        of this software dedicate any and all copyright interest in the
+        software to the public domain. We make this dedication for the benefit
+        of the public at large and to the detriment of our heirs and
+        successors. We intend this dedication to be an overt act of
+        relinquishment in perpetuity of all present and future rights to this
+        software under copyright law.
+        <br><br>
+        THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+        EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+        MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+        IN NO EVENT SHALL THE AUTHORS BE LIABLE FOR ANY CLAIM, DAMAGES OR
+        OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
+        ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+        OTHER DEALINGS IN THE SOFTWARE.
+        <br><br>
+        For more information, please refer to http://unlicense.org
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
 </div>

@@ -1,20 +1,30 @@
-<h2><%= t "devise.invitations.new.header" %></h2>
+<div class="card">
+  <div class="card-header">
+    <h3 class="card-title">Invite User</h3>
+  </div>
+  <div class="card-body">
+    <%= form_for resource, :as => resource_name, :url => invitation_path(resource_name), :html => {:method => :post} do |f| %>
 
-<%= form_for resource, :as => resource_name, :url => invitation_path(resource_name), :html => {:method => :post} do |f| %>
-  <%= devise_error_messages! %>
-  <% resource.class.invite_key_fields.each do |field| %>
-    <%= f.label field, class: 'label' %>
-    <div class="control">
-      <%= f.text_field field, autofocus: true, class: 'input' %>
-    </div>
-  <% end %>
+      <%= devise_error_messages! %>
 
-    <br>
-    <br>
+      <div class="form-group">
+        <label class="form-label">Name</label>
+        <%= f.text_field :name, autofocus: true, class: 'form-control', placeholder: 'Enter name' %>
+        <div class="invalid-feedback" style="display: block">
+          <%= @user.errors[:name].join(', ') if @user.errors[:name].size > 0 %>
+        </div>
+      </div>
 
-    <div class="control is-grouped">
-      <p class="control">
-        <%= f.submit "Invite", class: 'button is-primary' %>
-      </p>
-    </div>
-<% end %>
+      <% resource.class.invite_key_fields.each do |field| %>
+        <div class="form-group">
+          <%= f.label field, class: 'form-label' %>
+          <%= f.text_field field, class: 'form-control', placeholder: 'Enter email' %>
+        </div>
+      <% end %>
+
+      <div class="text-right">
+        <%= f.submit "Save", class: 'btn btn-primary' %>
+      </div>
+    <% end %>
+  </div>
+</div>

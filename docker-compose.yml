@@ -11,7 +11,7 @@ services:
     image: redis
 
   web:
-    image: allistera/juno:latest
+    build: .
     ports:
       - "3000:80"
     links:
@@ -29,9 +29,10 @@ services:
     - SITE_ADDRESS=localhost
     - REDIS_URL=redis://redis
     - JUNO_PROBE_SECRET=sda23r23fwedsfergv32r3r
+    - RAILS_SERVE_STATIC_FILES=true
 
   sidekiq:
-    image: allistera/juno:latest
+    build: .
     links:
       - db
       - redis

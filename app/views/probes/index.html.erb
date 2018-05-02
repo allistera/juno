@@ -1,54 +1,52 @@
-<h1 class="title is-1">Probes</h1>
-
-<div class="actions">
- <div class="field has-addons">
-   <p class="control">
-     <a class="button is-static">
-       Probe Secret:
-     </a>
-   </p>
-   <p class="control">
-     <input class="input" type="text" value="<%= ENV['JUNO_PROBE_SECRET'] %>">
-   </p>
- </div>
+<div class="card">
+  <div class="card-header">
+    <h3 class="card-title">Probes</h3>
+    <div class="card-options">
+      <div class="input-group">
+        <span class="input-group-prepend" id="basic-addon3">
+          <span class="input-group-text">Probe Secret</span>
+        </span>
+        <input class="form-control" type="text" value="<%= ENV['JUNO_PROBE_SECRET'] %>">
+      </div>
+    </div>
+  </div>
+  <div class="table-responsive">
+    <table class="table card-table table-striped table-vcenter">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @probes.each do |probe| %>
+        <tr>
+          <td><%= probe.name %></td>
+          <td><span class="tag" data-id="<%= probe.id %>">Pinging...</span></td>
+        </tr>
+        <script>
+            setInterval(function()
+            {
+                $.ajax({
+                    type: "get",
+                    url: "/probes/health/<%= probe.id %>",
+                    success:function(data)
+                    {
+                        if(data.status) {
+                            $('span[data-id="<%= probe.id %>"]').removeClass('is-danger');
+                            $('span[data-id="<%= probe.id %>"]').addClass('is-success');
+                            $('span[data-id="<%= probe.id %>"]').text('Healthy');
+                        }else{
+                            $('span[data-id="<%= probe.id %>"]').removeClass('is-success');
+                            $('span[data-id="<%= probe.id %>"]').addClass('is-danger');
+                            $('span[data-id="<%= probe.id %>"]').text('Unhealthy');
+                        }
+                    }
+                });
+            }, 2000);
+        </script>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
 </div>
-
-<table class="table projects-table">
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @probes.each do |probe| %>
-      <tr>
-        <td><%= probe.name %></td>
-        <td><span class="tag" data-id="<%= probe.id %>">Pinging...</span></td>
-      </tr>
-      <script>
-          setInterval(function()
-          {
-              $.ajax({
-                  type: "get",
-                  url: "/probes/health/<%= probe.id %>",
-                  success:function(data)
-                  {
-                      if(data.status) {
-                          $('span[data-id="<%= probe.id %>"]').removeClass('is-danger');
-                          $('span[data-id="<%= probe.id %>"]').addClass('is-success');
-                          $('span[data-id="<%= probe.id %>"]').text('Healthy');
-                      }else{
-                          $('span[data-id="<%= probe.id %>"]').removeClass('is-success');
-                          $('span[data-id="<%= probe.id %>"]').addClass('is-danger');
-                          $('span[data-id="<%= probe.id %>"]').text('Unhealthy');
-                      }
-                  }
-              });
-          }, 2000);
-      </script>
-    <% end %>
-  </tbody>
-</table>
-

@@ -8,10 +8,6 @@ class ProjectsController < ApplicationController
     @projects = policy_scope(Project)
   end
 
-  # GET /projects/1
-  # GET /projects/1.json
-  def show; end
-
   # GET /projects/new
   def new
     authorize :project, :new?
@@ -27,7 +23,7 @@ class ProjectsController < ApplicationController
 
     respond_to do |format|
       if @project.save
-        format.html { redirect_to @project, notice: 'Project was successfully created.' }
+        format.html { redirect_to projects_path, notice: 'Project was successfully created.' }
       else
         format.html { render :new }
       end
@@ -40,7 +36,7 @@ class ProjectsController < ApplicationController
     ModelDeleteJob.perform_later(@project)
 
     respond_to do |format|
-      format.html { redirect_to projects_url, notice: 'Project was successfully destroyed.' }
+      format.html { redirect_to projects_path, notice: 'Project was successfully destroyed.' }
     end
   end
 

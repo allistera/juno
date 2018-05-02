@@ -35,19 +35,6 @@ class ProjectsControllerTest < ActionDispatch::IntegrationTest
     end
   end
 
-  describe '#show' do
-    it 'requires authentication' do
-      sign_out :user
-      get project_url(@project)
-      assert_redirected_to new_user_session_url
-    end
-
-    it 'returns specific project' do
-      get project_url(@project)
-      assert_response :success
-    end
-  end
-
   describe '#new' do
     it 'requires authentication' do
       sign_out :user
@@ -73,7 +60,7 @@ class ProjectsControllerTest < ActionDispatch::IntegrationTest
         post projects_url, params: { project: { name: 'Foobar' } }
       end
 
-      assert_redirected_to project_url(Project.last)
+      assert_redirected_to projects_url
     end
 
     it 'renders new form on save error' do
