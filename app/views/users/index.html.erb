@@ -1,37 +1,47 @@
-<h1>Users</h1>
-
-<table>
-  <thead>
-    <tr>
-      <th>Email</th>
-      <th>Organisation</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @users.each do |user| %>
-      <tr>
-        <td>
-          <% if current_user.platform_admin? %>
-              <%= link_to user.email, user_path(user) %>
-          <% else %>
-              <%= user.email %>
-          <% end %>
-          <% if user.admin? %>
-              <span class="tag is-info is-pulled-right">Admin</span>
-          <% end %>
-          <% if user.invited_to_sign_up? %>
-              <span class="tag is-success is-pulled-right">Invite Pending</span>
-          <% end %>
-        </td>
-        <td><%= user.organisation.try(:name) %></td>
-        <td><%= link_to 'Destroy', user, method: :delete, data: { confirm: 'Are you sure?' } unless user == current_user %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<br>
-
-<%= link_to 'Invite User', new_user_invitation_path %>
+<div class="card">
+  <div class="card-header">
+    <h3 class="card-title">Users</h3>
+    <div class="card-options">
+      <%= link_to '<i class="fe fe-plus"></i> Invite User'.html_safe, new_user_invitation_path, class: 'btn btn-primary', style: 'color: white' %>
+    </div>
+  </div>
+  <div class="table-responsive">
+    <table class="table card-table table-striped table-vcenter">
+      <thead>
+        <tr>
+          <th colspan="2">User</th>
+          <th>Status</th>
+          <th>Last Login</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @users.each do |user| %>
+        <tr>
+          <td class="w-1">
+            <span class="avatar">
+              <%= image_tag user.gravatar_url, class: 'avatar' %>
+            </span>
+          </td>
+          <td>
+            <%= user.name %>
+          </td>
+          <td>
+            <% if user.admin? %>
+                Admin
+            <% elsif user.invited_to_sign_up? %>
+                Invite Pending
+            <% else %>
+                Active
+            <% end %>
+          </td>
+          <td class="text-nowrap"><%= user.updated_at %></td>
+          <td class="w-1">
+            <%= link_to '<i class="fe fe-trash"></i>'.html_safe, user, method: :delete, data: { confirm: 'Are you sure?' } unless user == current_user %>
+          </td>
+        </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>

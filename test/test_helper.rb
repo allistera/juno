@@ -5,7 +5,7 @@ SimpleCov.start
 require File.expand_path('../config/environment', __dir__)
 require 'rails/test_help'
 require 'webmock/minitest'
-require 'mocha/mini_test'
+require 'mocha/minitest'
 require 'policy_assertions'
 
 module ActiveSupport

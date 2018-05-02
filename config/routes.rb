@@ -8,7 +8,7 @@ Rails.application.routes.draw do
   resources :sites, only: %i[show new create destroy] do
     get '/checks', to: 'sites#checks'
   end
-  resources :projects, only: %i[index show new create destroy]
+  resources :projects, only: %i[index new create destroy]
   resources :slack_settings, only: %i[show new create update edit destroy]
   get '/probes', to: 'probes#index'
   post '/probes', to: 'probes#create'

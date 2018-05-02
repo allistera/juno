@@ -10,36 +10,19 @@
  * files in this directory. Styles in this file should be added after the last require_* statement.
  * It is generally better to create a new file per style scope.
  *
- *= require bulma
- *= require font-awesome
  *= require_tree .
  *= require_self
  */
-.login {
-  margin: 0 auto;
-  width: 300px;
-  background: whitesmoke;
-  padding: 20px;
+
+.hidden {
+  display: none;
 }
 
-.notification {
-  width: 400px;
-  margin: 0 auto;
+.content {
+  margin-top: 20px;
 }
 
-.projects .card {
-  margin: 0 10px;
-}
-
-.actions {
-  float: right;
-  margin-top: -50px;
-}
-
-.actions .button {
-  margin-left: 10px;
-}
-
-.tag.is-success {
-  margin-top: 5px;
+th:last-child,
+td:last-child, {
+  text-align: right;
 }

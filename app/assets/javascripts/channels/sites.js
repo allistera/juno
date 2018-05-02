@@ -8,12 +8,12 @@ App.cable = ActionCable.createConsumer();
 App.messages = App.cable.subscriptions.create('SiteChannel', {
     received: function(data) {
         if (data.status === 'active') {
-            var css_class = 'is-success';
+            var css_class = 'success';
         }else if (data.status === 'inactive') {
-            var css_class = 'is-danger';
+            var css_class = 'danger';
         }else{
-            var css_class = 'is-light';
+            var css_class = 'default';
         }
-        $('.site-status-' + data.site).removeClass('is-light is-success is-danger').addClass(css_class)
+        $('.site-status-' + data.site).removeClass('default success danger').addClass(css_class)
     }
 });

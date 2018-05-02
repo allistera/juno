@@ -1,29 +1,62 @@
-<nav class="nav">
-  <div class="nav-left">
-    <a class="nav-item" href="/">
-      <h1 class="title">Juno</h1>
-    </a>
+<div class="header py-4">
+  <div class="container">
+    <div class="d-flex">
+      <a class="header-brand" href="/">
+        <img src="/logo.png" class="header-brand-img" alt="Juno"> Juno
+      </a>
+      <% if user_signed_in? %>
+      <div class="d-flex order-lg-2 ml-auto">
+        <div class="dropdown">
+          <a href="#" class="nav-link pr-0 leading-none" data-toggle="dropdown">
+            <span class="avatar" style="background-image: url(<%= current_user.gravatar_url %>)"></span>
+            <span class="ml-2 d-none d-lg-block">
+              <span class="text-default"><%= current_user.name %></span>
+              <small class="text-muted d-block mt-1"><%= current_user.role %></small>
+            </span>
+          </a>
+          <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
+            <a class="dropdown-item" href="https://github.com/allistera/juno/issues" target="_blank">
+              <i class="dropdown-icon fe fe-help-circle"></i> Need help?
+            </a>
+            <div class="dropdown-divider"></div>
+              <%= link_to '<i class="dropdown-icon fe fe-log-out"></i> Sign out'.html_safe, destroy_user_session_path, class: 'dropdown-item', method: :delete %>
+          </div>
+        </div>
+      </div>
+      <% end %>
+      <a href="#" class="header-toggler d-lg-none ml-3 ml-lg-0" data-toggle="collapse" data-target="#headerMenuCollapse">
+        <span class="header-toggler-icon"></span>
+      </a>
+    </div>
   </div>
-
-  <!-- This "nav-toggle" hamburger menu is only visible on mobile -->
-  <!-- You need JavaScript to toggle the "is-active" class on "nav-menu" -->
-  <span class="nav-toggle">
-    <span></span>
-    <span></span>
-    <span></span>
-  </span>
-
-  <!-- This "nav-menu" is hidden on mobile -->
-  <!-- Add the modifier "is-active" to display it on mobile -->
-  <div class="nav-right nav-menu">
-
-    <% if user_signed_in? %>
-      <%= link_to 'Probes', probes_path, class: 'nav-item' if policy(:probe).index? %>
-      <%= link_to 'Organisations', organisations_path, class: 'nav-item' if policy(:organisation).index? %>
-      <%= link_to 'Users', users_path, class: 'nav-item' if policy(:user).index? %>
-      <%= link_to 'Logout', destroy_user_session_path, class: 'nav-item', method: :delete %>
-    <% else %>
-      <%= link_to 'Sign Up', new_user_path, class: 'nav-item' %>
-  <% end %>
+</div>
+<% if user_signed_in? %>
+<div class="header collapse d-lg-flex p-0" id="headerMenuCollapse">
+  <div class="container">
+    <div class="row align-items-center">
+      <div class="col-lg order-lg-first">
+        <ul class="nav nav-tabs border-0 flex-column flex-lg-row">
+          <li class="nav-item">
+            <a href="/" class="nav-link <%= current_class?('/') %>"><i class="fe fe-inbox"></i> Projects</a>
+          </li>
+          <% if policy(:user).index? %>
+          <li class="nav-item">
+            <a href="/users" class="nav-link <%= current_class?('/users') %>"><i class="fe fe-user"></i> Users</a>
+          </li>
+          <% end %>
+          <% if policy(:organisation).index? %>
+          <li class="nav-item">
+            <a href="/organisations" class="nav-link <%= current_class?('/organisations') %>"><i class="fe fe-globe"></i> Organisations</a>
+          </li>
+          <% end %>
+          <% if policy(:probe).index? %>
+          <li class="nav-item">
+            <a href="/probes" class="nav-link <%= current_class?('/probes') %>"><i class="fe fe-share-2"></i> Probes</a>
+          </li>
+          <% end %>
+        </ul>
+      </div>
+    </div>
   </div>
-</nav>
+</div>
+<% end %>
