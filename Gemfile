@@ -6,28 +6,28 @@ git_source(:github) do |repo_name|
 end
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 5.1.4'
+gem 'rails'
 
 # Use SCSS for stylesheets
-gem 'sass-rails', '~> 5.0'
+gem 'sass-rails'
 
 # Compressor for JavaScript assets
-gem 'uglifier', '>= 1.3.0'
+gem 'uglifier'
 
 # JavaScript library
 gem 'jquery-rails'
 
 # Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks
-gem 'turbolinks', '~> 5'
+gem 'turbolinks'
 
 # JSON APIs with ease. Read more: https://github.com/rails/jbuilder
-gem 'jbuilder', '~> 2.5'
+gem 'jbuilder'
 
 # Use Redis adapter to run Action Cable in production
-gem 'redis', '~> 3.0'
+gem 'redis'
 
 # Skip 5.10.2 due to https://github.com/seattlerb/minitest/issues/689
-gem 'minitest', '~> 5.10', '!= 5.10.2'
+gem 'minitest'
 
 # Authentication Framework
 gem 'devise'
@@ -87,7 +87,7 @@ end
 
 group :production do
   # Postgres
-  gem 'pg', '~> 0.21.0'
+  gem 'pg'
 
   # Sentry exception handling
   gem 'sentry-raven'
@@ -118,15 +118,15 @@ end
 
 group :development do
   # Access an IRB console on exception pages or by using <%= console %> anywhere in the code.
-  gem 'listen', '~> 3.1.5'
-  gem 'web-console', '>= 3.3.0'
+  gem 'listen'
+  gem 'web-console'
 
   # ruby web server built for concurrency
   gem 'puma'
 
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
-  gem 'spring-watcher-listen', '~> 2.0.0'
+  gem 'spring-watcher-listen'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
