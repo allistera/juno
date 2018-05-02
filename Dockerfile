@@ -23,7 +23,7 @@ RUN bundle install --without development test
 # over to the working directory.
 COPY . .
 
-RUN bundle exec rake SECRET_KEY=2323 RAILS_ENV=production DATABASE_URL=postgresql://user:pass@127.0.0.1/dbname SECRET_TOKEN=pickasecuretoken assets:precompile
+RUN bundle exec rake SECRET_KEY=a2323 RAILS_ENV=production DATABASE_URL=postgresql://user:pass@127.0.0.1/dbname SECRET_TOKEN=pickasecuretoken assets:precompile
 
 # The default command that gets ran will be to start the Unicorn server.
 CMD bundle exec unicorn -c config/unicorn.rb -E production
