@@ -27,12 +27,20 @@
             <%= user.name %>
           </td>
           <td>
-            <% if user.admin? %>
-                Admin
-            <% elsif user.invited_to_sign_up? %>
+            <% if user.invited_to_sign_up? %>
                 Invite Pending
+            <% elsif user == current_user %>
+              <%= user.role %>
             <% else %>
-                Active
+              <div class="form-group" style="width: 200px; margin: 10px -10px;">
+                <select class="custom-select role" data-id="<%= user.id %>">
+                  <option>User</option>
+                  <option <%= 'selected' if user.admin? && !user.platform_admin? %>>Admin</option>
+                  <% if current_user.platform_admin? %>
+                    <option <%= 'selected' if user.platform_admin? %>>Platform Admin</option>
+                  <% end %>
+                </select>
+              </div>
             <% end %>
           </td>
           <td class="text-nowrap"><%= user.updated_at %></td>
@@ -45,3 +53,24 @@
     </table>
   </div>
 </div>
+
+<script>
+    $( ".role" ).change(function(element) {
+        var id = $(element.currentTarget).data("id");
+        var role = $(element.currentTarget ).val();
+        var data = {
+            admin: role == 'Admin',
+            platform_admin: role == 'Platform Admin',
+        };
+        $.ajax({
+            url : '/users/' + id + '.json',
+            data : JSON.stringify({user: data}),
+            type : 'PATCH',
+            contentType : 'application/json',
+            dataType: 'json',
+            success: function () {
+                window.location.reload();
+            }
+        });
+    });
+</script>
