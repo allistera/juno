@@ -16,6 +16,7 @@ class ProbesController < ApplicationController
     authorize @probe
 
     return render json: @probe, status: :created if @probe.save
+
     render json: { message: 'Validation error' }, status: :bad_request
   end
 

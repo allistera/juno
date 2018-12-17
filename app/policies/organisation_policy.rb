@@ -2,6 +2,7 @@ class OrganisationPolicy < ApplicationPolicy
   class Scope < Scope
     def resolve
       raise Pundit::NotAuthorizedError, 'must be logged in' unless user.platform_admin
+
       scope.all
     end
   end
