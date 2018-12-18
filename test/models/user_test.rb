@@ -36,4 +36,12 @@ class UserTest < ActiveSupport::TestCase
                     terms_and_conditions: 'no')
     refute user.valid?
   end
+
+  test 'requires terms and conditions existance to create' do
+    user = User.new(name: 'foo',
+                    email: 'foo@bar.com',
+                    password: '1110009',
+                    password_confirmation: '1110009')
+    refute user.valid?
+  end
 end
