@@ -11,14 +11,13 @@ services:
     image: redis
 
   web:
-    build: .
+    image: allistera/juno
     ports:
       - "5000:5000"
     links:
       - db
       - smtp
       - redis
-      - sidekiq
     command: ./start.sh
     environment:
     - PG_ENV_POSTGRES_USER=juno
@@ -32,10 +31,11 @@ services:
     - RAILS_SERVE_STATIC_FILES=true
 
   sidekiq:
-    build: .
+    image: allistera/juno
     links:
       - db
       - redis
+      - juno-probe
     command: bundle exec sidekiq -e production
     environment:
     - PG_ENV_POSTGRES_USER=juno
@@ -51,10 +51,10 @@ services:
   juno-probe:
     image: allistera/juno-probe
     restart: on-failure
-    depends_on:
+    links:
       - web
     environment:
-      JUNO_URL: http://web:5000
+      JUNO_URL: http://web
       JUNO_PROBE_URL: http://juno-probe:8080
       JUNO_PROBE_PORT: 8080
       JUNO_PROBE_SECRET: sda23r23fwedsfergv32r3r
