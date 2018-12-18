@@ -1,10 +1,11 @@
 workflow "New workflow" {
   on = "push"
-  resolves = ["build"]
+  resolves = [
+    "build"
+  ]
 }
-
-action "build" {
-  uses = "actions/docker/cli@0c53e4a"
-  runs = "build "
-  args = "-t juno"
+action "Build" {
+  uses = "./.github/actions/docker"
+  secrets = ["DOCKER_IMAGE"]
+  args = ["build", "Dockerfile"]
 }
