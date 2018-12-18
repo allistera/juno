@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180413151947) do
+ActiveRecord::Schema.define(version: 2018_12_18_120413) do
 
   create_table "checks", force: :cascade do |t|
     t.integer "status"
@@ -53,6 +53,8 @@ ActiveRecord::Schema.define(version: 20180413151947) do
     t.string "basic_auth_username"
     t.string "basic_auth_password"
     t.string "status"
+    t.string "type"
+    t.string "site_type"
     t.index ["project_id"], name: "index_sites_on_project_id"
   end
 

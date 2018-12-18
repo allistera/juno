@@ -2,30 +2,42 @@ require 'test_helper'
 
 class SiteTest < ActiveSupport::TestCase
   test 'valid site' do
-    site = Site.new(name: 'John', url: 'http://foo.bar', project: projects(:one))
+    site = Site.new(name: 'John', url: 'http://foo.bar', project: projects(:one), site_type: 'http')
     site.valid?
   end
 
   test 'invalid without name' do
-    site = Site.new(url: 'http://foo.bar', project: projects(:one))
+    site = Site.new(url: 'http://foo.bar', project: projects(:one), site_type: 'http')
     refute site.valid?, 'site is valid without a name'
     assert_not_nil site.errors[:name], 'no validation error for name present'
   end
 
   test 'invalid without url' do
-    site = Site.new(name: 'John', project: projects(:one))
+    site = Site.new(name: 'John', project: projects(:one), site_type: 'http')
     refute site.valid?, 'site is valid without a url'
     assert_not_nil site.errors[:url], 'no validation error for url present'
   end
 
+  test 'invalid without site_type' do
+    site = Site.new(name: 'John', url: 'http://foo.bar', project: projects(:one))
+    refute site.valid?, 'site is valid without a site_type'
+    assert_not_nil site.errors[:url], 'no validation error for site_type present'
+  end
+
+  test 'invalid with incorrect site_type' do
+    site = Site.new(name: 'John', url: 'http://foo.bar', project: projects(:one), site_type: 'foo')
+    refute site.valid?, 'site is invalid without a site_type'
+    assert_not_nil site.errors[:url], 'no validation error for site_type present'
+  end
+
   test 'invalid without project' do
-    site = Site.new(name: 'John', url: 'http://foo.bar')
+    site = Site.new(name: 'John', url: 'http://foo.bar', site_type: 'http')
     refute site.valid?, 'site is valid without a project'
     assert_not_nil site.errors[:project], 'no validation error for project present'
   end
 
   test 'inactive if no checks' do
-    site = Site.create(name: 'John', url: 'http://foo.bar', project: projects(:one))
+    site = Site.create(name: 'John', url: 'http://foo.bar', project: projects(:one), site_type: 'http')
     refute site.active?
   end
 
@@ -50,40 +62,40 @@ class SiteTest < ActiveSupport::TestCase
   end
 
   test 'status is unknown by default' do
-    site = Site.create(name: 'John', url: 'http://foo.bar', project: projects(:one))
+    site = Site.create(name: 'John', url: 'http://foo.bar', project: projects(:one), site_type: 'http')
     assert_equal 'unknown', site.status
   end
 
   test 'url must be valid address' do
-    site = Site.new(name: 'John', url: 'bar', project: projects(:one))
+    site = Site.new(name: 'John', url: 'bar', project: projects(:one), site_type: 'http')
     refute site.valid?
     assert_not_nil site.errors[:url]
   end
 
   test 'name must be unique to project' do
-    site = Site.new(name: 'Foo Bar', url: 'http://foo.bar', project: projects(:one))
+    site = Site.new(name: 'Foo Bar', url: 'http://foo.bar', project: projects(:one), site_type: 'http')
     refute site.valid?
     assert_not_nil site.errors[:name]
   end
 
   test 'name can be used in diffrent projects' do
-    site = Site.new(name: 'Foo Bar', url: 'http://foo.bar', project: projects(:two))
+    site = Site.new(name: 'Foo Bar', url: 'http://foo.bar', project: projects(:two), site_type: 'http')
     assert site.valid?
   end
 
   test 'uptime returns nil if no checks' do
-    site = Site.create(name: 'John', url: 'http://foo.bar', project: projects(:one))
+    site = Site.create(name: 'John', url: 'http://foo.bar', project: projects(:one), site_type: 'http')
     assert_nil site.uptime
   end
 
   test 'uptime returns 100 if all checks have succeeded' do
-    site = Site.create(name: 'John', url: 'http://foo.bar', project: projects(:one))
+    site = Site.create(name: 'John', url: 'http://foo.bar', project: projects(:one), site_type: 'http')
     Check.create(status: 201, site: site, time: 100)
     assert_equal 100, site.uptime
   end
 
   test 'uptime returns correct percentage' do
-    site = Site.create(name: 'John', url: 'http://foo.bar', project: projects(:one))
+    site = Site.create(name: 'John', url: 'http://foo.bar', project: projects(:one), site_type: 'http')
     Check.create(status: 201, site: site, time: 100)
     Check.create(status: 501, site: site, time: 100)
     Check.create(status: 201, site: site, time: 100)
@@ -92,7 +104,7 @@ class SiteTest < ActiveSupport::TestCase
   end
 
   test 'last_downtime returns last failed check time' do
-    site = Site.create(name: 'John', url: 'http://foo.bar', project: projects(:one))
+    site = Site.create(name: 'John', url: 'http://foo.bar', project: projects(:one), site_type: 'http')
     Check.create(status: 501, site: site, time: 100)
     check = Check.create(status: 501, site: site, time: 100)
 
@@ -100,31 +112,31 @@ class SiteTest < ActiveSupport::TestCase
   end
 
   test 'last_downtime returns nil if no downtime' do
-    site = Site.create(name: 'John', url: 'http://foo.bar', project: projects(:one))
+    site = Site.create(name: 'John', url: 'http://foo.bar', project: projects(:one), site_type: 'http')
     Check.create(status: 201, site: site, time: 100)
 
     assert_nil site.last_downtime
   end
 
   test 'last_downtime returns nil if no checks' do
-    site = Site.create(name: 'John', url: 'http://foo.bar', project: projects(:one))
+    site = Site.create(name: 'John', url: 'http://foo.bar', project: projects(:one), site_type: 'http')
 
     assert_nil site.last_downtime
   end
 
   test 'custom_status allowed' do
-    site = Site.new(name: 'John', url: 'http://foo.bar', project: projects(:one), custom_status: 205)
+    site = Site.new(name: 'John', url: 'http://foo.bar', project: projects(:one), custom_status: 205, site_type: 'http')
     assert site.valid?
   end
 
   test 'custom_status must be higher than 99' do
-    site = Site.new(name: 'John', url: 'http://foo.bar', project: projects(:one), custom_status: 42)
+    site = Site.new(name: 'John', url: 'http://foo.bar', project: projects(:one), custom_status: 42, site_type: 'http')
     refute site.valid?
     assert_not_nil site.errors[:custom_status]
   end
 
   test 'custom_status must be less than 528' do
-    site = Site.new(name: 'John', url: 'http://foo.bar', project: projects(:one), custom_status: 528)
+    site = Site.new(name: 'John', url: 'http://foo.bar', project: projects(:one), custom_status: 528, site_type: 'http')
     refute site.valid?
     assert_not_nil site.errors[:custom_status]
   end
@@ -135,7 +147,11 @@ class SiteTest < ActiveSupport::TestCase
   end
 
   test 'inactive_checks returns custom status' do
-    site = Site.create(name: 'John', url: 'http://foo.bar', project: projects(:one), custom_status: 422)
+    site = Site.create(name: 'John',
+                       url: 'http://foo.bar',
+                       project: projects(:one),
+                       custom_status: 422,
+                       site_type: 'http')
     Check.create(status: 422, site: site, time: 100)
     check = Check.create(status: 501, site: site, time: 100)
 
@@ -143,10 +159,21 @@ class SiteTest < ActiveSupport::TestCase
     assert_equal check, site.inactive_checks.first
   end
 
+  test 'inactive ping' do
+    site = Site.create(name: 'John',
+                       url: 'foo.bar',
+                       project: projects(:one),
+                       site_type: 'ping')
+    Check.create(status: 1, site: site, time: 100)
+    Check.create(status: 0, site: site, time: 100)
+    assert_equal 1, site.inactive_checks.count
+  end
+
   test 'accepts basic auth' do
     site = Site.new(name: 'John',
                     url: 'http://foo.bar',
                     project: projects(:one),
+                    site_type: 'http',
                     basic_auth_username: 'foo',
                     basic_auth_password: 'bar')
     assert site.valid?

@@ -8,6 +8,9 @@ class SitesTest < ApplicationSystemTestCase
     first('.new_site').click
 
     assert_text 'Create Check'
+
+    first('.sites-create-choice').click
+
     fill_in 'site[name]', with: 'Google'
     fill_in 'site[url]', with: 'www.google.com'
     click_on 'Save'

@@ -67,7 +67,8 @@ class SitesControllerTest < ActionDispatch::IntegrationTest
           url: 'foo.bar',
           protocol: 'https://',
           basic_auth_username: 'foo',
-          basic_auth_password: 'bar'
+          basic_auth_password: 'bar',
+          site_type: 'http'
         } }
       end
 

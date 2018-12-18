@@ -1,1 +1,14 @@
-<%= render 'form', site: @site %>
+<div class="card">
+  <div class="card-header">
+    <h3 class="card-title">Create Check</h3>
+  </div>
+  <div class="card-body">
+    <% if params[:site_type] == 'http'%>
+      <%= render 'form_http', site: @site %>
+    <% elsif params[:site_type] == 'ping'%>
+      <%= render 'form_ping', site: @site %>
+    <% else %>
+      <%= render 'choice' %>
+    <% end %>
+  </div>
+</div>

@@ -6,6 +6,7 @@ one:
   project: one
   status: active
   verify_ssl: true
+  site_type: http
 
 two:
   name: Test
@@ -13,6 +14,7 @@ two:
   project: two
   status: inactive
   verify_ssl: false
+  site_type: http
 
 three:
   name: Test2
@@ -20,6 +22,7 @@ three:
   custom_status: 301
   project: two
   verify_ssl: true
+  site_type: http
 
 basic_auth:
   name: Foo Bar
@@ -28,9 +31,11 @@ basic_auth:
   verify_ssl: true
   basic_auth_username: foo
   basic_auth_password: bar
+  site_type: http
 
 no_slack_settings:
   name: Foo Bar
   url: http://foo.bar
   project: no_slack_settings
   verify_ssl: true
+  site_type: http

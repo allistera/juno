@@ -26,3 +26,22 @@ th:last-child,
 td:last-child, {
   text-align: right;
 }
+
+.sites-create-choice {
+  font-weight: bold;
+  cursor: pointer;
+  color: #495057;
+
+  span {
+    font-weight: 100;
+    font-size: 0.7rem
+  }
+}
+.sites-create-choice:hover {
+  border-color: rgba(58, 58, 58, 0.527) !important;
+  text-decoration: none;
+}
+
+.sites-create-choice-link:hover {
+  text-decoration: none;
+}

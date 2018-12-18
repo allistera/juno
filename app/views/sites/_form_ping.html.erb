@@ -1,0 +1,28 @@
+
+<%= form_for(site) do |f| %>
+
+  <div class="form-group">
+    <label class="form-label">Name of Check<span class="form-required">*</span></label>
+    <input type="text" class="form-control" name="site[name]" autofocus />
+  </div>
+
+
+  <div id="required" class="tab-content">
+
+    <label class="form-label">Hostname<span class="form-required">*</span></label>
+
+    <div class="input-group mb-3">
+      <input class="form-control" type="text" name="site[url]">
+    </div>
+
+  </div>
+
+
+  <%= f.hidden_field(:project_id, value: site.project_id) %>
+  <%= f.hidden_field(:site_type, value: site.site_type) %>
+
+
+  <br>
+
+  <button type="submit" class="btn btn-primary">Save</button>
+<% end %>

@@ -10,7 +10,7 @@ class SitesController < ApplicationController
   def new
     authorize :site, :new?
 
-    @site = Site.new(project_id: params[:project].to_i)
+    @site = Site.new(project_id: params[:project].to_i, site_type: params[:site_type].to_s)
   end
 
   # GET /sites/1/checks
@@ -54,12 +54,18 @@ class SitesController < ApplicationController
   # Never trust parameters from the scary internet, only allow the white list through.
   def site_params
     params.require(:site).permit(:name, :protocol, :url, :project_id, :verify_ssl, :custom_status, :basic_auth_username,
-                                 :basic_auth_password)
+                                 :basic_auth_password, :site_type)
   end
 
   def site_create_params
-    url = site_params[:protocol] && site_params[:url] ? site_params[:protocol] + site_params[:url] : nil
-    site_params.merge(url: url).except(:protocol)
+    return site_params if site_params[:site_type] == 'ping'
+
+    http_params(site_params)
+  end
+
+  def http_params(params)
+    url = params[:protocol] && params[:url] ? params[:protocol] + params[:url] : nil
+    params.merge(url: url).except(:protocol)
   end
 
   def grouped_checks

@@ -9,6 +9,7 @@
 ## Features
 
 * HTTP Health Checking
+* Ping/ICMP Health Checks
 * Custom Status Codes
 * Slack Notifications
 * Multi-User / Multi-Tenant
