@@ -7,7 +7,7 @@ class User < ApplicationRecord
 
   validates :name, presence: true
 
-  validates :terms_and_conditions, acceptance: { accept: 'yes' }
+  validates :terms_and_conditions, acceptance: { accept: 'yes' }, allow_nil: false, on: :create
   belongs_to :organisation, optional: true
 
   after_create :make_admin

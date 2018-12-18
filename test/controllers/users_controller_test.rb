@@ -61,7 +61,8 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
             name: 'Foo Bar',
             email: 'foo@gmail.com',
             password: 'FooBar!',
-            password_confirmation: 'FooBar!'
+            password_confirmation: 'FooBar!',
+            terms_and_conditions: 'yes'
           }
         }
       end
