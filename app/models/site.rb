@@ -7,7 +7,9 @@ class Site < ApplicationRecord
   validates :name, presence: true, uniqueness: { scope: :project,
                                                  message: 'name must be unique' }
 
-  validates :url, url: true
+  validates :url, url: true, if: :http_check?
+  validates :site_type, inclusion: { in: %w[http ping],
+                                     message: '%{value} is not a valid site type' }
   validates :custom_status, numericality: { only_integer: true,
                                             greater_than_or_equal_to: 100,
                                             less_than_or_equal_to: 527 }, allow_nil: true
@@ -59,7 +61,9 @@ class Site < ApplicationRecord
   end
 
   def inactive_checks
-    if custom_status
+    if !http_check?
+      checks.where.not(status: 1)
+    elsif custom_status
       checks.where.not(status: custom_status)
     else
       checks.where('status < 199 OR status > 300')
@@ -68,5 +72,9 @@ class Site < ApplicationRecord
 
   def slack_notification
     SlackNotificationJob.perform_later(self, checks.last.status)
+  end
+
+  def http_check?
+    site_type == 'http'
   end
 end

@@ -13,7 +13,7 @@
       </div>
     </div>
     <h3 class="mb-1"><%= @site.name %></h3>
-    <div class="text-muted"><%= @site.url %></div>
+    <div class="text-muted"><%= @site.site_type.titlecase %> - <%= @site.url %></div>
   </div>
   <div class="card-chart-bg" style="height: 320px">
     <%= line_chart site_checks_url(@site, { range: 'second' }), download: true %>
@@ -89,7 +89,8 @@
           <td><%= check.created_at %></td>
           <td>
             <p class="tag <%= check_status_class(check) %>">
-              <%= check.status ? check.status : 'Host Unreachable' %>
+              <%= check.status ? check.status : 'Host Unreachable' if @site.site_type == 'http' %>
+              <%= check.status ? 'Up' : 'Unreachable' if @site.site_type == 'ping' %>
             </p>
           </td>
         </tr>

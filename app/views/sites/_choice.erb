@@ -1,0 +1,24 @@
+<div class="row row-cards row-deck ">
+    <div class=" col-md-3 offset-3">
+        <a href="/sites/new?project=<%= @site.project_id %>&site_type=http" class="sites-create-choice-link">
+            <div class="card sites-create-choice">
+                <div class="card-body text-center">
+                    HTTP
+                    <br>
+                    <span>Monitor the health of a service by sending periodic HTTP requests.<span>
+                </div>
+            </div>
+        </a>
+    </div>
+    <div class="col-md-3">
+        <a href="/sites/new?project=<%= @site.project_id %>&site_type=ping" class="sites-create-choice-link">
+            <div class="card sites-create-choice">
+                <div class="card-body text-center">
+                    Ping
+                    <br>
+                    <span>Send periodic ICMP echo requests to a specific host.<span>
+                </div>
+            </div>
+        </a>
+    </div>
+</div>

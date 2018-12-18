@@ -108,7 +108,11 @@ class ProjectsControllerTest < ActionDispatch::IntegrationTest
       Check.delete_all
       Site.delete_all
 
-      site = Site.new(name: 'John', url: 'http://foo.bar', project: projects(:one), created_at: 3.minutes.ago)
+      site = Site.new(name: 'John',
+                      url: 'http://foo.bar',
+                      project: projects(:one),
+                      created_at: 3.minutes.ago,
+                      site_type: 'http')
       Check.create(status: 401, site: site, created_at: 3.minutes.ago)
 
       get projects_url
