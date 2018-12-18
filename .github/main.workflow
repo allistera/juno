@@ -1,9 +1,10 @@
 workflow "New workflow" {
   on = "push"
   resolves = [
-    "Build"
+    "Build",
   ]
 }
+
 action "Build" {
   uses = "./.github/actions/docker"
   secrets = ["DOCKER_IMAGE"]
