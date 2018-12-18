@@ -13,7 +13,7 @@ services:
   web:
     image: allistera/juno
     ports:
-      - "3000:80"
+      - "5000:5000"
     links:
       - db
       - smtp

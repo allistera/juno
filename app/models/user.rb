@@ -15,6 +15,7 @@ class User < ApplicationRecord
   def role
     return 'Platform Admin' if platform_admin
     return 'Admin' if admin
+
     'User'
   end
 
