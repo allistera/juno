@@ -34,7 +34,7 @@ $ docker exec -d juno bundle exec rake user:create_admin[Joe,foo@bar.com,Passwor
 
 Replacing the Name, Email Address, Password and Organisation with your own.
 
-Once all the services have started browse to [http://localhost:3000](http://localhost:3000) and login.
+Once all the services have started browse to [http://localhost:5000](http://localhost:5000) and login.
 
 ## Contribute
 
