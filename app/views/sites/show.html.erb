@@ -95,6 +95,14 @@
           </td>
         </tr>
         <% end %>
+        <% if @site.checks.count > 10 %>
+        <tr>
+          <td colspan="3" class="text-center" style="color: gray">
+            <%= @site.checks.count - 10 %> Previous Checks <br>
+            <i class="fe fe-chevron-down"></i>
+          </td>
+        </tr>
+        <% end %>
       </tbody>
     </table>
   </div>
