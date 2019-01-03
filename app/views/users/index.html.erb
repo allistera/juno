@@ -43,7 +43,7 @@
               </div>
             <% end %>
           </td>
-          <td class="text-nowrap"><%= user.updated_at %></td>
+          <td class="text-nowrap"><%= user.updated_at.to_formatted_s(:custom_date) %></td>
           <td class="w-1">
             <%= link_to '<i class="fe fe-trash"></i>'.html_safe, user, method: :delete, data: { confirm: 'Are you sure?' } unless user == current_user %>
           </td>
