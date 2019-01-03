@@ -86,7 +86,7 @@
       <tbody>
         <% @site.checks.order('created_at desc').take(10).each do |check| %>
         <tr>
-          <td><%= check.created_at %></td>
+          <td><%= check.created_at.to_formatted_s(:custom_date) %></td>
           <td>
             <p class="tag <%= check_status_class(check) %>">
               <%= check.status ? check.status : 'Host Unreachable' if @site.site_type == 'http' %>
