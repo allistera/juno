@@ -28,4 +28,14 @@ class CheckTest < ActiveSupport::TestCase
     check = Check.new(status: 501, site: sites(:one))
     assert_equal 'inactive', check.state
   end
+
+  test 'ping request state is active' do
+    check = Check.new(status: 1, site: sites(:ping_site))
+    assert_equal 'active', check.state
+  end
+
+  test 'ping request state is inactive' do
+    check = Check.new(status: 0, site: sites(:ping_site))
+    assert_equal 'inactive', check.state
+  end
 end

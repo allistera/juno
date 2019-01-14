@@ -41,7 +41,7 @@ class SitesController < ApplicationController
   def destroy
     ModelDeleteJob.perform_later(@site)
     respond_to do |format|
-      format.html { redirect_to project_url(@site.project), notice: 'Site was successfully destroyed.' }
+      format.html { redirect_to projects_url, notice: 'Site was successfully destroyed.' }
     end
   end
 

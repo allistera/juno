@@ -39,3 +39,9 @@ no_slack_settings:
   project: no_slack_settings
   verify_ssl: true
   site_type: http
+
+ping_site:
+  name: Ping
+  url: https://pong.com
+  project: two
+  site_type: ping
