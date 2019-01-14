@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 ENV['RAILS_ENV'] ||= 'test'
 require 'simplecov'
 
@@ -15,7 +17,7 @@ module ActiveSupport
 
     # Helper method for verifying that the specified Policy applies the expected scope
     def assert_policy_scoped(expected_scope, policy)
-      assert expected_scope.count > 0
+      assert expected_scope.count.positive?
       assert_equal expected_scope.map(&:id).sort, policy.map(&:id).sort
     end
   end

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class HealthCheckJob < ApplicationJob
   queue_as :default
 

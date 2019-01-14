@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ApplicationHelperTest < ActionView::TestCase
   describe '#site_status_class' do
     it 'renders active' do
@@ -16,16 +18,17 @@ class ApplicationHelperTest < ActionView::TestCase
 
   describe '#check_status_class' do
     it 'renders active' do
-      assert_equal 'is-success', check_status_class(sites(:one))
+      assert_equal 'tag-success', check_status_class(sites(:one).checks.first)
     end
 
     it 'renders danger' do
-      assert_equal 'is-danger', check_status_class(sites(:two))
+      assert_equal 'tag-danger', check_status_class(sites(:two).checks.first)
     end
 
     it 'renders unknown' do
       site = Site.create(name: 'John', url: 'http://foo.bar', project: projects(:one))
-      assert_equal 'unknown', check_status_class(site)
+      check = Check.create(site: site)
+      assert_equal 'unknown', check_status_class(check)
     end
   end
 end

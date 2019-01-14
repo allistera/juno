@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class SlackSettingPolicy < ApplicationPolicy
   def show?
     record.project.organisation == user.organisation

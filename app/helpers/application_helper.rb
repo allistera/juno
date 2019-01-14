@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module ApplicationHelper
   def site_status_class(site)
     return 'default' if site.status == 'unknown'
@@ -6,8 +8,8 @@ module ApplicationHelper
   end
 
   def check_status_class(check)
-    return 'is-success' if check.status == 'active'
-    return 'is-danger' if check.status == 'inactive'
+    return 'tag-success' if check.state == 'active'
+    return 'tag-danger' if check.state == 'inactive'
 
     'unknown'
   end
