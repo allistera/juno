@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ProbesController < ApplicationController
   before_action :authenticate_user!, except: %i[create]
   before_action :authenticate, except: %i[index health]

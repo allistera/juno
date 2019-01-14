@@ -90,7 +90,7 @@
           <td>
             <p class="tag <%= check_status_class(check) %>">
               <%= check.status ? check.status : 'Host Unreachable' if @site.site_type == 'http' %>
-              <%= check.status ? 'Up' : 'Unreachable' if @site.site_type == 'ping' %>
+              <%= check.status == 1 ? 'Up' : 'Unreachable' if @site.site_type == 'ping' %>
             </p>
           </td>
         </tr>

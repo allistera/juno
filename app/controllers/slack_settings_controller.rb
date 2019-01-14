@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class SlackSettingsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_slack_setting, only: %i[show edit update destroy]

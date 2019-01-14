@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Users
   class InvitationsController < Devise::InvitationsController
     before_action :configure_permitted_parameters, if: :devise_controller?
