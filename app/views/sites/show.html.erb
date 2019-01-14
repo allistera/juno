@@ -12,8 +12,14 @@
         </div>
       </div>
     </div>
-    <h3 class="mb-1"><%= @site.name %></h3>
-    <div class="text-muted"><%= @site.site_type.titlecase %> - <%= @site.url %></div>
+    <h3 class="mb-1">
+      <%= @site.name %>
+    </h3>
+    <div class="text-muted">
+      <%= link_to @site, method: :delete do %>
+        <small style="color: red"><i class="fe fe-x-circle" data-toggle="tooltip" title="Delete Site"></i></small>
+      <% end %>
+      <%= @site.site_type.titlecase %> - <%= @site.url %></div>
   </div>
   <div class="card-chart-bg" style="height: 320px">
     <%= line_chart site_checks_url(@site, { range: 'second' }), download: true %>
