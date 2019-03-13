@@ -8,7 +8,7 @@ steps:
   - bundle install --jobs=3 --retry=3
   - bin/bundle exec rubocop
 - name: test
-  image: ruby
+  image: timbru31/ruby-node
   commands:
-  - bundle install --without assets --jobs=3 --retry=3
+  - bundle install --jobs=3 --retry=3
   - bin/bundle exec rake test
