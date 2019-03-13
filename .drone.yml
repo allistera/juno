@@ -6,4 +6,4 @@ steps:
   image: ruby
   commands:
   - bundle install --jobs=3 --retry=3
-  - rake test
+  - bundle exec rake test
