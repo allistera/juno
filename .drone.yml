@@ -13,7 +13,7 @@ steps:
   - bundle install --jobs=3 --retry=3
   - bin/bundle exec rake test
 - name: system test
-  image: timbru31/ruby-node
+  image: benphelps/docker-ruby-phantomjs
   commands:
   - bundle install --jobs=3 --retry=3
   - bin/bundle exec rails test:system
