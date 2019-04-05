@@ -15,5 +15,6 @@ steps:
 - name: system test
   image: prograils/ruby-node-phantomjs
   commands:
+  - gem install tzinfo-data
   - bundle install --jobs=3 --retry=3
   - bin/bundle exec rails test:system
